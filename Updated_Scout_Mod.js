@@ -1,7 +1,7 @@
 // ==UserScript==
 //
 // @name         Updated IMDb Scout Mod
-// @version      0.0.3
+// @version      0.0.5
 // @namespace    https://github.com/rsharmak2/IMDb-Scout-Mod
 // @description  Auto search for movie/series on torrent, usenet, ddl, subtitles, streaming, predb and other sites. Adds links to IMDb pages from hundreds various sites. Adds movies/series to Radarr/Sonarr. Adds external ratings from Metacritic, Rotten Tomatoes, Letterboxd, Douban, Allocine, MyAnimeList, AniList. Media Server indicators for Plex, Jellyfin, Emby. Dark theme/style for Reference View. Adds/Removes to/from Trakt's watchlist. Removes ads.
 // @icon         data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAEAAAABABAMAAABYR2ztAAAAMFBMVEUAAAD/AAAcAAA1AABEAABVAAC3AADnAAD2AACFAAClAABlAAB3AADHAACVAADYAABCnXhrAAAD10lEQVRIx73TV4xMURgH8H/OnRmZWe3T7h2sOWaNXu7oJRg9UccuHgTRBatMtAgSg+gJu9q+kFmihcQoD8qLTkK0CIkoy0YJITsRD0rCKTHFrnkSv5e5c88/53znO+fiPwvsvrN038cPNqrG9pJmHkRVnPcpaTlHJY60cfPSpsrzl1LKihrmLvxhCM2i3OHvDx0d+H7e3F6JBv5iZMiJfhFTfPYDMHrMImpwimWWUdSgDQkbno7fFpUPVgh+pHFbZR4SovSctDCM9Hac9IKd9rO8EevtBCkXgY5IMmgquwypP7qqfcp/Tp4KLONDVsWh3RSBB2rnZfit69ocUdqLn2prrRZYM0Jg4JibamKsqe7gfEh5GOAfeYJjVHIPZvil97rcXkMog30byWRwXYRWoxHbzNFHJJpAarO8NdEBBsdCaP3WMJltTmQd4zlnekTq9Z5dgACwAlrpK4BxdV5mvLuspRgMSHbCIFF0iS8MZ5S8oYBYKY7rByC4dDM9uSIUmPOIwxgQBoYeF93auP4qFyPbIVXziWeGTH1EFM57kJo2hqQju6BwIyRf6RmCjdT4JOdiwNgiH/PPD3qoqlsNaXRd+fKtFfECxlZVNVF9SOsgTZEr2TUjJJbyeNX1IZrKIbyGlBABfpQPv2UDrly13LkJXDVhpQ5MhtGwcyF4HKjlU4E8xwB0AvDjd6AGmevZ87EcQRHgcO52e9uNsYELOrAa/Yh81YlmYLQJ5HWyq0+kzQ/DQKEusg6CRI27ryy8nReRS0wsoetkmRwogHSprliCckfEjXG9yAQc74J0WB99vu6DF3i3pMucsXM6tpBbxd2mVJAwXwGogNRBvGRA4jtHKTXkAIwLGCR/mT4Lh75oneQXXP9sAYfGRDCsnw7pX/jRZkU3M44kjw2l5zRIzb4CbZ8dULdL6wbNPZOpK0B6gN1UR1mdoxAaL/GrWiLPL3SEwW9YMTU/d64BtLahAVyucWhj9Mm8ign9IfQaBtd2/GbvCAEBpG5eMcrj2I0ktpKLeaqXQ3Pst42KGIshpdTmQLAeTgFGJ2wvh+tayMOR0n1RZ8B9z13vnOPBnsBq4E1ffgZpPFZHWVpO2cvhjYpOcbBd5TlhpDu5zq9mHGZcVi0y+VFkcFkDdyKJfTt99wEyHSEzDM90KH0nexpwZHJHKYYhjzlwGe0pP/IKfxociaEb7YDbi6KGJY1R2cR76E6NAtXqY4pPH3plLcl8LD7V+cOLUbUWRFZRPTAbVZO3mxK18Xc1ZaAiS8ARJXpZliXAomR94siiiMx8ZBOkXGTlnH0F/9ov1xPtWwEqP9wAAAAASUVORK5CYII=
@@ -4097,7 +4097,52 @@ var private_sites = [
       'loggedOutRegex': /Cloudflare|Ray ID|takelogin.php|Léptessen ki 15 perc/,
       'matchRegex': /not_filled.gif/,
       'positiveMatch': true,
-      'both': true}
+      'both': true},
+  {   'name': 'upscalevault',
+      'icon': 'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADAAAAAwCAMAAABg3Am1AAAAVFBMVEUAAACpeRqWZRbOnRu6iibZuFjGrGSdZBSXYxjGljXt2H2tfi2EVhru2X3gyHKqdBzx4YrXsVNENBpNMhIUEAkBAQEUDgddRBhEMRMoHg5yUhn2yAyAdzjZAAAAFXRSTlMA/v3+9fsOuk2c9SsYvkB0bGzHjM4PDUZWAAACQklEQVRIx8WV2ZaqMBBFu5IwCYjYN5VU+f//eQ/GBLodeerzoCvLs1Oj8PVnqo/1Pv/p0O0ijodDddwVAMBcf3r7aRzhh7q5/6DY8VBRiCISg3G2e5MY7C6yz+JoXNe/8sPufyqSa5/6Twdl/1usbnrmr4J/pADijZ+FPfOalmsf1qslbQvWWQpcYtxXXo+UfhS6QOrt5QLkFtF0v+31qZL0o14WBQDWWsP5lrbeDn6ZraZshGkFiH3QdI1rmmmTDlZB0vVuIayKD8YSPgGlEETNkIF+rCqT87HCt1mLsNob4NUY05cIw/nWxIBsHMOrurQo2gIwy7a33+xLBAVXQSToTgagf8OmR2PwOYIVH5EhSjCMkRWAqa9vdvQoDzkSIQAtR1YX8aFaANd1Q1oJKC8poxi2lq9wSOcCOGoWYIbfxrw1ZJidlSU9il4MznnaRDSlLZo7m2uw1olXa4SjMYIL3ApMU7t2SQoAlsk6IhOXAa8RzsO2rX4FiL0omcUvBK60td78889RMrAsdS5WTAEkntt1NVxONdilUpUrE5GcJgAotJbQOQcjFPHFBomjcjQIh6DpJvibtYi+6xpNka9+Agf/tQ5OLWqaBgE2ak0eBW2AkHes3L5qyjsgahYAdo2cL3nwFBiaULZAImYWJZ8FE36gPhH3EsK7YgcRXfHfEyr3T8qnfmj41vADYfRs/nqlttGQq2UJ+Wn/GjGqAVLMdoL9vYZ2agjutv/8RTpbMu2u1+5eoO5osz2f1QH/3+g/jLFL2gO05E8AAAAASUVORK5CYII=',
+      'searchUrl': 'https://upscalevault.com/torrents?tmdbId=%tmdbid%',
+      'loggedOutRegex': /Cloudflare|Ray ID|Forgot Your Password/,
+      'matchRegex': /torrent-search--list__overview/,
+      'seedingRegex': /fa-arrow-circle-up/,
+      'positiveMatch': true,
+      'both': true},
+  {    'name': 'upscalevault-Req',
+      'icon': 'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADAAAAAwCAMAAABg3Am1AAAAVFBMVEUAAACpeRqWZRbOnRu6iibZuFjGrGSdZBSXYxjGljXt2H2tfi2EVhru2X3gyHKqdBzx4YrXsVNENBpNMhIUEAkBAQEUDgddRBhEMRMoHg5yUhn2yAyAdzjZAAAAFXRSTlMA/v3+9fsOuk2c9SsYvkB0bGzHjM4PDUZWAAACQklEQVRIx8WV2ZaqMBBFu5IwCYjYN5VU+f//eQ/GBLodeerzoCvLs1Oj8PVnqo/1Pv/p0O0ijodDddwVAMBcf3r7aRzhh7q5/6DY8VBRiCISg3G2e5MY7C6yz+JoXNe/8sPufyqSa5/6Twdl/1usbnrmr4J/pADijZ+FPfOalmsf1qslbQvWWQpcYtxXXo+UfhS6QOrt5QLkFtF0v+31qZL0o14WBQDWWsP5lrbeDn6ZraZshGkFiH3QdI1rmmmTDlZB0vVuIayKD8YSPgGlEETNkIF+rCqT87HCt1mLsNob4NUY05cIw/nWxIBsHMOrurQo2gIwy7a33+xLBAVXQSToTgagf8OmR2PwOYIVH5EhSjCMkRWAqa9vdvQoDzkSIQAtR1YX8aFaANd1Q1oJKC8poxi2lq9wSOcCOGoWYIbfxrw1ZJidlSU9il4MznnaRDSlLZo7m2uw1olXa4SjMYIL3ApMU7t2SQoAlsk6IhOXAa8RzsO2rX4FiL0omcUvBK60td78889RMrAsdS5WTAEkntt1NVxONdilUpUrE5GcJgAotJbQOQcjFPHFBomjcjQIh6DpJvibtYi+6xpNka9+Agf/tQ5OLWqaBgE2ak0eBW2AkHes3L5qyjsgahYAdo2cL3nwFBiaULZAImYWJZ8FE36gPhH3EsK7YgcRXfHfEyr3T8qnfmj41vADYfRs/nqlttGQq2UJ+Wn/GjGqAVLMdoL9vYZ2agjutv/8RTpbMu2u1+5eoO5osz2f1QH/3+g/jLFL2gO05E8AAAAASUVORK5CYII=',
+      'searchUrl': 'https://upscalevault.com/requests?unfilled=1&tmdbId=%tmdbid%',
+      'loggedOutRegex': /Cloudflare|Ray ID|Forgot Your Password/,
+      'matchRegex': /fa-circle text-red/,
+      'positiveMatch': true,
+      'both': true},
+  {
+      'name': 'extremlymtorrents',
+      'icon': 'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADAAAAAwBAMAAAClLOS0AAAAElBMVEUAAAAmJiYmJiYmJiYmJiYmJibi7nArAAAABnRSTlMA+scvk2JNeUGiAAABLUlEQVQ4y31UQY7DIAy0VO0DNtoPYKV3S7Qf6MJ9Fcj/v7LGlusATXxD4xk82AbGuD3CN8cyA1UAnICnAJgm4IGNsO4nSvcIkYMOSi+5OhPsHNEJuwD4C5A4yqC0rIWBF2KOkxID2BLIAHVXoDE0QyJqTeufkplCphRUSa5rKaV3R3IITZS8JkkzrVz6muxCTXJ31gDJ6pRc6x47JaVsokVvd2+gciZmiq7Uax3dGUW0nqgE6tu55E2VIjhDtPg1palGcPMK5CNQw4nUJpfW4XJrSV+uG9zJ29c/CRcnABZXkmLGR5REPflQjY1iimpdt7bOwxDhZHwKXQ1c0vaZV/eY0N/HPP4UGNfg67AGKeVPizOuWrVhPF/OG9DHdb7+AOYvY0l2HutaZkA9hn9CLmNULjLvIwAAAABJRU5ErkJggg==',
+      'searchUrl': 'https://extremlymtorrents.ws/torrents-search.php?search=%search_string%+%year%&cat=0',
+      'loggedOutRegex' : /Cloudflare|Ray ID|Recover Account|Recuperare Cont/,
+      'matchRegex': /Nothing found|Nimic gasit/,
+      'both': true},
+  {    'name':'estone',
+      'icon': 'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADAAAAAwBAMAAAClLOS0AAAAElBMVEVrWER+alWYhXGqmojp5tzJwrfEKH+AAAABmklEQVQ4y72Ti43cMAxErQ5IpYGIRgo4Ce7AbiBa9t9KZkjLiK+AewsbFkfDj4TdfhjZtlLKWnGh+InI0kX0FrBXXjvXjuCdlJTcrqpGFHYKqQgEG4eDLv85+K7j+Jzn6fP345CScScfb4w9jjocDLPj6rJapPGXn9fsbSt/WCRR6Lp/Lu+NO0ajkG1uZffTu0biqplJgRQ05F/bCzNrWo/znF0rvqP1EMiOCXyw4fmU7qPbflBw53x/9RYGhMHQ5VCvbEFCGEZDgpaF0SWs+IUhwBL6cvhkIhF9p3JHOVUteCiQLD7NrGogmWrQwrNStd1arbTsoUDg6Fr3Y0JmawNwcrZqFSP5l7blyNGvyWqfqy9HzE4hbvakQEeHsBvuYxGC3MX761RuIRRU8Ts+Wg7Y02GYZZ1KCoYLQREqDmanoWxMhXg3QtlYQCUcwIZZawpKvAqFneTxcV0gSTgMhqApkSxBhyX0EP4N02HdksYyRZgJPPEKIhX2k7W5BizMpkC7G+VDCggH7d+QOJJXoAjAB3gE+At4lv8AsSV7XCu9ZrEAAAAASUVORK5CYII=',
+      'searchUrl': 'https://estone.cc/bongeszo.php?kereses_nev=%search_string%+%year%',
+      'matchRegex': /kategoria_torrent/,
+      'loggedOutRegex' : /id='loginForm'|Availability|even in case of login problems/,
+      'positiveMatch': true,
+      'both': true},
+  {    'name':'Nordicq',
+      'icon': 'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADAAAAAwCAMAAABg3Am1AAAAyVBMVEVZWmBaW2BYWV9ZWWBPT19MTGYAAABYWmBYWWBYWGBXWmBWV19ZW15aW2H6+vrMzM74+PhbXGLFxcdeX2VfYGbFxsjy8vJjZGr29vfw8PFpanDs7Ozp6eqOj5NmZ2y7vL62trn09PS/v8F0dXrS0tOmp6uZmp6DhIjk5eXIyMrBwcO5ubyur7KAgIRwcXbh4eLY2NrX19izs7ajpKeSkpaLjJB8fIJtbnPm5ufc3N2Vlprt7e6dnaGHh4x4eX7U1NbOztDExMaztLaeuBsGAAAADXRSTlP2+caUEAoAycFhXFZRxmjojwAAAdpJREFUSMft1lmzmjAYxvHoUc+axzeCLAooqLiC+3qWLt//QzVUxuR02hm4a2f6v8rA+7vIRTJhjfrLA+OFYtXneoPV7xgvXOWuxl4YLxF7Yg+8VFXGygE5X7L/oDAwBP9ThpklB3Rw3CyOXLXfbv18Otn2o9lsFkXf41Qo0CcadhT4RjTlWXbPc5AXLt8UaAIUBTfQBppcFqzxqZ6pATi5UCCYAvBa/ax50wXCraEBUNv+DC4WMB3YpiEzg/ESdD4q4BBoY+rAjEArbWe+C/IVWA8JoRQKBCvQSChgr4C5Aq3BGXDmhgKdE8Id15rJzxrg6YngjAwFPFi+DnrAUAf8Y0VwR6I4EMkJsKQoCGTJKyGMRXHAx0tCN76CYAkn5iohp9q/ArHvAq73E9hfQT1TgcEEGOng2s6CLANiQXD3Bs+z+w6sgw7yfC8H/GMCuPPd+1j2Hk8d0Mz+DRCxmwNxIYDcbtZrCKB74Dq4NZI/r+fh0pUkj5xJcjsPm/V6oYB4m0z219Vh8cVzLcuSwOkd+Q0EnU7ANZGmIl8anXQgmxPofChxaxgLF7B8ozDg5q7VakWJKApktsz8m6/Kfx2wsvPVcuCePVd4iSqP5R8njdpTtSBh94+1xg9A740rqUF6CQAAAABJRU5ErkJggg==',
+      'searchUrl': 'https://nordicq.org/torrents?tmdbId=%tmdbid%',
+      'loggedOutRegex': /Cloudflare|Ray ID|Forgot Your Password/,
+      'matchRegex': /torrent-search--list__overview/,
+      'seedingRegex': /fa-arrow-circle-up/,
+      'positiveMatch': true,
+      'both': true},
+ {    'name':'Nordicq-Req',
+      'icon': 'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADAAAAAwCAMAAABg3Am1AAAAyVBMVEVZWmBaW2BYWV9ZWWBPT19MTGYAAABYWmBYWWBYWGBXWmBWV19ZW15aW2H6+vrMzM74+PhbXGLFxcdeX2VfYGbFxsjy8vJjZGr29vfw8PFpanDs7Ozp6eqOj5NmZ2y7vL62trn09PS/v8F0dXrS0tOmp6uZmp6DhIjk5eXIyMrBwcO5ubyur7KAgIRwcXbh4eLY2NrX19izs7ajpKeSkpaLjJB8fIJtbnPm5ufc3N2Vlprt7e6dnaGHh4x4eX7U1NbOztDExMaztLaeuBsGAAAADXRSTlP2+caUEAoAycFhXFZRxmjojwAAAdpJREFUSMft1lmzmjAYxvHoUc+axzeCLAooqLiC+3qWLt//QzVUxuR02hm4a2f6v8rA+7vIRTJhjfrLA+OFYtXneoPV7xgvXOWuxl4YLxF7Yg+8VFXGygE5X7L/oDAwBP9ThpklB3Rw3CyOXLXfbv18Otn2o9lsFkXf41Qo0CcadhT4RjTlWXbPc5AXLt8UaAIUBTfQBppcFqzxqZ6pATi5UCCYAvBa/ax50wXCraEBUNv+DC4WMB3YpiEzg/ESdD4q4BBoY+rAjEArbWe+C/IVWA8JoRQKBCvQSChgr4C5Aq3BGXDmhgKdE8Id15rJzxrg6YngjAwFPFi+DnrAUAf8Y0VwR6I4EMkJsKQoCGTJKyGMRXHAx0tCN76CYAkn5iohp9q/ArHvAq73E9hfQT1TgcEEGOng2s6CLANiQXD3Bs+z+w6sgw7yfC8H/GMCuPPd+1j2Hk8d0Mz+DRCxmwNxIYDcbtZrCKB74Dq4NZI/r+fh0pUkj5xJcjsPm/V6oYB4m0z219Vh8cVzLcuSwOkd+Q0EnU7ANZGmIl8anXQgmxPofChxaxgLF7B8ozDg5q7VakWJKApktsz8m6/Kfx2wsvPVcuCePVd4iSqP5R8njdpTtSBh94+1xg9A740rqUF6CQAAAABJRU5ErkJggg==',
+      'searchUrl': 'https://nordicq.org/requests?unfilled=1&tmdbId=%tmdbid%',
+      'loggedOutRegex': /Cloudflare|Ray ID|Forgot Your Password/,
+      'matchRegex': /fa-circle text-red/,
+      'positiveMatch': true,
+      'both': true},
+  
 ];
 
 var chinese_sites = [
