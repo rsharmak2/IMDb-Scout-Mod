@@ -4142,6 +4142,18 @@ var private_sites = [
       'matchRegex': /fa-circle text-red/,
       'positiveMatch': true,
       'both': true},
+  {   'name': 'Krazyzone',
+      'icon': 'https://krazyzone.net/favicon.ico',
+      'searchUrl': 'https://krazyzone.net/torrents-search.php?search=%search_string%',
+      'both': true,
+      'matchRegex': /Nothing Found|No torrents found/,
+      'loggedOutRegex': /Signup|Recover Account/},
+  {   'name': 'HDSpace',
+      'icon': 'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACAAAAAgBAMAAACBVGfHAAAAMFBMVEVsbHAAAABgYmROUFJISko8PD5UVFhaWlwmJiZ8fICMjI7k5OSYnJzGxsawsLSgpKQGvV+EAAAB10lEQVQozzXMTWsTQQDG8ccNNuzJDhJIoYfpICYpgtoZNh6F3RXqyaQd6H3CbI5tIrvoydQUepIIKjXmIAHBBGk/wJKeRDDG3jUkOfuCgujB4sHZiM9p5sd/BsLlXHGnLrjnSSk3IbhwlaM5r3ueLysSiovA0SqnhTCFL6G5KAYXNUwwf2IKrlUQ0QVlnvhSguui0gGj1oL4BzrUurofbadD7QlpwAkDXt0L15642q0koIPwbrUZbe1e2zczEAbh5ep9unVlDnubyEWM+mVI+DLZBhijzL/ekkMrVNyXbgLw7nTdWS/lsYrnJWB5q2/WJ6cpd3Q7AQrLa7++Gc8e3eglhQX7gBw9XI6Pz2SKedIEPUv+b+npAXEBc8ruJPfGElayGnmye3XxG3kWDxr3WON8iFIGpQcfybv4mJTzpBzBhOTSDxIPPpCNRjZnYPkF6b3Mjqc/zTe30gnsLLZWModfH5NsmaZrKBGybnd6nbcwG9I2fpEma/dhPwfFudnJd5y2rc6wRWkLdv/LdPwbFoL3XVgU9quTePgHYBfWhrkCYIL+qIU2rFSgom1GMbejKeo8ckJVqzFWwOFg8gnK4Q7nQVCzC6Nx/JlBFIXwuKI5ujqJB132FwxFqUBGZawMAAAAAElFTkSuQmCC',
+      'searchUrl': 'https://hd-space.org/index.php?page=torrents&active=0&options=2&search=%nott%',
+      'loggedOutRegex': /not authorized to view the Torrents!|ERR_SQL_ERR/,
+      'matchRegex': /<td colspan="2" align="center"> <\/td>/,
+      'both': true},
   
 ];
 
@@ -4350,7 +4362,32 @@ var chinese_sites = [
       'searchUrl': 'https://zmpt.cc/torrents.php?incldead=1&search=%tt%&search_area=1',
       'loggedOutRegex': /Cloudflare|Ray ID|SSL \(HTTPS\)/,
       'matchRegex': /Nothing found|没有种子|沒有種子/,
-      'both': true}
+      'both': true},
+  {
+    'name': 'cdfile',
+    'icon': 'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADAAAAAwCAMAAABg3Am1AAAAM1BMVEUAAABorvFQnOwpdOE8iObg7fxDjuqZxvS72Pg8iulSn+4ufOUpduNgpu/E3vre6/z6/P+SrkhCAAAAEHRSTlMA/v39/v4a/v5ArX2/apgvOFYY3wAAAhlJREFUSMetlYtu7CAMRG9Y3oTk/v/XdmxjDFEVtVJnIzUNc5jxsu3++3tF6BfWWErvvcQf2WGttR5Q7a/E2LYONxPlpUXhnd2xyiHivcRTvTysd79EKaXpwn3OfKVrjaASVw6qnCaQw9R1m79X57D2X5VnhD0EYMV5wGRIGBH2MKCTViK/Lu+EPpTMqkDpGxAUsFr8u6tlA0RwZyM2AEcXB0CV+OUABCotHcZTAjIl9KgzNOdkiYGUJGIDDljqnLqTn8QAMI0gKXAsADpxIQUSE4jYE+zzR4AlkEVKbQnQBOIDcGmUegB9dmoPQErhdgBBgFbss7QAw0TEsSfUCYwh/AScRXgF/D61d14B3Njc3jmt5H2fUzf2ayW+1bfWO0nwAJodnRdiJngtxQAS2ABgqJ0e0kqQ8zr3SOD1ZYiTPJpAtxZBQOIEf5aoQINFgIMTmJAIrQSd7Q2QUmgjCSybmoEPA+of71TI+ANBT4mIyxCfkQBwvJzMHQA5foAhVkATjEAbUSIAlwHxhEEA/FTApwnQMq5liJN8AhDCQqkJMPE9IF65jqCAqC1DfKySyecHEFdAPhoEmHjuoIAdNTqNs6VDXSPSkmAnDaCnJPE5Y9nksgDn2Rr2N13Lv/vjsxIBQIWb7aaew5QB2Lhe+mWyq1Q6Yr68ennbeN/3tvd2EmqFWdy76UmY2awvQGmN942Q2d8RLvHX+gIHqyh/qGWQ6wAAAABJRU5ErkJggg==',
+    'searchUrl' : 'https://pt.cdfile.org/torrents.php?search=%tt%&search_area=1',
+    'loggedOutRegex': /Forget your password|忘记了密码|忘記了密碼/,
+    'matchRegex': /Nothing found|Try again/,
+    'both':true},
+  { 'name': 'cdfile (name)',
+    'icon': 'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADAAAAAwCAMAAABg3Am1AAAAM1BMVEUAAABorvFQnOwpdOE8iObg7fxDjuqZxvS72Pg8iulSn+4ufOUpduNgpu/E3vre6/z6/P+SrkhCAAAAEHRSTlMA/v39/v4a/v5ArX2/apgvOFYY3wAAAhlJREFUSMetlYtu7CAMRG9Y3oTk/v/XdmxjDFEVtVJnIzUNc5jxsu3++3tF6BfWWErvvcQf2WGttR5Q7a/E2LYONxPlpUXhnd2xyiHivcRTvTysd79EKaXpwn3OfKVrjaASVw6qnCaQw9R1m79X57D2X5VnhD0EYMV5wGRIGBH2MKCTViK/Lu+EPpTMqkDpGxAUsFr8u6tlA0RwZyM2AEcXB0CV+OUABCotHcZTAjIl9KgzNOdkiYGUJGIDDljqnLqTn8QAMI0gKXAsADpxIQUSE4jYE+zzR4AlkEVKbQnQBOIDcGmUegB9dmoPQErhdgBBgFbss7QAw0TEsSfUCYwh/AScRXgF/D61d14B3Njc3jmt5H2fUzf2ayW+1bfWO0nwAJodnRdiJngtxQAS2ABgqJ0e0kqQ8zr3SOD1ZYiTPJpAtxZBQOIEf5aoQINFgIMTmJAIrQSd7Q2QUmgjCSybmoEPA+of71TI+ANBT4mIyxCfkQBwvJzMHQA5foAhVkATjEAbUSIAlwHxhEEA/FTApwnQMq5liJN8AhDCQqkJMPE9IF65jqCAqC1DfKySyecHEFdAPhoEmHjuoIAdNTqNs6VDXSPSkmAnDaCnJPE5Y9nksgDn2Rr2N13Lv/vjsxIBQIWb7aaew5QB2Lhe+mWyq1Q6Yr68ennbeN/3tvd2EmqFWdy76UmY2awvQGmN942Q2d8RLvHX+gIHqyh/qGWQ6wAAAABJRU5ErkJggg==',
+    'searchUrl' : 'https://pt.cdfile.org/torrents.php?search=%search_string_orig%&search_area=0',
+    'loggedOutRegex': /Forget your password|忘记了密码|忘記了密碼/,
+    'matchRegex': /Nothing found|Try again/,
+    'both':true},
+  { 'name': 'ptfans',
+    'icon': 'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADAAAAAwBAMAAAClLOS0AAAALVBMVEUAAAAFBQEEBAA8PAdZWhOvrwADAwAGBgD8/ADa2gHIyAAmJgijo574+PfZ2dgtKZ2xAAAACHRSTlMA/jz+/v7Stdb85R8AAAG8SURBVDjLnZOxTsJAGMebvkFDogNL0xiZCcUBN3sMtaNcVDYZcFUS4QlMrqxCcnWFJjVMBOLgrY4HT2B9AuQZ7NfrAVeCg7/0Lml/ubt+/y+n/RNL101zO5nye6mXw5TCUDnOhH7KVN6t1Oi9J5yj95CKxxpReS53UnEnhB/IuV9u7YqBTcWcF6MCiJdCtLdidktJcDXfW9HHjus79Wb+DHivJQ/ZCEuIIBieu32vGgRUiFLXAOE7FRtHJGxUbFeIU8P4SJcbhQj+zTBqqbCSoKpBTngtS4OgGjYFUZSChNc9DQ4YQVFTISbJzqBBiKI8NqdJUAPG3Ez4qI4J8UOMyQDRV4xvhBBFJYbQdE/qEym8S5IxnsMxUpAw2nSoSXaFihRtCEdkJYHw25p1gmwXzka2xPXRhQVZiRDLhqSWpdsG4Q89xqYsociydPUS9GOAOOcwPhGOth2EuBbxN1/G8YpTooqfwyLmizj+4kQRk+IBMZ4t12uejBV/o7uijxFyWAWh85ntbgXkpxa4EdBBibqChFiiFKggRbcaqAzPOiAg+QTb2T7ickLyKkebe95WuZdCt3JoEjOH9ge/fwqIarWnVY4AAAAASUVORK5CYII=',
+    'searchUrl': 'https://ptfans.cc/torrents.php?search=%tt%&search_area=1',
+    'loggedOutRegex': /Forget your password|忘记了密码|忘記了密碼/,
+    'matchRegex': /Nothing found|Try again/,
+    'both':true},
+  { 'name': 'ptfans (name)',
+    'icon': 'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADAAAAAwBAMAAAClLOS0AAAALVBMVEUAAAAFBQEEBAA8PAdZWhOvrwADAwAGBgD8/ADa2gHIyAAmJgijo574+PfZ2dgtKZ2xAAAACHRSTlMA/jz+/v7Stdb85R8AAAG8SURBVDjLnZOxTsJAGMebvkFDogNL0xiZCcUBN3sMtaNcVDYZcFUS4QlMrqxCcnWFJjVMBOLgrY4HT2B9AuQZ7NfrAVeCg7/0Lml/ubt+/y+n/RNL101zO5nye6mXw5TCUDnOhH7KVN6t1Oi9J5yj95CKxxpReS53UnEnhB/IuV9u7YqBTcWcF6MCiJdCtLdidktJcDXfW9HHjus79Wb+DHivJQ/ZCEuIIBieu32vGgRUiFLXAOE7FRtHJGxUbFeIU8P4SJcbhQj+zTBqqbCSoKpBTngtS4OgGjYFUZSChNc9DQ4YQVFTISbJzqBBiKI8NqdJUAPG3Ez4qI4J8UOMyQDRV4xvhBBFJYbQdE/qEym8S5IxnsMxUpAw2nSoSXaFihRtCEdkJYHw25p1gmwXzka2xPXRhQVZiRDLhqSWpdsG4Q89xqYsociydPUS9GOAOOcwPhGOth2EuBbxN1/G8YpTooqfwyLmizj+4kQRk+IBMZ4t12uejBV/o7uijxFyWAWh85ntbgXkpxa4EdBBibqChFiiFKggRbcaqAzPOiAg+QTb2T7ickLyKkebe95WuZdCt3JoEjOH9ge/fwqIarWnVY4AAAAASUVORK5CYII=',
+    'searchUrl': 'https://ptfans.cc/torrents.php?search=%search_string_orig%&search_area=0',
+    'loggedOutRegex': /Forget your password|忘记了密码|忘記了密碼/,
+    'matchRegex': /Nothing found|Try again/,
+    'both':true},
 ];
 
 var french_sites = [
