@@ -1,7 +1,7 @@
 // ==UserScript==
 //
 // @name         IMDb Scout Mod
-// @version      1.10
+// @version      1.11
 // @namespace    https://github.com/Purfview/IMDb-Scout-Mod
 // @description  Auto search for movie/series on torrent, usenet, ddl, subtitles, streaming, predb and other sites. Adds links to IMDb pages from hundreds various sites. Adds movies/series to Radarr/Sonarr. Adds external ratings from Metacritic, Rotten Tomatoes, Letterboxd, Douban, Allocine, MyAnimeList, AniList. Media Server indicators for Plex, Jellyfin, Emby. Dark theme/style for Reference View. Adds/Removes to/from Trakt's watchlist. Removes ads.
 // @icon         data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAEAAAABABAMAAABYR2ztAAAAMFBMVEUAAAD/AAAcAAA1AABEAABVAAC3AADnAAD2AACFAAClAABlAAB3AADHAACVAADYAABCnXhrAAAD10lEQVRIx73TV4xMURgH8H/OnRmZWe3T7h2sOWaNXu7oJRg9UccuHgTRBatMtAgSg+gJu9q+kFmihcQoD8qLTkK0CIkoy0YJITsRD0rCKTHFrnkSv5e5c88/53znO+fiPwvsvrN038cPNqrG9pJmHkRVnPcpaTlHJY60cfPSpsrzl1LKihrmLvxhCM2i3OHvDx0d+H7e3F6JBv5iZMiJfhFTfPYDMHrMImpwimWWUdSgDQkbno7fFpUPVgh+pHFbZR4SovSctDCM9Hac9IKd9rO8EevtBCkXgY5IMmgquwypP7qqfcp/Tp4KLONDVsWh3RSBB2rnZfit69ocUdqLn2prrRZYM0Jg4JibamKsqe7gfEh5GOAfeYJjVHIPZvil97rcXkMog30byWRwXYRWoxHbzNFHJJpAarO8NdEBBsdCaP3WMJltTmQd4zlnekTq9Z5dgACwAlrpK4BxdV5mvLuspRgMSHbCIFF0iS8MZ5S8oYBYKY7rByC4dDM9uSIUmPOIwxgQBoYeF93auP4qFyPbIVXziWeGTH1EFM57kJo2hqQju6BwIyRf6RmCjdT4JOdiwNgiH/PPD3qoqlsNaXRd+fKtFfECxlZVNVF9SOsgTZEr2TUjJJbyeNX1IZrKIbyGlBABfpQPv2UDrly13LkJXDVhpQ5MhtGwcyF4HKjlU4E8xwB0AvDjd6AGmevZ87EcQRHgcO52e9uNsYELOrAa/Yh81YlmYLQJ5HWyq0+kzQ/DQKEusg6CRI27ryy8nReRS0wsoetkmRwogHSprliCckfEjXG9yAQc74J0WB99vu6DF3i3pMucsXM6tpBbxd2mVJAwXwGogNRBvGRA4jtHKTXkAIwLGCR/mT4Lh75oneQXXP9sAYfGRDCsnw7pX/jRZkU3M44kjw2l5zRIzb4CbZ8dULdL6wbNPZOpK0B6gN1UR1mdoxAaL/GrWiLPL3SEwW9YMTU/d64BtLahAVyucWhj9Mm8ign9IfQaBtd2/GbvCAEBpG5eMcrj2I0ktpKLeaqXQ3Pst42KGIshpdTmQLAeTgFGJ2wvh+tayMOR0n1RZ8B9z13vnOPBnsBq4E1ffgZpPFZHWVpO2cvhjYpOcbBd5TlhpDu5zq9mHGZcVi0y+VFkcFkDdyKJfTt99wEyHSEzDM90KH0nexpwZHJHKYYhjzlwGe0pP/IKfxociaEb7YDbi6KGJY1R2cR76E6NAtXqY4pPH3plLcl8LD7V+cOLUbUWRFZRPTAbVZO3mxK18Xc1ZaAiS8ARJXpZliXAomR94siiiMx8ZBOkXGTlnH0F/9ov1xPtWwEqP9wAAAAASUVORK5CYII=
@@ -3403,16 +3403,16 @@ var private_sites = [
       'both': true},
   {   'name':'Nordicq',
       'icon': 'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADAAAAAwCAMAAABg3Am1AAAAyVBMVEVZWmBaW2BYWV9ZWWBPT19MTGYAAABYWmBYWWBYWGBXWmBWV19ZW15aW2H6+vrMzM74+PhbXGLFxcdeX2VfYGbFxsjy8vJjZGr29vfw8PFpanDs7Ozp6eqOj5NmZ2y7vL62trn09PS/v8F0dXrS0tOmp6uZmp6DhIjk5eXIyMrBwcO5ubyur7KAgIRwcXbh4eLY2NrX19izs7ajpKeSkpaLjJB8fIJtbnPm5ufc3N2Vlprt7e6dnaGHh4x4eX7U1NbOztDExMaztLaeuBsGAAAADXRSTlP2+caUEAoAycFhXFZRxmjojwAAAdpJREFUSMft1lmzmjAYxvHoUc+axzeCLAooqLiC+3qWLt//QzVUxuR02hm4a2f6v8rA+7vIRTJhjfrLA+OFYtXneoPV7xgvXOWuxl4YLxF7Yg+8VFXGygE5X7L/oDAwBP9ThpklB3Rw3CyOXLXfbv18Otn2o9lsFkXf41Qo0CcadhT4RjTlWXbPc5AXLt8UaAIUBTfQBppcFqzxqZ6pATi5UCCYAvBa/ax50wXCraEBUNv+DC4WMB3YpiEzg/ESdD4q4BBoY+rAjEArbWe+C/IVWA8JoRQKBCvQSChgr4C5Aq3BGXDmhgKdE8Id15rJzxrg6YngjAwFPFi+DnrAUAf8Y0VwR6I4EMkJsKQoCGTJKyGMRXHAx0tCN76CYAkn5iohp9q/ArHvAq73E9hfQT1TgcEEGOng2s6CLANiQXD3Bs+z+w6sgw7yfC8H/GMCuPPd+1j2Hk8d0Mz+DRCxmwNxIYDcbtZrCKB74Dq4NZI/r+fh0pUkj5xJcjsPm/V6oYB4m0z219Vh8cVzLcuSwOkd+Q0EnU7ANZGmIl8anXQgmxPofChxaxgLF7B8ozDg5q7VakWJKApktsz8m6/Kfx2wsvPVcuCePVd4iSqP5R8njdpTtSBh94+1xg9A740rqUF6CQAAAABJRU5ErkJggg==',
-      'searchUrl': 'https://nordicq.org/torrents?tmdbId=%tmdbid%',
-      'loggedOutRegex': /Cloudflare|Ray ID|Forgot Your Password/,
-      'matchRegex': /torrent-search--list__overview/,
-      'seedingRegex': /fa-arrow-circle-up/,
+      'searchUrl': 'https://nordicq.org/torrents?imdbId=%nott%',
+      'loggedOutRegex': /Cloudflare|Ray ID|Service Unavailable|Forgot Your Password|Forgot your password|forgot-password/,
+      'matchRegex': /torrent-listings-name|torrent-search--list__overview/,
+      'seedingRegex': /fa-arrow-circle-up|torrent-activity-indicator--seeding/,
       'positiveMatch': true,
       'both': true},
  {    'name':'Nordicq-Req',
       'icon': 'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADAAAAAwCAMAAABg3Am1AAAAyVBMVEVZWmBaW2BYWV9ZWWBPT19MTGYAAABYWmBYWWBYWGBXWmBWV19ZW15aW2H6+vrMzM74+PhbXGLFxcdeX2VfYGbFxsjy8vJjZGr29vfw8PFpanDs7Ozp6eqOj5NmZ2y7vL62trn09PS/v8F0dXrS0tOmp6uZmp6DhIjk5eXIyMrBwcO5ubyur7KAgIRwcXbh4eLY2NrX19izs7ajpKeSkpaLjJB8fIJtbnPm5ufc3N2Vlprt7e6dnaGHh4x4eX7U1NbOztDExMaztLaeuBsGAAAADXRSTlP2+caUEAoAycFhXFZRxmjojwAAAdpJREFUSMft1lmzmjAYxvHoUc+axzeCLAooqLiC+3qWLt//QzVUxuR02hm4a2f6v8rA+7vIRTJhjfrLA+OFYtXneoPV7xgvXOWuxl4YLxF7Yg+8VFXGygE5X7L/oDAwBP9ThpklB3Rw3CyOXLXfbv18Otn2o9lsFkXf41Qo0CcadhT4RjTlWXbPc5AXLt8UaAIUBTfQBppcFqzxqZ6pATi5UCCYAvBa/ax50wXCraEBUNv+DC4WMB3YpiEzg/ESdD4q4BBoY+rAjEArbWe+C/IVWA8JoRQKBCvQSChgr4C5Aq3BGXDmhgKdE8Id15rJzxrg6YngjAwFPFi+DnrAUAf8Y0VwR6I4EMkJsKQoCGTJKyGMRXHAx0tCN76CYAkn5iohp9q/ArHvAq73E9hfQT1TgcEEGOng2s6CLANiQXD3Bs+z+w6sgw7yfC8H/GMCuPPd+1j2Hk8d0Mz+DRCxmwNxIYDcbtZrCKB74Dq4NZI/r+fh0pUkj5xJcjsPm/V6oYB4m0z219Vh8cVzLcuSwOkd+Q0EnU7ANZGmIl8anXQgmxPofChxaxgLF7B8ozDg5q7VakWJKApktsz8m6/Kfx2wsvPVcuCePVd4iSqP5R8njdpTtSBh94+1xg9A740rqUF6CQAAAABJRU5ErkJggg==',
-      'searchUrl': 'https://nordicq.org/requests?unfilled=1&tmdbId=%tmdbid%',
-      'loggedOutRegex': /Cloudflare|Ray ID|Forgot Your Password/,
+      'searchUrl': 'https://nordicq.org/requests?unfilled=1&imdbId=%nott%',
+      'loggedOutRegex': /Cloudflare|Ray ID|Service Unavailable|Forgot Your Password|Forgot your password|forgot-password/,
       'matchRegex': /fa-circle text-red/,
       'positiveMatch': true,
       'both': true},
