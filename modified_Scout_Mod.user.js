@@ -1,7 +1,7 @@
 // ==UserScript==
 //
 // @name         IMDb Scout Mod
-// @version      1.13
+// @version      1.14
 // @namespace    https://github.com/Purfview/IMDb-Scout-Mod
 // @description  Auto search for movie/series on torrent, usenet, ddl, subtitles, streaming, predb and other sites. Adds links to IMDb pages from hundreds various sites. Adds movies/series to Radarr/Sonarr. Adds external ratings from Metacritic, Rotten Tomatoes, Letterboxd, Douban, Allocine, MyAnimeList, AniList. Media Server indicators for Plex, Jellyfin, Emby. Dark theme/style for Reference View. Adds/Removes to/from Trakt's watchlist. Removes ads.
 // @icon         data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAEAAAABABAMAAABYR2ztAAAAMFBMVEUAAAD/AAAcAAA1AABEAABVAAC3AADnAAD2AACFAAClAABlAAB3AADHAACVAADYAABCnXhrAAAD10lEQVRIx73TV4xMURgH8H/OnRmZWe3T7h2sOWaNXu7oJRg9UccuHgTRBatMtAgSg+gJu9q+kFmihcQoD8qLTkK0CIkoy0YJITsRD0rCKTHFrnkSv5e5c88/53znO+fiPwvsvrN038cPNqrG9pJmHkRVnPcpaTlHJY60cfPSpsrzl1LKihrmLvxhCM2i3OHvDx0d+H7e3F6JBv5iZMiJfhFTfPYDMHrMImpwimWWUdSgDQkbno7fFpUPVgh+pHFbZR4SovSctDCM9Hac9IKd9rO8EevtBCkXgY5IMmgquwypP7qqfcp/Tp4KLONDVsWh3RSBB2rnZfit69ocUdqLn2prrRZYM0Jg4JibamKsqe7gfEh5GOAfeYJjVHIPZvil97rcXkMog30byWRwXYRWoxHbzNFHJJpAarO8NdEBBsdCaP3WMJltTmQd4zlnekTq9Z5dgACwAlrpK4BxdV5mvLuspRgMSHbCIFF0iS8MZ5S8oYBYKY7rByC4dDM9uSIUmPOIwxgQBoYeF93auP4qFyPbIVXziWeGTH1EFM57kJo2hqQju6BwIyRf6RmCjdT4JOdiwNgiH/PPD3qoqlsNaXRd+fKtFfECxlZVNVF9SOsgTZEr2TUjJJbyeNX1IZrKIbyGlBABfpQPv2UDrly13LkJXDVhpQ5MhtGwcyF4HKjlU4E8xwB0AvDjd6AGmevZ87EcQRHgcO52e9uNsYELOrAa/Yh81YlmYLQJ5HWyq0+kzQ/DQKEusg6CRI27ryy8nReRS0wsoetkmRwogHSprliCckfEjXG9yAQc74J0WB99vu6DF3i3pMucsXM6tpBbxd2mVJAwXwGogNRBvGRA4jtHKTXkAIwLGCR/mT4Lh75oneQXXP9sAYfGRDCsnw7pX/jRZkU3M44kjw2l5zRIzb4CbZ8dULdL6wbNPZOpK0B6gN1UR1mdoxAaL/GrWiLPL3SEwW9YMTU/d64BtLahAVyucWhj9Mm8ign9IfQaBtd2/GbvCAEBpG5eMcrj2I0ktpKLeaqXQ3Pst42KGIshpdTmQLAeTgFGJ2wvh+tayMOR0n1RZ8B9z13vnOPBnsBq4E1ffgZpPFZHWVpO2cvhjYpOcbBd5TlhpDu5zq9mHGZcVi0y+VFkcFkDdyKJfTt99wEyHSEzDM90KH0nexpwZHJHKYYhjzlwGe0pP/IKfxociaEb7YDbi6KGJY1R2cR76E6NAtXqY4pPH3plLcl8LD7V+cOLUbUWRFZRPTAbVZO3mxK18Xc1ZaAiS8ARJXpZliXAomR94siiiMx8ZBOkXGTlnH0F/9ov1xPtWwEqP9wAAAAASUVORK5CYII=
@@ -3401,7 +3401,7 @@ var private_sites = [
       'loggedOutRegex': /Cloudflare|Ray ID|Không đăng nhập/,
       'matchRegex': /Nothing found/,
       'both': true},
-  {   'name':'Nordicq',
+  {   'name':'NordicQ',
       'icon': 'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADAAAAAwCAMAAABg3Am1AAAAyVBMVEVZWmBaW2BYWV9ZWWBPT19MTGYAAABYWmBYWWBYWGBXWmBWV19ZW15aW2H6+vrMzM74+PhbXGLFxcdeX2VfYGbFxsjy8vJjZGr29vfw8PFpanDs7Ozp6eqOj5NmZ2y7vL62trn09PS/v8F0dXrS0tOmp6uZmp6DhIjk5eXIyMrBwcO5ubyur7KAgIRwcXbh4eLY2NrX19izs7ajpKeSkpaLjJB8fIJtbnPm5ufc3N2Vlprt7e6dnaGHh4x4eX7U1NbOztDExMaztLaeuBsGAAAADXRSTlP2+caUEAoAycFhXFZRxmjojwAAAdpJREFUSMft1lmzmjAYxvHoUc+axzeCLAooqLiC+3qWLt//QzVUxuR02hm4a2f6v8rA+7vIRTJhjfrLA+OFYtXneoPV7xgvXOWuxl4YLxF7Yg+8VFXGygE5X7L/oDAwBP9ThpklB3Rw3CyOXLXfbv18Otn2o9lsFkXf41Qo0CcadhT4RjTlWXbPc5AXLt8UaAIUBTfQBppcFqzxqZ6pATi5UCCYAvBa/ax50wXCraEBUNv+DC4WMB3YpiEzg/ESdD4q4BBoY+rAjEArbWe+C/IVWA8JoRQKBCvQSChgr4C5Aq3BGXDmhgKdE8Id15rJzxrg6YngjAwFPFi+DnrAUAf8Y0VwR6I4EMkJsKQoCGTJKyGMRXHAx0tCN76CYAkn5iohp9q/ArHvAq73E9hfQT1TgcEEGOng2s6CLANiQXD3Bs+z+w6sgw7yfC8H/GMCuPPd+1j2Hk8d0Mz+DRCxmwNxIYDcbtZrCKB74Dq4NZI/r+fh0pUkj5xJcjsPm/V6oYB4m0z219Vh8cVzLcuSwOkd+Q0EnU7ANZGmIl8anXQgmxPofChxaxgLF7B8ozDg5q7VakWJKApktsz8m6/Kfx2wsvPVcuCePVd4iSqP5R8njdpTtSBh94+1xg9A740rqUF6CQAAAABJRU5ErkJggg==',
       'searchUrl': 'https://nordicq.org/torrents?imdbId=%nott%',
       'loggedOutRegex': /Cloudflare|Ray ID|Service Unavailable|Forgot Your Password|Forgot your password|forgot-password/,
@@ -3409,7 +3409,7 @@ var private_sites = [
       'seedingRegex': /fa-arrow-circle-up|torrent-activity-indicator--seeding/,
       'positiveMatch': true,
       'both': true},
- {    'name':'Nordicq-Req',
+ {    'name':'NordicQ-Req',
       'icon': 'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADAAAAAwCAMAAABg3Am1AAAAyVBMVEVZWmBaW2BYWV9ZWWBPT19MTGYAAABYWmBYWWBYWGBXWmBWV19ZW15aW2H6+vrMzM74+PhbXGLFxcdeX2VfYGbFxsjy8vJjZGr29vfw8PFpanDs7Ozp6eqOj5NmZ2y7vL62trn09PS/v8F0dXrS0tOmp6uZmp6DhIjk5eXIyMrBwcO5ubyur7KAgIRwcXbh4eLY2NrX19izs7ajpKeSkpaLjJB8fIJtbnPm5ufc3N2Vlprt7e6dnaGHh4x4eX7U1NbOztDExMaztLaeuBsGAAAADXRSTlP2+caUEAoAycFhXFZRxmjojwAAAdpJREFUSMft1lmzmjAYxvHoUc+axzeCLAooqLiC+3qWLt//QzVUxuR02hm4a2f6v8rA+7vIRTJhjfrLA+OFYtXneoPV7xgvXOWuxl4YLxF7Yg+8VFXGygE5X7L/oDAwBP9ThpklB3Rw3CyOXLXfbv18Otn2o9lsFkXf41Qo0CcadhT4RjTlWXbPc5AXLt8UaAIUBTfQBppcFqzxqZ6pATi5UCCYAvBa/ax50wXCraEBUNv+DC4WMB3YpiEzg/ESdD4q4BBoY+rAjEArbWe+C/IVWA8JoRQKBCvQSChgr4C5Aq3BGXDmhgKdE8Id15rJzxrg6YngjAwFPFi+DnrAUAf8Y0VwR6I4EMkJsKQoCGTJKyGMRXHAx0tCN76CYAkn5iohp9q/ArHvAq73E9hfQT1TgcEEGOng2s6CLANiQXD3Bs+z+w6sgw7yfC8H/GMCuPPd+1j2Hk8d0Mz+DRCxmwNxIYDcbtZrCKB74Dq4NZI/r+fh0pUkj5xJcjsPm/V6oYB4m0z219Vh8cVzLcuSwOkd+Q0EnU7ANZGmIl8anXQgmxPofChxaxgLF7B8ozDg5q7VakWJKApktsz8m6/Kfx2wsvPVcuCePVd4iSqP5R8njdpTtSBh94+1xg9A740rqUF6CQAAAABJRU5ErkJggg==',
       'searchUrl': 'https://nordicq.org/requests?unfilled=1&imdbId=%nott%',
       'loggedOutRegex': /Cloudflare|Ray ID|Service Unavailable|Forgot Your Password|Forgot your password|forgot-password/,
@@ -4001,18 +4001,18 @@ var private_sites = [
       'matchRegex': /fa-circle text-red/,
       'positiveMatch': true,
       'both': true},
-  {   'name':'TurkS',
-      'icon': 'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADAAAAAwCAMAAABg3Am1AAAAZlBMVEVHcEw9V2M0UF5JYW03UV6hrbNacHstRVBDXWlwhI0wTVvf3t7r7OzWT0EoP0ojOEIeMTqOkpKhTUdXaG7by8e8u7hPTFVEPEGZnqB8p77VX1PgrKdFW2Rre4FkkKexcGrZc2n+7tLupf9mAAAACnRSTlMAh+s9xQMY7W4HMZKSlQAAAqFJREFUSMeVluuWqyAMheut2tqCIFZGsdr3f8mTEECona45+dNZ7f4mO4EAp9NbnIumLPMrRF6WWXE+fY8iI7GPHJjqmzxRO+ZX5ExyI8wB+WisKOnnfjCHLGVxkFdN4ubxkGmS5s3WJUt+f8j7XT6Sr7JLAhz1nhC9LyTO0djvFm0ivSP2gprdf0H+h5eI9e+u8lD52fVHDDZ90AOR9ur8sQDST5P9cCmMWGzhVEaRNhR1q4BY8a/RmW37YOpyTLAK/fOjLSE5JnAApTgmmMQPxPMp0NbY4eprsdedJtDzNq3aAeu0zaLr4uXbW+Q2Unu7tdoDWrWtusYENCp19LxBDB4YWoi+iwjwlDoaEFBaPDEwQdvqLiayU+LIqJtNIYAQlKAdeEyUBJioBDIFQXpbRNfxAOTxllwccANd68N0RAiNRZySEpZbiKC3VSOx2LX4G8A7zjm7/h0ggv9HBgrMgUUbIQ6AmiOA70SObV1er4V23hq6tG1er9bRqTljzAK9Un0/LDCbkwfUNPm+qkl6AqK0W8MYgBYYhUl54H6fAwBD4ROwLGw+Y0dhdsC8AzMOBcoN6Osi2t5fAejpgo7O0QAhsB0tbZSBWUtZMqI4nSoAKpQAAKOocUSrLD4v5vcuoaO70zN7CFQhBR4YGzW2DQA6knGCKIWMUviFswkc4A+yyjfKAqseMLbNftBp5oBwVHpTCMiOCaGFXu3hJ66j9MC1LqLrx1ctx46b3vS9lD2EYRyJhy2giS+sjADQuxhHGhrGgAAgnMQx8dj1fBzDDh0lLEP9dmXRpcicmkf7mfpTN4e7usJrl9E0hnnx8eHaxe7Cxc7C/Eb//5eL/VRV8HRgnZd7ff3ttXGBxwmL7dTfHyf0/MnKukY/df7p+fMP/EZhPHpcxFwAAAAASUVORK5CYII=',
+  {   'name':'Turkseed',
+      'icon': 'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACAAAAAgCAMAAABEpIrGAAAAVFBMVEUAAAAzT102UV5BWmdGXmozT10sRFA4Ul4wTVsoPkng3t4hND3s7OzWUEJFW2SMlZfTzMtynrR3Tk+lpKPDgnzab2RjdHnfm5RfSE24t7ekS0WWSEMDyEZAAAAACHRSTlMA2KJAJ/TldjaraAQAAAGFSURBVDjLfZPZdoYgDIQFN4ISrOD+/u/ZMVCp/c/pHK+cL5mwVUVNr1VrTKt031SfqrUyj5Su/9iNRi37grS6eZVLNbMx+/5DqPrlZ83OzTcqOfVvn9fsC8Evornr/cTiJyJLpTn0k++yZI4Vf7QEtCbrdC56H507Cb49MGktDcqA8QsCsZPhcC9a5wkkJGzR34CPWyB6puizj56jDQJM1vKQib4k+HEcDw8/WGvXIRHIULIt0AHAHt6HCUAYMqGqVhYETQCAwIaOASK/mrYyWQxAiATQTdyF/wGSgggcw2cEwR2IqMWQ3q7Y6DkBW0zAfNdDXaXRgcO6u00aLIsAm9tTB502is35AFMCLiLDRH3eagCL/dVhwYGBoA4HrjPgZIgETE4AJDzHfbmUEWNKQATUyZ3S+awlfYtY6LTgWkmDcuUAXOxDiDEEz+i3w1dNubS7O4fBMM8zM4Y/AUhAIa4hifBBV/YLQQ9AIrn0r6dHL7/Tzcfj7cTPdikvanrVift6/t9n4yQPvLCrYQAAAABJRU5ErkJggg==',
       'searchUrl': 'https://turkseed.com/torrents?imdbId=%nott%',
-      'loggedOutRegex': /Cloudflare|Ray ID|Forgot Your Password/,
-      'matchRegex': /torrent-search--list__overview/,
-      'seedingRegex': /fa-arrow-circle-up/,
+      'loggedOutRegex': /Cloudflare|Ray ID|Service Unavailable|Forgot Your Password|Forgot your password|Şifreni mi Unuttun|forgot-password/,
+      'matchRegex': /torrent-listings-name|torrent-search--list__overview/,
+      'seedingRegex': /fa-arrow-circle-up|torrent-activity-indicator--seeding/,
       'positiveMatch': true,
       'both': true},
- {    'name':'TurkS-Req',
-      'icon': 'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADAAAAAwCAMAAABg3Am1AAAAZlBMVEVHcEw9V2M0UF5JYW03UV6hrbNacHstRVBDXWlwhI0wTVvf3t7r7OzWT0EoP0ojOEIeMTqOkpKhTUdXaG7by8e8u7hPTFVEPEGZnqB8p77VX1PgrKdFW2Rre4FkkKexcGrZc2n+7tLupf9mAAAACnRSTlMAh+s9xQMY7W4HMZKSlQAAAqFJREFUSMeVluuWqyAMheut2tqCIFZGsdr3f8mTEECona45+dNZ7f4mO4EAp9NbnIumLPMrRF6WWXE+fY8iI7GPHJjqmzxRO+ZX5ExyI8wB+WisKOnnfjCHLGVxkFdN4ubxkGmS5s3WJUt+f8j7XT6Sr7JLAhz1nhC9LyTO0djvFm0ivSP2gprdf0H+h5eI9e+u8lD52fVHDDZ90AOR9ur8sQDST5P9cCmMWGzhVEaRNhR1q4BY8a/RmW37YOpyTLAK/fOjLSE5JnAApTgmmMQPxPMp0NbY4eprsdedJtDzNq3aAeu0zaLr4uXbW+Q2Unu7tdoDWrWtusYENCp19LxBDB4YWoi+iwjwlDoaEFBaPDEwQdvqLiayU+LIqJtNIYAQlKAdeEyUBJioBDIFQXpbRNfxAOTxllwccANd68N0RAiNRZySEpZbiKC3VSOx2LX4G8A7zjm7/h0ggv9HBgrMgUUbIQ6AmiOA70SObV1er4V23hq6tG1er9bRqTljzAK9Un0/LDCbkwfUNPm+qkl6AqK0W8MYgBYYhUl54H6fAwBD4ROwLGw+Y0dhdsC8AzMOBcoN6Osi2t5fAejpgo7O0QAhsB0tbZSBWUtZMqI4nSoAKpQAAKOocUSrLD4v5vcuoaO70zN7CFQhBR4YGzW2DQA6knGCKIWMUviFswkc4A+yyjfKAqseMLbNftBp5oBwVHpTCMiOCaGFXu3hJ66j9MC1LqLrx1ctx46b3vS9lD2EYRyJhy2giS+sjADQuxhHGhrGgAAgnMQx8dj1fBzDDh0lLEP9dmXRpcicmkf7mfpTN4e7usJrl9E0hnnx8eHaxe7Cxc7C/Eb//5eL/VRV8HRgnZd7ff3ttXGBxwmL7dTfHyf0/MnKukY/df7p+fMP/EZhPHpcxFwAAAAASUVORK5CYII=',
+ {    'name':'Turkseed-Req',
+      'icon': 'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACAAAAAgCAMAAABEpIrGAAAAVFBMVEUAAAAzT102UV5BWmdGXmozT10sRFA4Ul4wTVsoPkng3t4hND3s7OzWUEJFW2SMlZfTzMtynrR3Tk+lpKPDgnzab2RjdHnfm5RfSE24t7ekS0WWSEMDyEZAAAAACHRSTlMA2KJAJ/TldjaraAQAAAGFSURBVDjLfZPZdoYgDIQFN4ISrOD+/u/ZMVCp/c/pHK+cL5mwVUVNr1VrTKt031SfqrUyj5Su/9iNRi37grS6eZVLNbMx+/5DqPrlZ83OzTcqOfVvn9fsC8Evornr/cTiJyJLpTn0k++yZI4Vf7QEtCbrdC56H507Cb49MGktDcqA8QsCsZPhcC9a5wkkJGzR34CPWyB6puizj56jDQJM1vKQib4k+HEcDw8/WGvXIRHIULIt0AHAHt6HCUAYMqGqVhYETQCAwIaOASK/mrYyWQxAiATQTdyF/wGSgggcw2cEwR2IqMWQ3q7Y6DkBW0zAfNdDXaXRgcO6u00aLIsAm9tTB502is35AFMCLiLDRH3eagCL/dVhwYGBoA4HrjPgZIgETE4AJDzHfbmUEWNKQATUyZ3S+awlfYtY6LTgWkmDcuUAXOxDiDEEz+i3w1dNubS7O4fBMM8zM4Y/AUhAIa4hifBBV/YLQQ9AIrn0r6dHL7/Tzcfj7cTPdikvanrVift6/t9n4yQPvLCrYQAAAABJRU5ErkJggg==',
       'searchUrl': 'https://turkseed.com/requests?unfilled=1&imdbId=%nott%',
-      'loggedOutRegex': /Cloudflare|Ray ID|Forgot Your Password/,
+      'loggedOutRegex': /Cloudflare|Ray ID|Service Unavailable|Forgot Your Password|Forgot your password|Şifreni mi Unuttun|forgot-password/,
       'matchRegex': /fa-circle text-red/,
       'positiveMatch': true,
       'both': true},
