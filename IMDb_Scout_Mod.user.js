@@ -1618,7 +1618,7 @@ HTTP request by POST method. For the sites that doesn't support GET.
 Right mouse click won't submit such request.
 Atm 'goToUrl' not supported with it.
 Examples (3 types of formating):
-1) 'cat1=4&cat2=6&filter=%tt%'
+1) 'cat1=4&cat2=6&filter=%tt%'  // (supports duplicate keys)
 2) '{"cat1":4,"cat2":6,"filter":"all=%tt%&sort=date"}'
 3) '{key:"cat",value:"4"},{key:"cat",value:"6"},{key:"filter",value:"%tt%"}'  // (supports duplicate keys)
 Note: only these special chars are allowed in a site name if mPOST: .- ().
@@ -7301,9 +7301,9 @@ function addLink(elem, site_name, target, site, state, scout_tick, post_data) {
     var form_name = (site['TV']) ? site['name'] + '-TV-form-' + scout_tick : site['name'] + '-form-' + scout_tick;
         form_name = form_name.replace(/\s|\.|\(|\)/g, '-');
     var placebo_url = new URL(target).origin;
-    link = $('<a />').attr('href', placebo_url).attr('onclick', "$('#" + form_name + "').submit(); return false;").attr('target', '_blank').attr('rel', 'noreferrer');
+    link = $('<a />').attr('href', placebo_url).attr('onclick', "document.getElementById('"+form_name+"').submit(); return false;").attr('target', '_blank').attr('rel', 'noreferrer');
 
-    var data = (post_data.match('{')) ? post_data.replace(/\+/g, ' ') : '{"' + post_data.replace(/&/g, '","').replace(/=/g, '":"').replace(/\+/g, ' ') + '"}';
+    var data = (post_data.match('{')) ? post_data.replace(/\+/g, ' ') : '{key:"' + post_data.replace(/&/g, '"},{key:"').replace(/=/g, '",value:"').replace(/\+/g, ' ') + '"}';
     var addform = $('<form></form>');
         addform.attr('id', form_name);
         addform.attr('action', target);
@@ -7312,7 +7312,7 @@ function addLink(elem, site_name, target, site, state, scout_tick, post_data) {
         addform.attr('target', '_blank');
         addform.attr('rel', 'noreferrer');
 
-    if (post_data.match('},{')) {
+    if (data.startsWith('{key:')) {
       const dataArray = (new Function("return [" +data+ "];")());
       dataArray.forEach(function (item, index) {
         let addinput = $("<input>");
@@ -7864,9 +7864,10 @@ function addIconBar(movie_id, movie_title, movie_title_orig) {
         var form_name = site['name'] + '-iconform';
             form_name = form_name.replace(/\s|\.|\(|\)/g, '-');
         var placebo_url = new URL(site['searchUrl']).origin;
-        html = $('<a />').attr('href', placebo_url).attr('onclick', "$('#" + form_name + "').submit(); return false;").attr('target', '_blank').attr('rel', 'noreferrer').addClass('iconbar_icon').append(image);
+        html = $('<a />').attr('href', placebo_url).attr('onclick', "document.getElementById('"+form_name+"').submit(); return false;").attr('target', '_blank').attr('rel', 'noreferrer').addClass('iconbar_icon').append(image);
+
         var post_data = await replaceSearchUrlParams(site, movie_id, movie_title, movie_title_orig);
-        var data = (post_data.match('{')) ? post_data.replace(/\+/g, ' ') : '{"' + post_data.replace(/&/g, '","').replace(/=/g, '":"').replace(/\+/g, ' ') + '"}';
+        var data = (post_data.match('{')) ? post_data.replace(/\+/g, ' ') : '{key:"' + post_data.replace(/&/g, '"},{key:"').replace(/=/g, '",value:"').replace(/\+/g, ' ') + '"}';
         var addform = $('<form></form>');
             addform.attr('id', form_name);
             addform.attr('action', search_url);
@@ -7875,7 +7876,7 @@ function addIconBar(movie_id, movie_title, movie_title_orig) {
             addform.attr('target', '_blank');
             addform.attr('rel', 'noreferrer');
 
-        if (post_data.match('},{')) {
+        if (data.startsWith('{key:')) {
           const dataArray = (new Function("return [" +data+ "];")());
           dataArray.forEach(function (item, index) {
             let addinput = $("<input>");
@@ -12834,14 +12835,6 @@ function startIMDbScout() {
     displayButton();
   }
 }
-
-// IMDb pages stopped using jQuery(?). It's needed for POST links.  // This should be replaced by pure js for POST, like in Discogs_Scout as document.events may not work on very slow PCs +Chrome
-document.events.on('headloaded', () => {
-  const addJquery = document.createElement("script");
-  addJquery.setAttribute("type","text/javascript");
-  addJquery.setAttribute("src","https://code.jquery.com/jquery-3.5.1.min.js");
-  document.getElementsByTagName("head")[0].appendChild(addJquery);
-});
 
 if (onReferencePage) {
   console.log("IMDb Scout Mod (Start): Reference page detected.");
