@@ -1,7 +1,7 @@
 // ==UserScript==
 //
 // @name         IMDb Scout Mod
-// @version      1.39
+// @version      1.40
 // @namespace    https://github.com/Purfview/IMDb-Scout-Mod
 // @description  Auto search for movie/series on torrent, usenet, ddl, subtitles, streaming, predb and other sites. Adds links to IMDb pages from hundreds various sites. Adds movies/series to Radarr/Sonarr. Adds external ratings from Metacritic, Rotten Tomatoes, Letterboxd, Douban, Allocine, MyAnimeList, AniList. Media Server indicators for Plex, Jellyfin, Emby. Dark theme/style for Reference View. Adds/Removes to/from Trakt's watchlist. Removes ads.
 // @icon         data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAEAAAABABAMAAABYR2ztAAAAMFBMVEUAAAD/AAAcAAA1AABEAABVAAC3AADnAAD2AACFAAClAABlAAB3AADHAACVAADYAABCnXhrAAAD10lEQVRIx73TV4xMURgH8H/OnRmZWe3T7h2sOWaNXu7oJRg9UccuHgTRBatMtAgSg+gJu9q+kFmihcQoD8qLTkK0CIkoy0YJITsRD0rCKTHFrnkSv5e5c88/53znO+fiPwvsvrN038cPNqrG9pJmHkRVnPcpaTlHJY60cfPSpsrzl1LKihrmLvxhCM2i3OHvDx0d+H7e3F6JBv5iZMiJfhFTfPYDMHrMImpwimWWUdSgDQkbno7fFpUPVgh+pHFbZR4SovSctDCM9Hac9IKd9rO8EevtBCkXgY5IMmgquwypP7qqfcp/Tp4KLONDVsWh3RSBB2rnZfit69ocUdqLn2prrRZYM0Jg4JibamKsqe7gfEh5GOAfeYJjVHIPZvil97rcXkMog30byWRwXYRWoxHbzNFHJJpAarO8NdEBBsdCaP3WMJltTmQd4zlnekTq9Z5dgACwAlrpK4BxdV5mvLuspRgMSHbCIFF0iS8MZ5S8oYBYKY7rByC4dDM9uSIUmPOIwxgQBoYeF93auP4qFyPbIVXziWeGTH1EFM57kJo2hqQju6BwIyRf6RmCjdT4JOdiwNgiH/PPD3qoqlsNaXRd+fKtFfECxlZVNVF9SOsgTZEr2TUjJJbyeNX1IZrKIbyGlBABfpQPv2UDrly13LkJXDVhpQ5MhtGwcyF4HKjlU4E8xwB0AvDjd6AGmevZ87EcQRHgcO52e9uNsYELOrAa/Yh81YlmYLQJ5HWyq0+kzQ/DQKEusg6CRI27ryy8nReRS0wsoetkmRwogHSprliCckfEjXG9yAQc74J0WB99vu6DF3i3pMucsXM6tpBbxd2mVJAwXwGogNRBvGRA4jtHKTXkAIwLGCR/mT4Lh75oneQXXP9sAYfGRDCsnw7pX/jRZkU3M44kjw2l5zRIzb4CbZ8dULdL6wbNPZOpK0B6gN1UR1mdoxAaL/GrWiLPL3SEwW9YMTU/d64BtLahAVyucWhj9Mm8ign9IfQaBtd2/GbvCAEBpG5eMcrj2I0ktpKLeaqXQ3Pst42KGIshpdTmQLAeTgFGJ2wvh+tayMOR0n1RZ8B9z13vnOPBnsBq4E1ffgZpPFZHWVpO2cvhjYpOcbBd5TlhpDu5zq9mHGZcVi0y+VFkcFkDdyKJfTt99wEyHSEzDM90KH0nexpwZHJHKYYhjzlwGe0pP/IKfxociaEb7YDbi6KGJY1R2cR76E6NAtXqY4pPH3plLcl8LD7V+cOLUbUWRFZRPTAbVZO3mxK18Xc1ZaAiS8ARJXpZliXAomR94siiiMx8ZBOkXGTlnH0F/9ov1xPtWwEqP9wAAAAASUVORK5CYII=
@@ -25,8 +25,8 @@
 //
 // @include      https://*.imdb.tld/title/tt*
 // @include      https://*.imdb.tld/search/title*
-// @include      https://*.imdb.tld/user/ur*/watchlist*
-// @include      https://*.imdb.tld/user/ur*/ratings*
+// @include      https://*.imdb.tld/user/*/watchlist*
+// @include      https://*.imdb.tld/user/*/ratings*
 // @include      https://*.imdb.tld/list/ls*
 //
 // @include      https://*.imdb.tld/*/title/tt*
@@ -8101,7 +8101,7 @@ function performSearchSecondPart(elem, link, movie_id, showsites, scout_tick) {
   // Connection rate limiter for IMDb.
   var rate;
   if (!(GM_config.get('call_http_mod_search'))) {
-    rate =  400;
+    rate = 400;
   } else if (showsites > 99) {
     rate = 6500;
   } else if (showsites > 80) {
@@ -8132,69 +8132,73 @@ function performSearchSecondPart(elem, link, movie_id, showsites, scout_tick) {
     window.localStorage[domain+'_lastLoaded'] = (new Date())*1;
   }
 
-  GM.xmlHttpRequest({
-    method: "GET",
-    timeout: 10000,
-    url:    "https://www.imdb.com" + link.attr('href'),
-    anonymous: true, // prevent it sending cookies and going to a reference page if such option is enabled in imdb's acc
-    headers: { "User-Agent": "Mozilla/5.0 (Windows NT 6.1; Win64; x64; rv:108.0) Gecko/20100101 Firefox/108.0" },
-    onload: function(response) {
-      var parser = new DOMParser();
-      var result = parser.parseFromString(response.responseText, "text/html");
+  const query = { query: `query { title(id: "tt${movie_id}") { id titleText { text isOriginalTitle } originalTitleText { text } releaseYear { year } titleGenres { genres { genre { genreId } } } titleType { id } series { displayableEpisodeNumber { displayableSeason { text } episodeNumber { text } } series { id } } } }` };
 
-      // Note: Podcast Series|TV Mini Series - added only English.
-      var is_tv    = Boolean($(result).find('title').text().match(/Podcast Series|TV Mini Series|TV Series|Série télévisée|Fernsehserie|टीवी सीरीज़|Serie TV|Série de TV|Serie de TV/));
-      // newLayout || reference : check if 'title' has just a year in brackets, eg. "(2009)" // Note: 'title' is fail-safe measure if other checks fail. // v18.1 Note: Probably "fail-safe" makes this work properly on non english languages
-      var is_movie = (Boolean($(result).find('[data-testid=hero-title-block__metadata]').text().match('TV')) || Boolean($(result).find('li.ipl-inline-list__item').text().match('TV'))) ? false : Boolean($(result).find('title').text().match(/.*? \(([0-9]*)\)/));
-      // newLayout || reference  // Documentaries should be searched in both (tv and movie)
-      if (Boolean($(result).find('[property="og:title"]').attr('content').match(/Document|डॉक्यूमेंटरी|Dokument/)) || Boolean($(result).find('li.ipl-inline-list__item').text().match(/Document|डॉक्यूमेंटरी|Dokument/))) {
+  GM.xmlHttpRequest({
+    method: "POST",
+    timeout: 10000,
+    url:     "https://api.graphql.imdb.com",
+    data:    JSON.stringify(query),
+    headers: {
+      'Content-Type': 'application/json'
+    },
+    onload: function(response) {
+      if (response.status == 200) {
+        const body = JSON.parse(response.responseText);
+        if ("errors" in body || "error" in body) {
+          console.log("IMDb Scout Mod (performSearchSecondPart): Error in response.");
+          GM.notification("Error in response.", "IMDb Scout Mod (performSearchSecondPart)");
+          return;
+        }
+
+        // all titleType variations: movie, tvSeries, tvEpisode, tvMiniSeries, podcastSeries, podcastEpisode, video, tvMovie, tvSpecial, videoGame, musicVideo, tvShort, short
+        const titleType = (body.data.title.titleType == null) ? "" : body.data.title.titleType.id;
+        var is_tv    = (titleType.match(/tvSeries|podcastSeries|tvMiniSeries/)) ? true : false;
+        var is_movie = (titleType.match(/movie|video/)) ? true : false;
+
+        // Documentaries should be searched in both (tv and movie)
+        var genresString = (body.data.title.titleGenres == null) ? "" : body.data.title.titleGenres.genres.map(function(g){ return g.genre.genreId; }).join(", ");
+        if (genresString.match(/Documentary/)) {
         is_tv    = false;
         is_movie = false;
       }
-      var movie_year  = result.title.replace(/^(.+) \((\D*|)(\d{4})(.*)$/gi, '$3');
-      var movie_title = "";
-      var movie_title_orig = "";
-      if ($(result).find('[type=application\\/ld\\+json]:eq(0)').length) {
-        const rawJsn = $(result).find('[type=application\\/ld\\+json]:eq(0)').text();
-        const parseJsn = JSON.parse(rawJsn);
-        movie_title = htmlDecode(parseJsn.alternateName);  //  htmlDecode added in v19.3, https://www.imdb.com/title/tt0108550
-        movie_title_orig = htmlDecode(parseJsn.name);
-        // movie_title not found
-        if (movie_title === "" || movie_title === undefined) {
+
+        var movie_year       = (body.data.title.releaseYear == null) ? ""       : body.data.title.releaseYear.year + "";
+        var movie_title      = (body.data.title.titleText == null) ? ""         : body.data.title.titleText.text;
+        var movie_title_orig = (body.data.title.originalTitleText == null) ? "" : body.data.title.originalTitleText.text;
+        if (movie_title === "") {
           movie_title = movie_title_orig;
         }
-      } else {
-        console.log("IMDb Scout Mod (Get a title Error): Element not found! Please report it.");
-        GM.notification("Element not found! Please report it.", "IMDb Scout Mod (Get a title Error)");
-      }
-      // Streaming APIs support
-      var series_id  = "tt" + movie_id;
-      var season_id  = "1";
-      var episode_id = "1";
-      if (Boolean($(result).find('title').text().match(/TV Episode|Épisode télévisé|Fernsehepisode|टीवी एपिसोड|Episodio TV|Episódio de TV|Episodio de TV/))) {
-        if ($(result).find('h3[itemprop="name"]').length && $(result).find('.titlereference-overview-season-episode-numbers li').length) {
-          series_id  = $(result).find('h4[itemprop="name"] a').prop('href').match(/\/tt([0-9]+)\//)[0].replace(/\//g, "");
-          season_id  = $(result).find('.titlereference-overview-season-episode-numbers li').first().text().trim().match(/(\d+)/)[0];
-          episode_id = $(result).find('.titlereference-overview-season-episode-numbers li').last().text().trim().match(/(\d+)/)[0];
 
-        } else if ($('[data-testid=hero-subnav-bar-season-episode-numbers-section]').length) {
-          series_id  = $(result).find('[data-testid=hero-title-block__series-link]').prop('href').match(/\/tt([0-9]+)\//)[0].replace(/\//g, "");
-          const SE_numbers = $('[data-testid=hero-subnav-bar-season-episode-numbers-section]').text().trim().split('.');
-          season_id  = SE_numbers[0].match(/(\d+)/)[0];
-          episode_id = SE_numbers[1].match(/(\d+)/)[0];
-        }
+        // Streaming APIs support
+        let series_id, season_id, episode_id;
+        if (body.data.title.series == null) {
+          series_id  = "tt" + movie_id;
+          season_id  = "1";
+          episode_id = "1";
+      } else {
+            series_id  = body.data.title.series.series.id;
+            season_id  = body.data.title.series.displayableEpisodeNumber.displayableSeason.text;
+            episode_id = body.data.title.series.displayableEpisodeNumber.episodeNumber.text;
       }
 
       perform(elem, movie_id, movie_title, movie_title_orig, is_tv, is_movie, series_id, season_id, episode_id, movie_year, scout_tick);
+      } else {
+          console.log("IMDb Scout Mod (performSearchSecondPart): HTTP Error status - " + response.status);
+          GM.notification("HTTP Error status - " + response.status, "IMDb Scout Mod (performSearchSecondPart)");
+      }
       },
       onerror: function() {
-        console.log("IMDb Scout Mod (Lists): Request Error.");
+      console.log("IMDb Scout Mod (performSearchSecondPart): Request Error.");
+      GM.notification("Request Error.", "IMDb Scout Mod (performSearchSecondPart)");
       },
       onabort: function() {
-        console.log("IMDb Scout Mod (Lists): Abort.");
+      console.log("IMDb Scout Mod (performSearchSecondPart): Request aborted.");
+      GM.notification("Request aborted.", "IMDb Scout Mod (performSearchSecondPart)");
       },
       ontimeout: function() {
-        console.log("IMDb Scout Mod (Lists): Time out.");
+      console.log("IMDb Scout Mod (performSearchSecondPart): Request timed out.");
+      GM.notification("Request timed out.", "IMDb Scout Mod (performSearchSecondPart)");
       }
   });
 }
@@ -11252,23 +11256,12 @@ async function compactReferenceElemRemoval() {
     $('.ipc-page-section--sp-pageMargin:eq(0)').prev().remove(); // remove elem above the titles
   }
 
-  // Get principal credits from redesigned page
-  getStuffFomIMDb();
+  // Inject principal credits
+  getPrincipalCredits();
 
-  // Inject Top Review
-  if ($('.ipc-metadata-list-item__label:contains("Reviews")').length) {
-    if (GM_config.get("helpful_reviews_spoilers")) {
-      getIMDbBestReview(use_spoilers=true);
-    } else {
+  // Inject most helpful review
       getIMDbBestReview();
-    }
-  } else {
-      console.log("IMDb Scout Mod (BestReview): User reviews not detected.");
-  }
   $('.ipc-metadata-list-item__label:contains("Reviews")').parent().remove();
-
-  // Inject Box Office (graphQL API) // not actual anymore, left for example
-  // insertNewBoxOffice();
 
   // Delayed removal
   await sleep(500);
@@ -11290,282 +11283,207 @@ function delayedReferenceElemRemoval() {
 }
 
 //==============================================================================
-//    Get some elems from Redesigned page for the compact mode
+//    Inject principal credits into the compact mode
 //==============================================================================
 
-function getStuffFomIMDb() {
+function getPrincipalCredits() {
   const imdbid = document.URL.match(/\/tt([0-9]+)/)[1].trim('tt');
-  const url = "https://www.imdb.com/title/tt" +imdbid+ "/";
+  const query  = { query: `query { title(id: "tt${imdbid}") { principalCreditsV2 { grouping { text } credits(limit: 3) { name { id nameText { text } } } } } }` };
 
   GM.xmlHttpRequest({
-    method: "GET",
-    timeout: 20000,
-    anonymous: true, // prevent sending cookies, so imdb wouldn't switch to reference because of the user settings
-    url:    url,
-    headers: { "User-Agent": "Mozilla/5.0 (Windows NT 6.1; Win64; x64; rv:108.0) Gecko/20100101 Firefox/108.0" },
-    onload: function(response) {
-      if (response.status >= 200 && response.status < 300) {
-        const parser = new DOMParser();
-        const result = parser.parseFromString(response.responseText, "text/html");
-        // inject principal credits
-        const credits = $(result).find('[data-testid=title-pc-list]:eq(0)');
-        const target = $('.ipc-metadata-list--dividers-between:eq(0)');
-        if (credits.length && target.length) {
-          if ($('[data-testid=plot]').length) {
-            $('[data-testid=title-pc-principal-credit]').remove();
-            $('[data-testid=plot]:eq(0)').parent().parent().after(credits);
-            $('.ipc-icon--chevron-right').remove();
-          } else {
-              $('[data-testid=title-pc-principal-credit]').remove();
-              target.children().last().before(credits);
-              $('.ipc-icon--chevron-right').remove();
-          }
-        } else {
-            console.log("IMDb Scout Mod (getStuffFomIMDb): Element not found! Please report it.");
-            GM.notification("Element not found! Please report it.", "IMDb Scout Mod (getStuffFomIMDb)");
-        }
-      } else {
-          console.log("IMDb Scout Mod (getStuffFomIMDb): HTTP status: " + response.status);
-      }
-    },
-    onerror: function() {
-      console.log("IMDb Scout Mod (getStuffFomIMDb): Request Error.");
-    },
-    onabort: function() {
-      console.log("IMDb Scout Mod (getStuffFomIMDb): Request is aborted.");
-    },
-    ontimeout: function() {
-      console.log("IMDb Scout Mod (getStuffFomIMDb): Request timed out.");
-    }
-  });
-}
-
-//==============================================================================
-//    Inject Box Office (graphQL API) // Deprecated, left for example
-//==============================================================================
-
-function insertNewBoxOffice() {
-  const x = `<section class="titlereference-section-box-office_scout">
-              <h4 class="ipl-header__content ipl-list-title">Box Office (graphQL API)</h4>
-              <table class="titlereference-list ipl-zebra-list">
-                <tbody>
-                  <tr class="ipl-zebra-list__item">
-                    <td class="ipl-zebra-list__label">Worldwide Gross</td>
-                    <td class="scout_box_office_worldwide_gross">
-                        scout_placeholder
-                    </td></tr></tbody></table></section>`
-
-  const y = jQuery.parseHTML(x);
-  $('section.article').find('section').last().after(y);
-
-  let imdbid = document.URL.match(/\/tt([0-9]+)/)[1];
-      imdbid = "tt" + imdbid;
-
-  const GraphQLReq = {
-    query: `
-      query {
-        title(id: "${imdbid}") {
-          worldwideGross: rankedLifetimeGross(boxOfficeArea: WORLDWIDE) {
-            total {
-              amount
-            }
-          }
-        }
-      }`
-  };
-
-  GM.xmlHttpRequest({
-    method:  "POST",
+    method: "POST",
     timeout: 10000,
     url:     "https://api.graphql.imdb.com",
-    data:    JSON.stringify(GraphQLReq),
+    data:    JSON.stringify(query),
     headers: {
       'Content-Type': 'application/json'
     },
     onload: function(response) {
-      if (response.status >= 200 && response.status < 300) {
+      if (response.status == 200) {
         const body = JSON.parse(response.responseText);
-        let worldwidegross_amount;
-        if(body.data.title.worldwideGross !== null) {
-          worldwidegross_amount = body.data.title.worldwideGross.total.amount;
-          if (Number.isInteger(worldwidegross_amount)) {
-            worldwidegross_amount = `$${worldwidegross_amount.toLocaleString()}`; // To get "$40,000,000" from 40000000
-          } else {
-              worldwidegross_amount = String(worldwidegross_amount);
-          }
-        } else {
-            worldwidegross_amount = "null";
+        if ("errors" in body || "error" in body) {
+          console.log("IMDb Scout Mod (getPrincipalCredits): Error in response.");
+          GM.notification("Error in response.", "IMDb Scout Mod (getPrincipalCredits)");
+          return;
         }
-        $('.scout_box_office_worldwide_gross').html(worldwidegross_amount);
+
+        const principalCredits = (body && body.data && body.data.title && body.data.title.principalCreditsV2) || [];
+
+        var creditsHtml = principalCredits.map(function (creditGroup) {
+          const label = creditGroup.grouping && creditGroup.grouping.text ? creditGroup.grouping.text : "";
+
+          const itemsHtml = (creditGroup.credits || []).map(function (credit) {
+            const name = credit.name;
+            return `
+              <li class="ipc-inline-list__item" role="presentation">
+                <a class="ipc-metadata-list-item__list-content-item ipc-metadata-list-item__list-content-item--link" tabindex="0" aria-disabled="false" href="/name/${name.id}/">${name.nameText.text}</a></li>`;
+          }).join("");
+
+          return `
+            <li class="ipc-metadata-list__item ipc-metadata-list__item--align-end" role="presentation" data-testid="title-pc-principal-credit">
+              <span class="ipc-metadata-list-item__label ipc-btn--not-interactable" aria-disabled="false">${label}</span>
+              <div class="ipc-metadata-list-item__content-container">
+                <ul class="ipc-inline-list ipc-inline-list--show-dividers ipc-inline-list--inline ipc-metadata-list-item__list-content baseAlt" role="presentation">${itemsHtml}</ul></div></li>`;
+        }).join("");
+
+        if (creditsHtml !== "") {
+          creditsHtml = `<ul class="ipc-metadata-list ipc-metadata-list--dividers-all title-pc-list ipc-metadata-list--baseAlt" role="presentation" data-testid="title-pc-list">${creditsHtml}</ul>`;
+        }
+
+        const target = $('.ipc-metadata-list--dividers-between:eq(0)');
+        if (creditsHtml && target.length) {
+          if ($('[data-testid=plot]').length) {
+            $('[data-testid=title-pc-principal-credit]').remove();
+            $('[data-testid=plot]:eq(0)').parent().parent().after(creditsHtml);
+          } else {
+              $('[data-testid=title-pc-principal-credit]').remove();
+              target.children().last().before(creditsHtml);
+          }
+        }
+
       } else {
-          console.log("IMDb Scout Mod (insertGross): Error status: " +response.status);
-          console.log("IMDb Scout Mod (insertGross): Error response: " +response.responseText);
+          console.log("IMDb Scout Mod (getPrincipalCredits): HTTP error status: " + response.status);
+          GM.notification("HTTP error status: " + response.status, "IMDb Scout Mod (getPrincipalCredits)");
       }
     },
     onerror: function() {
-      console.log("IMDb Scout Mod (insertGross): Request Error.");
+      console.log("IMDb Scout Mod (getPrincipalCredits): Request Error.");
+      GM.notification("Request Error.", "IMDb Scout Mod (getPrincipalCredits)");
     },
     onabort: function() {
-      console.log("IMDb Scout Mod (insertGross): Request is aborted.");
+      console.log("IMDb Scout Mod (getPrincipalCredits): Request is aborted.");
+      GM.notification("Request is aborted.", "IMDb Scout Mod (getPrincipalCredits)");
     },
     ontimeout: function() {
-      console.log("IMDb Scout Mod (insertGross): Request timed out.");
+      console.log("IMDb Scout Mod (getPrincipalCredits): Request timed out.");
+      GM.notification("Request timed out.", "IMDb Scout Mod (getPrincipalCredits)");
     }
   });
 }
 
 //==============================================================================
-//    Helpful reviews
+//    Inject most helpful review into the compact mode
 //==============================================================================
 
-function getIMDbBestReview(use_spoilers=false) {
+function getIMDbBestReview() {
   const imdbid = document.URL.match(/\/tt([0-9]+)/)[1].trim('tt');
-  const new_url1 = "https://www.imdb.com/title/tt" +imdbid+ "/reviews/?sort=num_votes,desc&spoilers=EXCLUDE";
-  const new_url2 = "https://www.imdb.com/title/tt" +imdbid+ "/reviews/?sort=num_votes,desc";
-
-  let url;
-  if (use_spoilers) {
-    url = new_url2
-    console.log("IMDb Scout Mod (getIMDbBestReview): Started. Using new reviews URL with spoilers.");
-  } else {
-    url = new_url1
-    console.log("IMDb Scout Mod (getIMDbBestReview): Started. Using new reviews URL without spoilers.");
-  }
+  const use_spoilers = GM_config.get("helpful_reviews_spoilers");
+  const query = { query: `query { title(id: "tt${imdbid}") { reviews(first: 25) { edges { node { id spoiler submissionDate authorRating helpfulness { score } author { nickName userId } summary { originalText } text { originalText { plainText } } } } } } }` };
 
   GM.xmlHttpRequest({
-    method: "GET",
-    timeout: 20000,
-    url:    url,
-    headers: { "User-Agent": "Mozilla/5.0 (Windows NT 6.1; Win64; x64; rv:108.0) Gecko/20100101 Firefox/108.0" },
+    method: "POST",
+    timeout: 10000,
+    url:     "https://api.graphql.imdb.com",
+    data:    JSON.stringify(query),
+    headers: {
+      'Content-Type': 'application/json'
+    },
     onload: function(response) {
-      const parser = new DOMParser();
-      const result = parser.parseFromString(response.responseText, "text/html");
-      var bestScore, topreview, hasspoilers;
-      var xTitle, xRevLink, xReview, xUser, xUsrLink, xDate, xRating, xSpoiler;
-
-      if ($(result).find('[id=__NEXT_DATA__]:eq(0)').length) {
-        console.log("IMDb Scout Mod (getIMDbBestReview): Redesigned reviews page detected.");
-        const rawJsn   = $(result).find('[id=__NEXT_DATA__]:eq(0)').text();
-        const parseJsn = JSON.parse(rawJsn);
-        const reviews  = parseJsn.props.pageProps.contentData.reviews;
-
-        if (!use_spoilers && !reviews.length) {
-          console.log("IMDb Scout Mod (getIMDbBestReview): Reviews not found! Restarting with spoilers enabled!.");
-          getIMDbBestReview(use_spoilers=true);
+      if (response.status == 200) {
+        const body = JSON.parse(response.responseText);
+        if ("errors" in body || "error" in body) {
+          console.log("IMDb Scout Mod (getIMDbBestReview): Error in response.");
+          GM.notification("Error in response.", "IMDb Scout Mod (getIMDbBestReview)");
           return;
         }
+        if (!body.data.title.reviews.edges.length) {
+          console.log("IMDb Scout Mod (getIMDbBestReview): User reviews not found.");
+          return;
+}
 
-        reviews.forEach((item) => {
-          const spoiler   = item.review.spoiler;
-          let upvotes, downvotes;
-          if (item.review.helpfulnessVotes === undefined) { // review doesn't have votes
-            upvotes   = 0;
-            downvotes = 0;
+        let spoilerless;
+        if (!use_spoilers) {
+          spoilerless = JSON.parse(JSON.stringify(body)); // clone body, ES6 compatible
+          spoilerless.data.title.reviews.edges = spoilerless.data.title.reviews.edges.filter(function (e) {
+            return !(e.node && e.node.spoiler);
+          });
+        }
+
+        let bestNode;
+        if (use_spoilers || !spoilerless.data.title.reviews.edges.length) {
+          bestNode = body.data.title.reviews.edges.reduce((best, edge) => {
+            return edge.node.helpfulness.score > best.node.helpfulness.score ? edge : best;
+          }).node;
           } else {
-            upvotes   = item.review.helpfulnessVotes.upVotes;
-            downvotes = item.review.helpfulnessVotes.downVotes;
+          bestNode = spoilerless.data.title.reviews.edges.reduce((best, edge) => {
+            return edge.node.helpfulness.score > best.node.helpfulness.score ? edge : best;
+          }).node;
           }
-          const score = wilsonScore(upvotes, downvotes);
 
-          if(bestScore === undefined) {
-              bestScore        = score;
-              topreview        = item;
-              hasspoilers      = spoiler;
-          } else if (score > bestScore) {
-              bestScore        = score;
-              topreview        = item;
-              hasspoilers      = spoiler;
-          }
-        });
+        const xTitle   = bestNode.summary.originalText;
+        const xRevLink = "/review/" + bestNode.id + "/";
+        const xReview  = newlines2brakes(bestNode.text.originalText.plainText);
+        const xUser    = bestNode.author.nickName;
+        const xUsrLink = "/user/" + bestNode.author.userId + "/";
+        const xDate    = bestNode.submissionDate;
+        const xRating  = (bestNode.authorRating == null) ? "x" : bestNode.authorRating;
+        const xSpoiler = bestNode.spoiler ? "Warning: Spoilers" : "";
 
-        xTitle   = htmlDecode(topreview.review.reviewSummary);
-        xRevLink = "/review/" + topreview.review.reviewId;
-        xReview  = htmlDecode(topreview.review.reviewText);
-        xUser    = htmlDecode(topreview.review.author.nickName);
-        xUsrLink = "/user/" + topreview.review.author.userId;
-        xDate    = topreview.review.submissionDate;
-        xRating  = topreview.review.authorRating;
-        xSpoiler = "";
+        let x = `
+          <section class="ipc-page-section ipc-page-section--base celwidget">
+            <div class="ipc-title ipc-title--base ipc-title--section-title ipc-title--on-textPrimary">
+              <div class="ipc-title__wrapper">
+                <hgroup>
+                  <h3 class="ipc-title__text ipc-title__text--reduced">
+                    <span>Most helpful review</span>
+                  </h3>
+                </hgroup>
+              </div>
+            </div>
+            <div data-testid="title-boxoffice-section" class="sc-314065ad-0 hZXevt">
+              <div>
+                <p class="spoiler-warning" style="font-weight:bold; color:red;">${xSpoiler}</p>
+                <div class="ipc-metadata-list__item ipc-metadata-list__item--align-end">
+                  <span class="scout_review_rating">
+                    <span class="ipc-rating-star ipc-rating-star--base ipc-rating-star--imdb ratingGroup--imdb-rating">
+                      <svg width="24" height="24" xmlns="http://www.w3.org/2000/svg" class="ipc-icon ipc-icon--star-inline" viewBox="0 0 24 24" fill="currentColor" role="presentation">
+                        <path d="M12 20.1l5.82 3.682c1.066.675 2.37-.322 2.09-1.584l-1.543-6.926 5.146-4.667c.94-.85.435-2.465-.799-2.567l-6.773-.602L13.29.89a1.38 1.38 0 0 0-2.581 0l-2.65 6.53-6.774.602C.052 8.126-.453 9.74.486 10.59l5.147 4.666-1.542 6.926c-.28 1.262 1.023 2.26 2.09 1.585L12 20.099z"></path>
+                      </svg>
+                    </span><span class="ipc-metadata-list-item__label ipc-btn--not-interactable">${xRating}</span>
+                    <span class="ipc-metadata-list-item__label ipc-btn--not-interactable">|</span>
+                    <span>
+                      <a class="ipc-metadata-list-item__list-content-item ipc-metadata-list-item__list-content-item--link" style="font-size:20px; color:#3399ff;" href="${xRevLink}">${xTitle}</a>
+                    </span>
+                  </span>
+                </div>
+                <div class="ipc-chip__text">${xReview}</div>
+                <div class="display-name-date">
+                  <span class="ipc-metadata-list-item__label ipc-btn--not-interactable">Review by:</span>
+                  <span class="display-name-link">
+                    <a style="font-size:16px; color:#3399ff;" href="${xUsrLink}">${xUser}</a>
+                  </span>
+                  <span class="ipc-chip__text">(${xDate})</span>
+                </div>
+              </div>
+            </div>
+          </section>
+        `;
 
-        if(xRating === undefined) {xRating = "x"}
-        if(hasspoilers) {xSpoiler = "Warning: Spoilers"}
+        let y = jQuery.parseHTML(x);
+        $('.ipc-page-section--sp-pageMargin:eq(0)').parent().after(y);
 
       } else {
-          console.log("IMDb Scout Mod (getIMDbBestReview): Element not found! Please report it.");
-          GM.notification("Element not found! Please report it.", "IMDb Scout Mod (getIMDbBestReview)");
-          return;
+          console.log("IMDb Scout Mod (getIMDbBestReview): HTTP Error status - " + response.status);
+          GM.notification("HTTP Error status - " + response.status, "IMDb Scout Mod (getIMDbBestReview)");
       }
-
-      let x = '' +
-        '<section class="ipc-page-section ipc-page-section--base celwidget">' +
-        '  <div class="ipc-title ipc-title--base ipc-title--section-title ipc-title--on-textPrimary">' +
-        '    <div class="ipc-title__wrapper">' +
-        '      <hgroup>' +
-        '        <h3 class="ipc-title__text ipc-title__text--reduced">' +
-        '          <span>Most helpful review</span>' +
-        '        </h3>' +
-        '      </hgroup>' +
-        '    </div>' +
-        '  </div>' +
-        '  <div data-testid="title-boxoffice-section" class="sc-314065ad-0 hZXevt">' +
-        '    <div>' +
-        '      <p class="spoiler-warning" style="font-weight:bold; color:red;">xSpoiler</p>' +
-        '      <div class="ipc-metadata-list__item ipc-metadata-list__item--align-end">' +
-        '        <span class="scout_review_rating">' +
-        '          <span class="ipc-rating-star ipc-rating-star--base ipc-rating-star--imdb ratingGroup--imdb-rating">' +
-        '            <svg width="24" height="24" xmlns="http://www.w3.org/2000/svg" class="ipc-icon ipc-icon--star-inline" viewBox="0 0 24 24" fill="currentColor" role="presentation">' +
-        '              <path d="M12 20.1l5.82 3.682c1.066.675 2.37-.322 2.09-1.584l-1.543-6.926 5.146-4.667c.94-.85.435-2.465-.799-2.567l-6.773-.602L13.29.89a1.38 1.38 0 0 0-2.581 0l-2.65 6.53-6.774.602C.052 8.126-.453 9.74.486 10.59l5.147 4.666-1.542 6.926c-.28 1.262 1.023 2.26 2.09 1.585L12 20.099z"></path>' +
-        '            </svg>' +
-        '          </span><span class="ipc-metadata-list-item__label ipc-btn--not-interactable">xRating</span>' +
-        '          <span class="ipc-metadata-list-item__label ipc-btn--not-interactable">|</span>' +
-        '          <span>' +
-        '            <a class="ipc-metadata-list-item__list-content-item ipc-metadata-list-item__list-content-item--link" style="font-size:20px; color:#3399ff;" href="xRevLink">xTitle</a>' +
-        '          </span>' +
-        '        </span>' +
-        '      </div>' +
-        '      <div class="ipc-chip__text">xReview</div>' +
-        '      <div class="display-name-date">' +
-        '        <span class="ipc-metadata-list-item__label ipc-btn--not-interactable">Review by:</span>' +
-        '        <span class="display-name-link">' +
-        '          <a style="font-size:16px; color:#3399ff;" href="xUsrLink">xUser</a>' +
-        '        </span>' +
-        '        <span class="ipc-chip__text">(xDate)</span>' +
-        '      </div>' +
-        '    </div>' +
-        '  </div>' +
-        '</section>';
-
-      x = x.replace('xTitle', xTitle);
-      x = x.replace('xRevLink', xRevLink);
-      x = x.replace('xReview', xReview);
-      x = x.replace('xUser', xUser);
-      x = x.replace('xUsrLink', xUsrLink);
-      x = x.replace('xDate', xDate);
-      x = x.replace('xRating', xRating);
-      x = x.replace('xSpoiler', xSpoiler);
-
-      let y = jQuery.parseHTML(x);
-      $('.ipc-page-section--sp-pageMargin:eq(0)').parent().after(y);
     },
     onerror: function() {
-      console.log("IMDb Scout Mod (Review): Request Error.");
+      console.log("IMDb Scout Mod (getIMDbBestReview): Request Error.");
+      GM.notification("Request Error.", "IMDb Scout Mod (getIMDbBestReview)");
     },
     onabort: function() {
-      console.log("IMDb Scout Mod (Review): Request is aborted.");
+      console.log("IMDb Scout Mod (getIMDbBestReview): Request aborted.");
+      GM.notification("Request aborted.", "IMDb Scout Mod (getIMDbBestReview)");
     },
     ontimeout: function() {
-      console.log("IMDb Scout Mod (Review): Request timed out.");
+      console.log("IMDb Scout Mod (getIMDbBestReview): Request timed out.");
+      GM.notification("Request timed out.", "IMDb Scout Mod (getIMDbBestReview)");
     }
   });
 }
 
-function wilsonScore(upVotes, downVotes, z = 1.95996) {
-  const n = upVotes + downVotes;
-  if (n === 0) return 0;
-  const phat = upVotes / n;
-  const numerator = phat + (z * z) / (2 * n) - z * Math.sqrt((phat * (1 - phat) + (z * z) / (4 * n)) / n);
-  const denominator = 1 + (z * z) / n;
-  return numerator / denominator;
+function newlines2brakes(value) {
+  return value.replace(/\n/g, "<br>");
 }
 
 //==============================================================================
