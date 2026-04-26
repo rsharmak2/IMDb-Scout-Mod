@@ -11126,6 +11126,13 @@ function darkReferenceStyles() {
   if (!GM_config.get('dark_compact_reference_view') || !onReferencePage) {
     return;
   }
+
+  if (document.querySelector('.IMDbScoutStyles')) {  // temp test check
+    console.log("❌ IMDb Scout Mod (darkReferenceStyles): Double loading!");
+    GM.notification("Double loading!", "IMDb Scout Mod (darkReferenceStyles)");
+    return;
+  }
+
   console.log("IMDb Scout Mod (darkReferenceStyles): Started.");
   // www.w3schools.com/colors/colors_picker.asp
 
@@ -11193,7 +11200,8 @@ async function compactReferenceElemRemoval() {
 
   // Check if the Styles funcs were executed as it may not happened at 'bodyloaded' event on very slow PCs + Chrome
   if (!$('.IMDbScoutStyles').length) {
-    console.log("IMDb Scout Mod (Warning): Slow device!");
+    console.log("❌ IMDb Scout Mod (Warning): Slow device!");
+    GM.notification("Slow device!", "IMDb Scout Mod (Warning)");
     darkReferenceStyles();
   }
 
@@ -11693,6 +11701,46 @@ function countSites(task) {
 //================================  MAIN  ====================================//
 //============================================================================//
 
+
+
+//==============================================================================
+//    IMDb anti-bot JS challenge detection
+//==============================================================================
+
+if (document.querySelector('script[src*="challenge.js"]')) {
+  console.log("❌ IMDb Scout Mod: Anti-bot JS challenge detected. Skipping execution.");
+  return;
+}
+
+//==============================================================================
+//    Remove tracking from IMDb's URL before start
+//    Force the title pages to open in Reference View
+//==============================================================================
+
+if (Boolean(location.href.match('\\?ref_=')) || Boolean(location.href.match('\\?pf_'))) {
+  let stripped_href = location.href.split('?ref_=')[0];
+      stripped_href = stripped_href.split('?pf_')[0];
+  if (GM_config.get('force_reference_view') && Boolean(location.href.match('/title/tt')) && !Boolean(location.href.match('reference'))) {
+    console.log("IMDb Scout Mod (Redirect): Redirect to Reference Page (tracking stripped).");
+    if (stripped_href.endsWith('/')) {
+      stripped_href = stripped_href + "reference/";
+    } else {
+        stripped_href = stripped_href + "/reference/";
+    }
+  }
+  window.location.replace(stripped_href);
+  return;
+} else if (GM_config.get('force_reference_view') && Boolean(location.href.match('/title/tt')) && !Boolean(location.href.match('reference'))) {
+    console.log("IMDb Scout Mod (Redirect): Redirect to Reference Page.");
+    let reference_href = location.href;
+    if (reference_href.endsWith('/')) {
+      reference_href = reference_href + "reference/";
+    } else {
+        reference_href = reference_href + "/reference/";
+    }
+    window.location.replace(reference_href);
+    return;
+}
 
 //==============================================================================
 //    Polyfill for GM3 notifications
@@ -12560,36 +12608,6 @@ GM_config.init({
 GM.registerMenuCommand('IMDb Scout Mod Settings', function() {GM_config.open();});
 
 //==============================================================================
-//    Remove tracking from IMDb's URL before start
-//    Force the title pages to open in Reference View
-//==============================================================================
-
-if (Boolean(location.href.match('\\?ref_=')) || Boolean(location.href.match('\\?pf_'))) {
-  let stripped_href = location.href.split('?ref_=')[0];
-      stripped_href = stripped_href.split('?pf_')[0];
-  if (GM_config.get('force_reference_view') && Boolean(location.href.match('/title/tt')) && !Boolean(location.href.match('reference'))) {
-    console.log("IMDb Scout Mod (Redirect): Redirect to Reference Page (tracking stripped).");
-    if (stripped_href.endsWith('/')) {
-      stripped_href = stripped_href + "reference";
-    } else {
-        stripped_href = stripped_href + "/reference";
-    }
-  }
-  window.location.replace(stripped_href);
-  return;
-} else if (GM_config.get('force_reference_view') && Boolean(location.href.match('/title/tt')) && !Boolean(location.href.match('reference'))) {
-    console.log("IMDb Scout Mod (Redirect): Redirect to Reference Page.");
-    let reference_href = location.href;
-    if (reference_href.endsWith('/')) {
-      reference_href = reference_href + "reference";
-    } else {
-        reference_href = reference_href + "/reference";
-    }
-    window.location.replace(reference_href);
-    return;
-}
-
-//==============================================================================
 //    Fetch per-site values from GM_config
 //==============================================================================
 
@@ -12755,20 +12773,18 @@ function startIMDbScout() {
 }
 
 if (onReferencePage) {
-  console.log("IMDb Scout Mod (Start): Reference page detected.");
-  document.events.on('bodyloaded', () => { // This instead of DOMContentLoaded is just to prevent white->black flick when darkstyle is enabled
-    darkReferenceStyles();
-  });
-  window.addEventListener('DOMContentLoaded', compactReferenceElemRemoval);
-  window.addEventListener('DOMContentLoaded', adsRemovalReference);
-  window.addEventListener('DOMContentLoaded', startIMDbScout);
+  console.log("✅ IMDb Scout Mod (Start): Starting Reference page.");
+  document.events.on('bodyloaded', () => { darkReferenceStyles(); });
+  document.addEventListener('DOMContentLoaded', compactReferenceElemRemoval, { once: true });
+  document.addEventListener('DOMContentLoaded', adsRemovalReference, { once: true });
+  document.addEventListener('DOMContentLoaded', startIMDbScout, { once: true });
 } else {
-  // Start for redesigned page
-  if (navigator.userAgent.toLowerCase().indexOf('firefox') > -1) {
-    window.addEventListener('DOMContentLoaded', startRedesign);
-  } else {
-    window.addEventListener('DOMContentLoaded', startObserver);  // counter reflow on Chrome
-  }
+    console.log("✅ IMDb Scout Mod (Start): Starting ReDesigned page.");
+    if (navigator.userAgent.toLowerCase().indexOf('firefox') > -1) {
+      document.addEventListener('DOMContentLoaded', startRedesign, { once: true });
+    } else {
+      document.addEventListener('DOMContentLoaded', startObserver, { once: true });  // counter reflow on Chrome
+    }
 }
 
 scoutWarning();
