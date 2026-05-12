@@ -1,7 +1,7 @@
 // ==UserScript==
 //
 // @name         IMDb Scout Mod
-// @version      1.43
+// @version      1.44
 // @namespace    https://github.com/Purfview/IMDb-Scout-Mod
 // @description  Auto search for movie/series on torrent, usenet, ddl, subtitles, streaming, predb and other sites. Adds links to IMDb pages from hundreds various sites. Adds movies/series to Radarr/Sonarr. Adds external ratings from Metacritic, Rotten Tomatoes, Letterboxd, Douban, Allocine, MyAnimeList, AniList. Media Server indicators for Plex, Jellyfin, Emby. Dark theme/style for Reference View. Adds/Removes to/from Trakt's watchlist. Removes ads.
 // @icon         data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAEAAAABABAMAAABYR2ztAAAAMFBMVEUAAAD/AAAcAAA1AABEAABVAAC3AADnAAD2AACFAAClAABlAAB3AADHAACVAADYAABCnXhrAAAD10lEQVRIx73TV4xMURgH8H/OnRmZWe3T7h2sOWaNXu7oJRg9UccuHgTRBatMtAgSg+gJu9q+kFmihcQoD8qLTkK0CIkoy0YJITsRD0rCKTHFrnkSv5e5c88/53znO+fiPwvsvrN038cPNqrG9pJmHkRVnPcpaTlHJY60cfPSpsrzl1LKihrmLvxhCM2i3OHvDx0d+H7e3F6JBv5iZMiJfhFTfPYDMHrMImpwimWWUdSgDQkbno7fFpUPVgh+pHFbZR4SovSctDCM9Hac9IKd9rO8EevtBCkXgY5IMmgquwypP7qqfcp/Tp4KLONDVsWh3RSBB2rnZfit69ocUdqLn2prrRZYM0Jg4JibamKsqe7gfEh5GOAfeYJjVHIPZvil97rcXkMog30byWRwXYRWoxHbzNFHJJpAarO8NdEBBsdCaP3WMJltTmQd4zlnekTq9Z5dgACwAlrpK4BxdV5mvLuspRgMSHbCIFF0iS8MZ5S8oYBYKY7rByC4dDM9uSIUmPOIwxgQBoYeF93auP4qFyPbIVXziWeGTH1EFM57kJo2hqQju6BwIyRf6RmCjdT4JOdiwNgiH/PPD3qoqlsNaXRd+fKtFfECxlZVNVF9SOsgTZEr2TUjJJbyeNX1IZrKIbyGlBABfpQPv2UDrly13LkJXDVhpQ5MhtGwcyF4HKjlU4E8xwB0AvDjd6AGmevZ87EcQRHgcO52e9uNsYELOrAa/Yh81YlmYLQJ5HWyq0+kzQ/DQKEusg6CRI27ryy8nReRS0wsoetkmRwogHSprliCckfEjXG9yAQc74J0WB99vu6DF3i3pMucsXM6tpBbxd2mVJAwXwGogNRBvGRA4jtHKTXkAIwLGCR/mT4Lh75oneQXXP9sAYfGRDCsnw7pX/jRZkU3M44kjw2l5zRIzb4CbZ8dULdL6wbNPZOpK0B6gN1UR1mdoxAaL/GrWiLPL3SEwW9YMTU/d64BtLahAVyucWhj9Mm8ign9IfQaBtd2/GbvCAEBpG5eMcrj2I0ktpKLeaqXQ3Pst42KGIshpdTmQLAeTgFGJ2wvh+tayMOR0n1RZ8B9z13vnOPBnsBq4E1ffgZpPFZHWVpO2cvhjYpOcbBd5TlhpDu5zq9mHGZcVi0y+VFkcFkDdyKJfTt99wEyHSEzDM90KH0nexpwZHJHKYYhjzlwGe0pP/IKfxociaEb7YDbi6KGJY1R2cR76E6NAtXqY4pPH3plLcl8LD7V+cOLUbUWRFZRPTAbVZO3mxK18Xc1ZaAiS8ARJXpZliXAomR94siiiMx8ZBOkXGTlnH0F/9ov1xPtWwEqP9wAAAAASUVORK5CYII=
@@ -2701,7 +2701,7 @@ var private_sites = [
       'icon': 'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADAAAAAwBAMAAAClLOS0AAAAMFBMVEUAAAACBQYKFBUYLi8RIiEhPDwwTk08Xl1Ha2qLr6xih4V6n5xZfnxrkY9QdnMnO0qf17w2AAAAAXRSTlMAQObYZgAAApxJREFUOMtt0D9v00AYBvADvkDPhIrVVwMbEr24jFXPV8HC0tQRgqFDiZ0FsRRfpAILUmxFoWKtKhiryP2zp2knhpZgmBGRWalQlKUqjOU5N0rkiCc5W3p/fv2ejxDilD2l/I3w2G/spclOBzkkyAwv+1FY7Z6Er9JOJ25vIlubhFx1uOvVwuqgrhpp+wiQ5T25xjleFflB2MoDB6DDq53uZ3Cwk8FHwku8rFTgd0/2m712Z7tY/aLhA7EBqFfjFqCzvUDv19cz4ADPi1S39a2ZHiwx0xJz74bgvvA1JM30k8EkNawHQ7CxK/UbsL9gMEZnLv68HoIfZrDxllKGn+UsfsZwDehotPrBPUoNilWtrx8RezWDoNGqFwWKWDfbm+0D4p5xW6la0DxeltKkjAv6qLMFwKvm1MtqoM7PLy5mKXMEfYrzRccqn/OCclCSks8vMyYs9rx31ANUAEo9Y8xBhyVMWviadnqHGK4hEPiuv9EaYyadTtNeqsEBrGE/zFk5Mxmld3/E6d5PDAd4gmWxTHzGkyEsA2azKhbAaMRx3P1O7KIzv8SGoYDp3ThOui2ALDFBEf088jDp7ib9E8KlFIxmuby96SdJMjjVgCfHuT4Y9AG/ALo8zp3BYJAkGxpoLo+jCBSFRIpcvVCLkP/ALaVUFEZhQCyWg7LyPD+qAUQObgS+55Z9pQC5TeHYKq5bDgKPiNxoz/NcDRWX5BpuoyED1yW50fMoa6hMQEFXbdddqdhDKCxkaxHFEufZRYNh6QMuzFKHX8bml2BJhBbkCHgxAyMDsyCFNQIpNTAmmMRfWg4qUl8yYBBmaWCOHAVgomcUqEQsC4AYJhZFxo+QKzQfEF7LpjRMipCMThEyCQxlZhIyFgwZDSTkH932W9Rs1pyHAAAAAElFTkSuQmCC',
       'searchUrl': 'https://darkpeers.org/torrents?imdbId=%nott%',
       'loggedOutRegex': /Cloudflare|Ray ID|Forgot your password|Service Unavailable/,
-      'matchRegex': /torrents\/download|torrent-search--poster__poster/,
+      'matchRegex': /torrents\/download|torrent-search--poster__poster|torrent-search--list__no-poster-row/,
       'seedingRegex': /fa-arrow-circle-up|torrent-activity-indicator--seeding/,
       'positiveMatch': true,
       'both': true},
@@ -2709,7 +2709,7 @@ var private_sites = [
       'icon': 'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADAAAAAwBAMAAAClLOS0AAAAMFBMVEUAAAACBQYKFBUYLi8RIiEhPDwwTk08Xl1Ha2qLr6xih4V6n5xZfnxrkY9QdnMnO0qf17w2AAAAAXRSTlMAQObYZgAAApxJREFUOMtt0D9v00AYBvADvkDPhIrVVwMbEr24jFXPV8HC0tQRgqFDiZ0FsRRfpAILUmxFoWKtKhiryP2zp2knhpZgmBGRWalQlKUqjOU5N0rkiCc5W3p/fv2ejxDilD2l/I3w2G/spclOBzkkyAwv+1FY7Z6Er9JOJ25vIlubhFx1uOvVwuqgrhpp+wiQ5T25xjleFflB2MoDB6DDq53uZ3Cwk8FHwku8rFTgd0/2m712Z7tY/aLhA7EBqFfjFqCzvUDv19cz4ADPi1S39a2ZHiwx0xJz74bgvvA1JM30k8EkNawHQ7CxK/UbsL9gMEZnLv68HoIfZrDxllKGn+UsfsZwDehotPrBPUoNilWtrx8RezWDoNGqFwWKWDfbm+0D4p5xW6la0DxeltKkjAv6qLMFwKvm1MtqoM7PLy5mKXMEfYrzRccqn/OCclCSks8vMyYs9rx31ANUAEo9Y8xBhyVMWviadnqHGK4hEPiuv9EaYyadTtNeqsEBrGE/zFk5Mxmld3/E6d5PDAd4gmWxTHzGkyEsA2azKhbAaMRx3P1O7KIzv8SGoYDp3ThOui2ALDFBEf088jDp7ib9E8KlFIxmuby96SdJMjjVgCfHuT4Y9AG/ALo8zp3BYJAkGxpoLo+jCBSFRIpcvVCLkP/ALaVUFEZhQCyWg7LyPD+qAUQObgS+55Z9pQC5TeHYKq5bDgKPiNxoz/NcDRWX5BpuoyED1yW50fMoa6hMQEFXbdddqdhDKCxkaxHFEufZRYNh6QMuzFKHX8bml2BJhBbkCHgxAyMDsyCFNQIpNTAmmMRfWg4qUl8yYBBmaWCOHAVgomcUqEQsC4AYJhZFxo+QKzQfEF7LpjRMipCMThEyCQxlZhIyFgwZDSTkH932W9Rs1pyHAAAAAElFTkSuQmCC',
       'searchUrl': 'https://darkpeers.org/torrents?tmdbId=%tmdbid%',
       'loggedOutRegex': /Cloudflare|Ray ID|Forgot your password|Service Unavailable/,
-      'matchRegex': /torrents\/download|torrent-search--poster__poster/,
+      'matchRegex': /torrents\/download|torrent-search--poster__poster|torrent-search--list__no-poster-row/,
       'seedingRegex': /fa-arrow-circle-up|torrent-activity-indicator--seeding/,
       'positiveMatch': true,
       'both': true},
@@ -4669,13 +4669,13 @@ var french_sites = [
       'both': true},
   {   'name': 'Torr9',
       'icon': 'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACAAAAAgBAMAAACBVGfHAAAAGFBMVEUAAAD////Jycl1dXUjIyPX19dbW1uZmZloaBbIAAAAd0lEQVQoz2OgGyhSZwtSAgF1qICiKLMgGIjCBISgAkJIAqJAHSgCImAazHU2DgQKCBsbGweKGpsABRIFBYECUCBGlACLC9AwFxBQFHVxABsLFXAA0mgOIyyA8AuLMRiYwQXQwkNRUAkCwuECUCCES6BUCa6FXgAAUtUXhxvDbAgAAAAASUVORK5CYII=',
-      'searchUrl': 'https://torr9.net/search?q=%search_string_orig%+%year%&category=film',
+      'searchUrl': 'https://torr9.net/search?category=film&tmdb_id=%tmdbid%',
       'loggedOutRegex': /head/,
       'matchRegex': /doesnt work anymore. needs token/,
       'positiveMatch': true},
   {   'name': 'Torr9',
       'icon': 'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACAAAAAgBAMAAACBVGfHAAAAGFBMVEUAAAD////Jycl1dXUjIyPX19dbW1uZmZloaBbIAAAAd0lEQVQoz2OgGyhSZwtSAgF1qICiKLMgGIjCBISgAkJIAqJAHSgCImAazHU2DgQKCBsbGweKGpsABRIFBYECUCBGlACLC9AwFxBQFHVxABsLFXAA0mgOIyyA8AuLMRiYwQXQwkNRUAkCwuECUCCES6BUCa6FXgAAUtUXhxvDbAgAAAAASUVORK5CYII=',
-      'searchUrl': 'https://torr9.net/search?q=%search_string_orig%&category=tv',
+      'searchUrl': 'https://torr9.net/search?category=tv&tmdb_id=%tmdbid%',
       'loggedOutRegex': /head/,
       'matchRegex': /doesnt work anymore. needs token/,
       'positiveMatch': true,
