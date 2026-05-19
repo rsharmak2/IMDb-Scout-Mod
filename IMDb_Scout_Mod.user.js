@@ -32,6 +32,7 @@
 // @include      https://*.imdb.tld/*/title/tt*
 //
 // @exclude      /title\/tt\d+\/\w(?!(eference))/
+// @exclude      /list\/ls.*\/edit/
 // @exclude      /anon/
 // @exclude      /pro.imdb/
 //
@@ -4045,7 +4046,7 @@ var private_sites = [
       'loggedOutRegex': /Cloudflare|Ray ID|forgot-password/,
       'matchRegex': /Sonuç bulunamadı|no results found/,
       'both': true},
-  {   'name': 'TVCK',
+  {   'name': 'TVCUK',
       'icon': 'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAMAAAAoLQ9TAAABrVBMVEUAAAAKCkekpquLio6fnrKujJGpuLru6enf3+BaW382NVaXR0h8e4GgpbCGhZTO2OScmp7S0/JWVHeuh4nq3NzX0tMoJlLSIySlVW62MTLbvb3RtLYdHUfCJiTRm6KVc4TwY2PYVFu/YWGgfYI/PGvoLCyrkZa3fH6fam2VKCvAm56ZJCWOWXeaOjyRf4MvL3lDQWUlJEZdX4HsUVQ0M4yOVVu3NjejlaiChpZCQWYpKbfOtMLhra7FoKalWFrArrfMprIvLlebiJz8/PxydoaOOz2YZGaZhIjKtLZ+fo64u8BPT2KRkal4aHdJSnR/g7uIgIhzX2yZOjteZLd6eb5rc6G/V1e9eXzjrq1JR1jhioqXnObksLVKTJxaSFxsbJCvo6hoZ3jDyNvk4uf3o6Khm63ptrhGRnU5Ooi8sbKAforqwr+7t7Zqa4eLkqjy8fF/fqL+w72ne31FTHrEx8WIhoqRlrfRpKOGjZJteoD///+Vm6DCv79xcYfh4uakaWvpFhbh19jnzc3Zy8y2tsfrubnKhoitXnSeWVyoTVsAAFryVlfETlDiJiXqJCRdnEgIAAAAf3RSTlMA/Tg3FQ0J/vz7vLyDXEUrHwn+/fv6+ff09PPz8/Py8vLy8O/v7+7u7u7s6uno5+fm5uTj4N/e19fW1NHPzs7MyMjGxcPBwL25t7axrKqqqaSemJKQkIyJiIiHhYSAf318enlzb2tmZmJdXE1NSkg/PDkzMjAwLi4tJiUlJB0QJvYP6gAAANRJREFUGNNjgIAq53wGOKgD4uQWH1a4QLxfarkHp0wWX6g/E1ggnVEoIducq8SpXacCLFBmxGkfYesSpdDjxgYW4Of14mBn59BS5uEVBHJZ06xjbNqaGoX13Aujg2sZGMJke/saGlqb6yXFVY0lPJkYioK0XbnVRUTrlTS4zXR5BBgY2PiYkuSkpDvULPJymCGGOihqBsrbBYjph0AcltLdGVes4ltj2WXFAhYIN/XOjWU0yEx0NCkAC1RXsjFkMBoyM7CWssD9w8IVCWMKQihmASgfAFEOKVdX7K2WAAAAAElFTkSuQmCC',
       'searchUrl': 'https://tvchaosuk.com/torrents/filter?imdb=%tt%',
       'loggedOutRegex': /Forgot Your Password|Forgot your password/,
@@ -4574,6 +4575,12 @@ var french_sites = [
       'searchUrl': 'https://la-cale.space/search?cat=video&tmdbId=%tmdbid%',
       'loggedOutRegex': /Cloudflare|Ray ID|forgot-password|Mot de passe oublié/,
       'matchRegex': /Cale Vide/,
+      'both': true},
+  {   'name': 'NXM',
+      'icon': 'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAABmJLR0QA/wD/AP+gvaeTAAABM0lEQVQ4jc2TvUpCcRjGf+9fxdNfSnIMapOiiBYvo8Eb6AYaglBMG8oc+hAdbOgGuoGGrqHJpUKxtaBRqPBw5HTOafAvqBxDsKFnfJ7n/eD9EKbguaAzKM4A8DndrtrNMJ9MEp2CXvlWnAN7gDK0D9xGfY43qvZ7aIJmGW05OgccAQmjdgEISBlbD7hyLLueKWMzrNAu6azl6A5QMcGuIA1xomlxomlBGoBrtIrl6E67pLMA8nDIwlJcfwAxU+Xe8yP5nerXy2irj4XF9YjyasCuodzPvp2Up2JyWeF2Bx1LfuuyVw+dqkGrmMgFBLXBYGIpNS77r78Fh3nUNNus+HcJ1NoMIWOe+dcIg0PyA66B1aEoyA39SAWAuHcSEOyPFHlTwsHmhX039yn/3TNNYtZ3/gGU8H6Ra3IzwwAAAABJRU5ErkJggg==',
+      'searchUrl': 'https://nexum-core.com/torrents?q=%tt%',
+      'loggedOutRegex': /Cloudflare|Ray ID|Mot de passe oublié/,
+      'matchRegex': /Aucun torrent trouvé/,
       'both': true},
   {   'name': 'Sharewood',
       'icon': 'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADwAAAA8BAMAAADI0sRBAAAAMFBMVEUAAAAXi6IAoqJcubkAorkAi6IXi4sXc4pd0NBFoqVcudBcoaIwi6IuoqYXoqJcorkX2sIOAAAAAXRSTlMAQObYZgAAAtBJREFUOMvNlM9rE0EUx1+2MdEGcWe624IH6SyxvRVhLkl/4E5Y0/NCcwhY2BbRayzFXgu5SD3V0puC0KMHe6w9KdKbN/EqFgSviv+A772Z7OTSHMUvZMPMJ+/N983bF/i/dG8yvj4ZT72YiButXxP5yVXh9R8Gn8PWFfiRkl2AMz1m/uZYsBFCptAY7tv1DfxM/yxxVaCiAs5XeHntC5X5shhhI0gGbllvS5rwqnE0uGQs5+GEc/UZtzdCi6WwUjBFywczjPVFl2lFORwNCAd3jwhP6+MNWxUzzt6gXLkmPKVX89RV5WSXfb3CuJ0rSpaXmJbVeEa/oQ5oHUf4vdYrMS234yO9zx3QX2WIDg9LjktQ+R+MZnwoUsT3L0q+ADWzqe3Va/QWFdiIdpyPwtNA9PXyB8Lnei3Hm4Rl5C4+KsiZ7es0bgu5DtDS7Y+9nKNhJ/5EZTvrGBBi/MnKq7iHGWKQbJw11BcY0UR+fqDb30Sv1wORH7EzPvxYON5YPtDvX3+ehTy3R9O9IWY+B/SD5wf6LahN/Q6chr9tRYkZAOsU1EP/wp05LGRn1m2pfsvPxWrZDtk0s0/29rZEfx9K4b3IJBFWSZZlKr596vHNXJrHNeX43DNp4hC8aopavOPyU/Pj72M4uBPS07WLrS2O4SSyOcpXCWTkaUXJsTHgU7fFfImlEB5bU4Fo+mCHFTsr7LjJdISdHZCMR9PYLcsSi/ikA1HRKOMouq7QR6XThV2H6wJDvDeDv6zifuCS7yZpTfl7Uw5XHZZioa7Yohu+FJMbPLuZKUweifUafTtVydrWAFSnqG8vhVDN5ivUBV84X0UyoOqUjUihlKGpepqw11qHLkHRjj88SvhUwHgps06GRr0C5cY6ahZcnr8z34wU55Ieys2wV9WOQcC3nyFPPLN/LM2CSuCk0aVrlw9HyiXwvnTBXrYBO8b2MIR/oL8lvI3zMdnr3QAAAABJRU5ErkJggg==',
