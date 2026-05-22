@@ -1530,7 +1530,7 @@
           Updated Skwirll. [to use the new 'matchRegex' feature and fix false positives]
 
 26.2.0  - Fixed: Regression bug with "Redirect to Reference Page" introduced in 26.0.0
-          Bulk update of UNIT3D matchRegexl.
+          Bulk update of UNIT3D matchRegex.
           Removed: LBM
 
 26.3.0  - Fixed: Broken functionality on the list pages.
@@ -4689,6 +4689,11 @@ var german_sites = [
       'matchRegex': /fa-circle text-red/,
       'positiveMatch': true,
       'both': true},
+  {   'name': 'Apple Deluxe',
+   	  'searchUrl': 'https://www.apple-deluxe.co/index.php?ct=403&vt=%tt%',
+      'icon': 'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACAAAAAgCAAAAABWESUoAAAAm0lEQVR4AaXPha3AQAyD4Zvjn877CzzCg8jSpUwuN99BhmYsa5MG/J8T4K/AX4G/AFI/AEjCE7A8MkOVtDcDAyE3gEC0GeYE9UCozhwF3EAv1jFQgCs1ec8glSAByDMNtBk66M2lCdwBQiJLV53sVgEVkZRsQAGLZDPnQAHsABWIOwSgDo5XYJyvcAjo4GyFI2DkIyDP6BVY1fkFOsbM5eboAyEAAAAASUVORK5CYII=',
+   	  'matchRegex': /Keine Einträge für den gewählten Filter vorhanden./,
+      'both': true},
   {   'name': 'BTF',
       'icon': 'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAMAAAAoLQ9TAAABNVBMVEUAAAABAQD2lAARDgP+mABaOwUHBgOYYAUOCwL7lgDujwDoiwCnp6eXlpNkRAdhQQe6cgRFLgSUXAMJBwJUNAExHwH8lwD4lQDzkgC4bgCSWAA3IACmpaOenpxhYWH3uFihg1T1s05FRUXunyrJghTwlAlwSgfCdwS/dQOybQJ2SgLHeAHkiQDghwDTfgDPfACkYgAoGACgnpiYmJjDsZSRkZG+qouLi4uJh4CAgICMiX6GhH58fHx1dXXruWzPpmqrkGh0cWhtamPJnlxaVkxQTUXJlUOtgz2TcDy9iDk5NiwrKyvjmCUlJSVjTyQxLSOzeCHYjx7xmx18VRrYihOeaBLAeg8UEw+eZgzmjgrqjwdgQAclHgcZFAWoaQTLfAPJewMdFANMMAHVgABnPgBiOwBdOADYnnXuAAAAAXRSTlMAQObYZgAAAOJJREFUGNMty1WWwkAUBNDXGg9xEgIMMMDgMu7u7u62/yXQEO5fVZ2Cocnixmbh6PoJxiZm5xZW86WTm0qS12f0rLG4tXv8gLqj3dD13D5VcEgQ6oj/fC47vXxwq2i11zfy3YHiknGqBM/n6alUq90mEeysrVyFZfooCq1rkV8o5LfL6l1aCpqm+v4ix3BY2rvXVFylnybGmMRweXZhaVUs0Q8zqDPXgwonlupgidkpKhHkQOtProVYacguo47bjwB+uM2YLSP05fk8A0IPcY4SDRipx0nsiz3R7P37vpeJQBgAvNQbP4KjuDwAAAAASUVORK5CYII=',
       'searchUrl': 'https://bittorrentfiles.me/browse.php?search=%tt%&search_where=4',
@@ -5010,7 +5015,7 @@ var usenet_sites = [
       'icon': 'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACIAAAAiBAMAAADIaRbxAAAAElBMVEUaHSBISkzDxcB9f36ipaD29+oztTEkAAAA3ElEQVQoz62QQXbDIAxEB5sDqNjdB7D3YHKA2uYCpeH+V6nimEDWyaz0vkYaAT6r3iC5FgjbQS/UkAiJH9hmxkEYgqwmBQgQcHlu4WoIjjuFLMQkem7pE7i7j+i+8EBde4dywCNBLMYepsPvuLDE0J1tzhQrrnGngc60wC095nxzhEeYdNCz7m24clnusWKzx4PLzesfROL9o0dByS83glSKCsk5e40vX39ti5lM1Ph+EtHnyTieq8TPaRoIqERv0z4SqsQvBZItwbz7MaJVl5O5oJVgQniRCive0T/BTBnUxBXQvwAAAABJRU5ErkJggg==',
       'searchUrl': 'https://newzbay.cc/movies/?imdb=%nott%',
       'loggedOutRegex': /Cloudflare|Ray ID|Forgotten your password?/,
-      'matchRegex': /nzb_multi_operations_form/,
+      'matchRegex': /dropdown-item downloadnzb/,
       'positiveMatch': true},
   {   'name': 'NewzBay (DE)',
       'icon': 'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACIAAAAiBAMAAADIaRbxAAAAElBMVEUaHSBISkzDxcB9f36ipaD29+oztTEkAAAA3ElEQVQoz62QQXbDIAxEB5sDqNjdB7D3YHKA2uYCpeH+V6nimEDWyaz0vkYaAT6r3iC5FgjbQS/UkAiJH9hmxkEYgqwmBQgQcHlu4WoIjjuFLMQkem7pE7i7j+i+8EBde4dywCNBLMYepsPvuLDE0J1tzhQrrnGngc60wC095nxzhEeYdNCz7m24clnusWKzx4PLzesfROL9o0dByS83glSKCsk5e40vX39ti5lM1Ph+EtHnyTieq8TPaRoIqERv0z4SqsQvBZItwbz7MaJVl5O5oJVgQniRCive0T/BTBnUxBXQvwAAAABJRU5ErkJggg==',
