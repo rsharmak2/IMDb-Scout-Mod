@@ -1,7 +1,7 @@
 ﻿// ==UserScript==
 //
 // @name         IMDb Scout Mod
-// @version      26.3.1
+// @version      26.4.0
 // @namespace    https://github.com/Purfview/IMDb-Scout-Mod
 // @description  Auto search for movie/series on torrent, usenet, ddl, subtitles, streaming, predb and other sites. Adds links to IMDb pages from hundreds various sites. Adds movies/series to Radarr/Sonarr. Adds external ratings from Metacritic, Rotten Tomatoes, Letterboxd, Douban, Allocine, MyAnimeList, AniList. Media Server indicators for Plex, Jellyfin, Emby. Dark theme/style for Reference View. Adds/Removes to/from Trakt's watchlist. Removes ads.
 // @icon         data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAEAAAABABAMAAABYR2ztAAAAMFBMVEUAAAD/AAAcAAA1AABEAABVAAC3AADnAAD2AACFAAClAABlAAB3AADHAACVAADYAABCnXhrAAAD10lEQVRIx73TV4xMURgH8H/OnRmZWe3T7h2sOWaNXu7oJRg9UccuHgTRBatMtAgSg+gJu9q+kFmihcQoD8qLTkK0CIkoy0YJITsRD0rCKTHFrnkSv5e5c88/53znO+fiPwvsvrN038cPNqrG9pJmHkRVnPcpaTlHJY60cfPSpsrzl1LKihrmLvxhCM2i3OHvDx0d+H7e3F6JBv5iZMiJfhFTfPYDMHrMImpwimWWUdSgDQkbno7fFpUPVgh+pHFbZR4SovSctDCM9Hac9IKd9rO8EevtBCkXgY5IMmgquwypP7qqfcp/Tp4KLONDVsWh3RSBB2rnZfit69ocUdqLn2prrRZYM0Jg4JibamKsqe7gfEh5GOAfeYJjVHIPZvil97rcXkMog30byWRwXYRWoxHbzNFHJJpAarO8NdEBBsdCaP3WMJltTmQd4zlnekTq9Z5dgACwAlrpK4BxdV5mvLuspRgMSHbCIFF0iS8MZ5S8oYBYKY7rByC4dDM9uSIUmPOIwxgQBoYeF93auP4qFyPbIVXziWeGTH1EFM57kJo2hqQju6BwIyRf6RmCjdT4JOdiwNgiH/PPD3qoqlsNaXRd+fKtFfECxlZVNVF9SOsgTZEr2TUjJJbyeNX1IZrKIbyGlBABfpQPv2UDrly13LkJXDVhpQ5MhtGwcyF4HKjlU4E8xwB0AvDjd6AGmevZ87EcQRHgcO52e9uNsYELOrAa/Yh81YlmYLQJ5HWyq0+kzQ/DQKEusg6CRI27ryy8nReRS0wsoetkmRwogHSprliCckfEjXG9yAQc74J0WB99vu6DF3i3pMucsXM6tpBbxd2mVJAwXwGogNRBvGRA4jtHKTXkAIwLGCR/mT4Lh75oneQXXP9sAYfGRDCsnw7pX/jRZkU3M44kjw2l5zRIzb4CbZ8dULdL6wbNPZOpK0B6gN1UR1mdoxAaL/GrWiLPL3SEwW9YMTU/d64BtLahAVyucWhj9Mm8ign9IfQaBtd2/GbvCAEBpG5eMcrj2I0ktpKLeaqXQ3Pst42KGIshpdTmQLAeTgFGJ2wvh+tayMOR0n1RZ8B9z13vnOPBnsBq4E1ffgZpPFZHWVpO2cvhjYpOcbBd5TlhpDu5zq9mHGZcVi0y+VFkcFkDdyKJfTt99wEyHSEzDM90KH0nexpwZHJHKYYhjzlwGe0pP/IKfxociaEb7YDbi6KGJY1R2cR76E6NAtXqY4pPH3plLcl8LD7V+cOLUbUWRFZRPTAbVZO3mxK18Xc1ZaAiS8ARJXpZliXAomR94siiiMx8ZBOkXGTlnH0F/9ov1xPtWwEqP9wAAAAASUVORK5CYII=
@@ -1540,6 +1540,8 @@
 
 26.3.1  - Added: Apple Deluxe, MNS
           Removed: TVCUK, Podnapisi, GayTor
+
+26.4.0  - Fixed: Element with duration missing in the compact mode.
 
 
 //==============================================================================
@@ -4706,7 +4708,7 @@ var german_sites = [
       'both': true},
   {   'name': 'Data-Load',
       'icon': 'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACAAAAAgBAMAAACBVGfHAAAAGFBMVEUAAABHPnB/RKTzQfzFR+dVY6eUc/pXrvt/ApnCAAAAAXRSTlMAQObYZgAAAKxJREFUKM+FkuENwiAQhcsGvab6H9AB8FigtQto0gE0hhFkfR9ognBN+jVpwpd75ODoviiivvuDMs0alHVtVBF9XQBKQSmRgiqEaBLIJDEYvd4OK/iJkXV4xBjf4QmBMutHf84iaEqCnfXHgMT9NUEgYdidZgL4dznBml0RfMnKgAURJKZrVsx+wabKssmKwZz6GAwaw5cgCNH67mn3b6zJiDHIQdVmc9jiOXwA+nIrbK/VvwoAAAAASUVORK5CYII=',
-      'searchUrl': 'https://www.data-load.in/search/12345678/?q=%tt%&c[container_only]=1&o=date',
+      'searchUrl': 'https://www.data-load.me/search/12345678/?q=%tt%&c[container_only]=1&o=date',
       'loggedOutRegex': /Cloudflare|Ray ID|Passwort vergessen|Forgot your password/,
       'matchRegex': /No results found|Keine Ergebnisse gefunden/,
       'both': true},
@@ -5539,7 +5541,8 @@ var subs_sites = [
   {   'name': 'Subs.ro',
       'icon': 'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAMAAAAoLQ9TAAAAz1BMVEVrKQZoKAZ/MQd/MQdqCwuwBgaqBwdwCwunBwd/CgqhBwdzCgqbCAh5CgqLCQmPCAmWCAiECQnHxsaamZnU1NS0tLSqqanMzMyjo6O2lpapk5OmeXnBc3OlZmeeNTV6MDCAJiZzGBiIFxd7FBSnEBBxGApuEgqbGAa8u7u1oKCTkpKxj5Cchoagfn6sfX2NeHi7bm60bW24Y2OsYWGHYWGYXl6RWFiFV1eiUlKCSEipQkKnOTmPODh6JyeQHR2gHByCFRWqExOYERGVHgeUHgcyuWxVAAAABHRSTlOnl2xLszVV4AAAAKBJREFUGNNdyAUOwzAQRNEts+040Ia5zMx8/zN1nUpV0ifZ+rOQ75VSXgXAnfaG8h+oJiLLenwL6oIyry8VJRIJTdRuH5snfluIBsbYk3Ou8xVjDg6glNqUDnSnvx9NcQAhxCbEMK+qqpo4QJKkQNMmhhZImzMOqKHOGN+9thUNLRTKoSfLsicaGonLejbcHVwsqPz4ro8/dIsZMWQvce4DIiARiMhwOQAAAAAASUVORK5CYII=',
       'searchUrl': 'https://subs.ro/subtitrari/imdbid/%nott%',
-      'matchRegex': /Pagina solicitată/,
+      'matchRegex': /Pagină negăsită/,
+      'ignore404': true,
       'inSecondSearchBar': true,
       'both': true},
   {   'name': 'Subs4free (GR|EN)',
@@ -5588,7 +5591,7 @@ var subs_sites = [
       'both': true},
   {   'name': 'Titrari (RO)',
       'icon': 'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQAQMAAAAlPW0iAAAABlBMVEX///8AAABVwtN+AAAALklEQVQI12MAAqt3DEJeDEI+IBII+F4wcK1g4DvBwLWKAQTeMTAAGacYGNYBOQDBuAiBqgBa/AAAAABJRU5ErkJggg==',
-      'searchUrl': 'https://www.titrari.ro/index.php?page=cautamsavedem&z7=&z2=&z5=%nott%',
+      'searchUrl': 'https://www.titrari.ro/index.php?page=cautamainaltaparte&z7=&z2=&z5=%nott%',
       'loggedOutRegex': /Cloudflare|Ray ID/,
       'matchRegex': />1-0\/0</,
       'inSecondSearchBar': true,
@@ -6527,7 +6530,7 @@ var icon_sites_main = [
       'showByDefault': false},
   {   'name': 'Trakt',
       'icon': 'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAEAAAABAAgMAAADXB5lNAAAADFBMVEUAAADtIib++Pj3l5iN/wfkAAAAAXRSTlMAQObYZgAAAcRJREFUOMut0zFuFDEUBmBScATIdfYIU+ybkVyY3hdAGAGXyEw6OgvZlpXKQoqEuERMQUFH46nTRIqS9z/veiepUsTV+t/nzzNjvzcvHWdEz+dEu01A9O2e9qf5W7oL4WpT8u5r4JH3XZhCfHgIkfoKHQqRDnk4rqi/CIE/rplQQPYylAOhEvGoX2zeNcJknk9+1WloRCAQP/wUGzJ5AvHdUb2RQDsh7Ex2buYshPlM2u3ELCCcNzQmCaoQi2PKD9jEC6EWplYE56kRoAz2fe8OBBZi39F1gtQFHiN3gtSMYO4E6cwBfun4CQSNGQ9amLguXgLHgeXA6J/uSeA/poJgcjsO8EdaaRuoJdonFUZd/8vbwDOaTkEZHaPrJlALo4z0wAAF0p5DFQ9UkFHe5dIBFUQj0PmPixOQHqgl0SqIupBPaFQmK4i9kY/sTaGGmL0cw/9I1JA64KDWkYsbEiUAQYJMcpRnFjdKkNFJoJhoyN8s9wNEQw637hwVgoT94ZoWEuTKD+0W2tyQChOqjg2p87FbQhYkghDESklNINqa8Ju4h0rvIKqBR6JTi008j2XYNOWHGm9R0EuA9gLZiNClrzUeAeJhSOeKK4MPAAAAAElFTkSuQmCC',
-      'searchUrl': 'https://trakt.tv/search/imdb?query=%tt%',
+      'searchUrl': 'https://app.trakt.tv/search?m=media&q=%search_string_orig%',
       'showByDefault': false},
   {   'name': 'TV Guide',
       'icon': 'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACAAAAAgCAMAAABEpIrGAAAAn1BMVEXtHCTsHSTtHiQAAADsHCT+/v770NL719n96+z5ubvuOkH+7u76w8XwTlTuNDv6xsj5trn2mp3zb3TvPkTsJS30e4DtKjL++/v+9fX95+j4rbD4qaz2k5b1jZHzdHnxXGLxVlzwSE782dr6zc/4sbT2lpn1gYbyZ23vREvvQkjuLzb83uD83t/3oaT2kJT1hYntIir5vsD5s7byZGrxW2Duil/bAAAABHRSTlP+23AAe8mkKQAAATlJREFUOMut02dvgzAQBmBDXwM2K2GPhJI9mtXx/39bzylEasvoh74Sd2frEZI/HHvSNfSFafoT0zEYnWnDQGMYDhsDUGBvfEsMyoKGVdIAlz/yQp+pwIYGH7/BXBUJQMmqBXI6ndp0Qc11qF+BPbUsaoGKSTeqB9RXgPpTgS4QZTR49+NHJ0BJQyyp5Kwb1DQ4WyobdAPknKdLOh36wIzfY6APhF9g2wtgcEp6/AF8y7KasbIoazxAT/4ZyNfM3MHeI7SjZV3auV9jYtu22wKz8N434AsceGQ9T87hNgudmZS3BoQ8ceM4eYAZcIqdpRBeAzwudwWXaQ2X3+6AnSpnHQRJAyCM3Tz1/FXgGyAgqkmeKHBsQTR3Chfe2S89lIureLsccRFChH965ohgo6s3vry0/mxo/T8BnDce47UouLEAAAAASUVORK5CYII=',
@@ -7774,9 +7777,9 @@ function displayButton() {
 // Unlike the other URLs, they aren't checked to see if the movie exists.
 function addIconBar(movie_id, movie_title, movie_title_orig, movie_year) {
   var iconbar;
-  // reference + remove "Reference View" txt and a link to settings
+
   if (onReferencePage) {
-    $('[data-testid=hero__pageTitle]').parent().next().children().eq(0).remove();
+    $('a[href^="/preferences/general"]').closest('li').remove(); // remove "Reference view Switch view View settings" element
     iconbar = getIconsLinkArea();
   // redesign
   } else {
@@ -11141,7 +11144,10 @@ async function compactReference() {
   $('[data-testid=title-details-akas]').remove();
   $('.ipc-icon--chevron-right-inline').remove();
   $('[data-testid=hero-subnav-bar-right-block]:eq(0)').remove();
-  $('a[href^="/preferences/general"]').closest('li').remove(); // remove "Reference view Switch view View settings" element
+
+  if (GM_config.get("disable_iconsites")) { //  under condition because same is at addIconBar()
+    $('a[href^="/preferences/general"]').closest('li').remove(); // remove "Reference view Switch view View settings" element
+  }
 
   // Leave that elem on Episode pages, to get season_id and episode_id
   if($('[data-testid=hero-subnav-bar-season-episode-numbers-section]').length == 0) {
