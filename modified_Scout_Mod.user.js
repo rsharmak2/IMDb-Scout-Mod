@@ -1,7 +1,7 @@
 // ==UserScript==
 //
 // @name         IMDb Scout Mod
-// @version      1.54
+// @version      1.55
 // @namespace    https://github.com/Purfview/IMDb-Scout-Mod
 // @description  Auto search for movie/series on torrent, usenet, ddl, subtitles, streaming, predb and other sites. Adds links to IMDb pages from hundreds various sites. Adds movies/series to Radarr/Sonarr. Adds external ratings from Metacritic, Rotten Tomatoes, Letterboxd, Douban, Allocine, MyAnimeList, AniList. Media Server indicators for Plex, Jellyfin, Emby. Dark theme/style for Reference View. Adds/Removes to/from Trakt's watchlist. Removes ads.
 // @icon         data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAEAAAABABAMAAABYR2ztAAAAMFBMVEUAAAD/AAAcAAA1AABEAABVAAC3AADnAAD2AACFAAClAABlAAB3AADHAACVAADYAABCnXhrAAAD10lEQVRIx73TV4xMURgH8H/OnRmZWe3T7h2sOWaNXu7oJRg9UccuHgTRBatMtAgSg+gJu9q+kFmihcQoD8qLTkK0CIkoy0YJITsRD0rCKTHFrnkSv5e5c88/53znO+fiPwvsvrN038cPNqrG9pJmHkRVnPcpaTlHJY60cfPSpsrzl1LKihrmLvxhCM2i3OHvDx0d+H7e3F6JBv5iZMiJfhFTfPYDMHrMImpwimWWUdSgDQkbno7fFpUPVgh+pHFbZR4SovSctDCM9Hac9IKd9rO8EevtBCkXgY5IMmgquwypP7qqfcp/Tp4KLONDVsWh3RSBB2rnZfit69ocUdqLn2prrRZYM0Jg4JibamKsqe7gfEh5GOAfeYJjVHIPZvil97rcXkMog30byWRwXYRWoxHbzNFHJJpAarO8NdEBBsdCaP3WMJltTmQd4zlnekTq9Z5dgACwAlrpK4BxdV5mvLuspRgMSHbCIFF0iS8MZ5S8oYBYKY7rByC4dDM9uSIUmPOIwxgQBoYeF93auP4qFyPbIVXziWeGTH1EFM57kJo2hqQju6BwIyRf6RmCjdT4JOdiwNgiH/PPD3qoqlsNaXRd+fKtFfECxlZVNVF9SOsgTZEr2TUjJJbyeNX1IZrKIbyGlBABfpQPv2UDrly13LkJXDVhpQ5MhtGwcyF4HKjlU4E8xwB0AvDjd6AGmevZ87EcQRHgcO52e9uNsYELOrAa/Yh81YlmYLQJ5HWyq0+kzQ/DQKEusg6CRI27ryy8nReRS0wsoetkmRwogHSprliCckfEjXG9yAQc74J0WB99vu6DF3i3pMucsXM6tpBbxd2mVJAwXwGogNRBvGRA4jtHKTXkAIwLGCR/mT4Lh75oneQXXP9sAYfGRDCsnw7pX/jRZkU3M44kjw2l5zRIzb4CbZ8dULdL6wbNPZOpK0B6gN1UR1mdoxAaL/GrWiLPL3SEwW9YMTU/d64BtLahAVyucWhj9Mm8ign9IfQaBtd2/GbvCAEBpG5eMcrj2I0ktpKLeaqXQ3Pst42KGIshpdTmQLAeTgFGJ2wvh+tayMOR0n1RZ8B9z13vnOPBnsBq4E1ffgZpPFZHWVpO2cvhjYpOcbBd5TlhpDu5zq9mHGZcVi0y+VFkcFkDdyKJfTt99wEyHSEzDM90KH0nexpwZHJHKYYhjzlwGe0pP/IKfxociaEb7YDbi6KGJY1R2cR76E6NAtXqY4pPH3plLcl8LD7V+cOLUbUWRFZRPTAbVZO3mxK18Xc1ZaAiS8ARJXpZliXAomR94siiiMx8ZBOkXGTlnH0F/9ov1xPtWwEqP9wAAAAASUVORK5CYII=
@@ -1542,6 +1542,8 @@
           Removed: TVCUK, Podnapisi, GayTor
 
 26.4.0  - Fixed: Element with duration missing in the compact mode.
+
+26.5.0  - Fixed: Letterboxd custom rating feature was broken. [when there is not enough votes for the official score]
 
 
 //==============================================================================
@@ -3741,21 +3743,7 @@ var private_sites = [
       'matchRegex': /torrents\/download|torrent\/download|torrent-search--poster__poster/,
       'seedingRegex': /fa-arrow-circle-up|torrent-activity-indicator--seeding/,
       'positiveMatch': true,
-      'both': true},
-  {   'name': 'RoTorrent-TMDb',
-      'icon': 'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABgAAAAYCAMAAADXqc3KAAAAvVBMVEW7ABY3T7U4htklAXHzuyZHcEwrBobLABZAasSyARgoAXusf0S7ABaSYkwvFoq1ABc/O6IpA3ssEIkrB4LsShLEARsoAIEpBJG3AB30BhnUARUnQLEqF5sqM6mKLVLYqTGZCDVzU2SluuHg3mJ7HkEoKaMnWsHZyleHntSXPmbm7PZ8q+C/0ez22S8QcdRXMnD9px86GXv7/f33dh7KulKTS1CijFxsjdBudb//ix6Mg4DP3vG4ql/3NhBCJ5vcx8ztAAAAFXRSTlPe/v74/AD14/5N1/vw/l+szgR/CO0Cw5wTAAABiUlEQVQoz2WOD3OiMBDFkzNQLFVr20DKn4QEBAQqAoKg1u//sW6DvbmZuzeTB7u/vN0g4339ii3r148sy8L4db010PtbEPppejgc5n6K/TAIzLctWpvuzscAyqooiuqsgeuYa/TsBjMoK1WWZdXmM3CekfkAZ6Wu1+KaK/UXwCg/LZUqz3lVjDjc/QDH3cH2XOWqrSy9YucCMNHCgVkhzvM0b6/Y9x8BSCzA3SAcx3PVFjkOAn3faewZOK57D8eibdX90ZaCoMVMzKZpxkLd67qWq+H0dfwA0Mjhdsqyk8T18DWLTN9PaCHFcZq6rps6vjpqTd33p/eEVvD5Tx6AD8+jexD9pPt+T7n+5xQA9bzoFsfxhQ/aL7F2BuCFehEszrJLPIBLGZ/knADAs9sqg4dxNsScZzaD6QgA5UQQUQsRMZsknPTUozNgPZG2qG3S98SOesIp1WDDopVIuJAQEXaiC+izDVq+sCSJIn14ElFdUMbQEhlAGKOM/hFU0DfQ1lhu0D/aLA3jN0TUPpiX/g0UAAAAAElFTkSuQmCC',
-      'searchUrl': 'https://rotorrent.info/torrents?tmdbId=%tmdbid%',
-      'loggedOutRegex': /Cloudflare|Ray ID|Forgot your password|Service Unavailable|forgot-password/,
-      'matchRegex': /torrents\/download|torrent\/download|torrent-search--poster__poster/,
-      'seedingRegex': /fa-arrow-circle-up|torrent-activity-indicator--seeding/,
-      'positiveMatch': true,
-      'both': true},
-  {   'name': 'RoTorrent-Req',
-      'icon': 'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABgAAAAYCAMAAADXqc3KAAAAvVBMVEW7ABY3T7U4htklAXHzuyZHcEwrBobLABZAasSyARgoAXusf0S7ABaSYkwvFoq1ABc/O6IpA3ssEIkrB4LsShLEARsoAIEpBJG3AB30BhnUARUnQLEqF5sqM6mKLVLYqTGZCDVzU2SluuHg3mJ7HkEoKaMnWsHZyleHntSXPmbm7PZ8q+C/0ez22S8QcdRXMnD9px86GXv7/f33dh7KulKTS1CijFxsjdBudb//ix6Mg4DP3vG4ql/3NhBCJ5vcx8ztAAAAFXRSTlPe/v74/AD14/5N1/vw/l+szgR/CO0Cw5wTAAABiUlEQVQoz2WOD3OiMBDFkzNQLFVr20DKn4QEBAQqAoKg1u//sW6DvbmZuzeTB7u/vN0g4339ii3r148sy8L4db010PtbEPppejgc5n6K/TAIzLctWpvuzscAyqooiuqsgeuYa/TsBjMoK1WWZdXmM3CekfkAZ6Wu1+KaK/UXwCg/LZUqz3lVjDjc/QDH3cH2XOWqrSy9YucCMNHCgVkhzvM0b6/Y9x8BSCzA3SAcx3PVFjkOAn3faewZOK57D8eibdX90ZaCoMVMzKZpxkLd67qWq+H0dfwA0Mjhdsqyk8T18DWLTN9PaCHFcZq6rps6vjpqTd33p/eEVvD5Tx6AD8+jexD9pPt+T7n+5xQA9bzoFsfxhQ/aL7F2BuCFehEszrJLPIBLGZ/knADAs9sqg4dxNsScZzaD6QgA5UQQUQsRMZsknPTUozNgPZG2qG3S98SOesIp1WDDopVIuJAQEXaiC+izDVq+sCSJIn14ElFdUMbQEhlAGKOM/hFU0DfQ1lhu0D/aLA3jN0TUPpiX/g0UAAAAAElFTkSuQmCC',
-      'searchUrl': 'https://rotorrent.info/requests?unfilled=1&tmdbId=%tmdbid%',
-      'loggedOutRegex': /Cloudflare|Ray ID|Forgot your password|Service Unavailable|forgot-password/,
-      'matchRegex': /fa-circle text-red/,
-      'positiveMatch': true,
+      'seedingRegex': /torrent-activity-indicator--seeding/,
       'both': true},
   {   'name': 'Samaritano',
       'icon': 'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACAAAAAgBAMAAACBVGfHAAAABGdBTUEAALGPC/xhBQAAAAFzUkdCAK7OHOkAAAAeUExURSAeHhMRHf33LkxJITQyH2xpI4N/Jb24KZyYJ9zWK8sFHYwAAAE7SURBVCjPdVJNT8JAEJ2xVa6zWWrqdRSRG6bycaSBhnCzttYzEE28AeIHR6Jp4IZATPy3br+gJjqHTebNvLezbxbg7yAQv3Lp6x7lcnwA2ZzmG8Zglsu5FtMFg9ndAz3VxHy2l1hQBFzsOPpKHWvmyww4/qqCPmAeZ8DBBkSPmUspBwcITZVzJesokTb7jpB+KvEpCDpWsORVApz4taBaX7zOOBkWb97urwBBt2rLhPOMiqJhSwiZDLshVS8MN2r+bUx5V3U4mpwSdu0Y6KqL+tpkDMWnYaSqhyMAX05sbDiV6Dnm/BHBMc9JTo21qoFFxpbg8Brv0PFjDcCGC0jmKDI/XUJIsUtptBGMDyioKWUrMcwX2MQXwqKX+uEMUXZcod3amcn10LPaQbjzFIQWLELPzm0KhYp//sEPhME0OKmjs8cAAAAASUVORK5CYII=',
@@ -5440,6 +5428,12 @@ var subs_sites = [
       'icon': 'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAMAAAAoLQ9TAAABIFBMVEUAAAA4ODhAQEDDxMTQ0NDj4+NCQ0R1eHmPkJDHysvCwsLa2trt7e309PT29vZGf8JSfr1iYmJTWl7CxMWkqKpGRkaIjpFdZGc0NTY/Pz8wMDBPT09gZGc0NDRQUFA/Pz+WmZx8fHzT1NSNjY1pbHJ4eHhdXV2gpKeVmp1zc3N6gYd7e3u+vr6KioqAgICJiYmzt7qgoKClpaXW19i8vLzp6enx8vMuLi4YGBgUFBQ2NjYnJycODg5TVFUbGxo9bKCUmJpoa25cXFxRUVExNj8yMzQtLS0gICAeHh4LCwtLmO1gmOiJr+Zek+J8nt11mN1lgb6rrq9JZZKRkZF1dXU6UHRubm5oaGhnZ2c2SV1bW1s4Oz0yMjIlKTAiIiILCwrn8D0JAAAAN3RSTlMA/f5TNR7++51gSiklCwf9/f39+vf39fXy6+jl4+Pb2snCwcG/tbWtraymnJuTjoyJfGdFQhgVSZeomgAAALhJREFUGNNVjkWiAjEUBN8Yzlfc3d2SjOHu7nD/WzA7SG26q1cNn1gsQJHb/nJvM8Sj+mMnrDUu4C4CWFmmc7oodgCe6ff2sbJJFJVDlxkKkL+h1XLDImXdaosS4SE96C1mP6yka18R2sk1yEr3+fSbeeARUdXuyASVIW5OmshD8FiWpQEPVj+WzxnBrMPjpyp6vwDMiWBBC4OLkL6v/j5mLKWcfw2gCOmBJvJPadLRslGDwBmrWrwAzs4a3w+oveoAAAAASUVORK5CYII=',
       'searchUrl': 'https://www.addic7ed.com/search.php?search=%search_string%&Submit=Search',
       'matchRegex': /returned zero results/,
+      'inSecondSearchBar': true,
+      'both': true},
+  {   'name': 'AltyaziDB (TR)',
+      'icon': 'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAEAAAAA6CAMAAAA3Dq9LAAAAVFBMVEUAAAAkzHIkzHIkzHIkzHIkzHIkzHIkzHIkzHIkzHIkzHIkzHIkzHIkzHIkzHIkzHIkzHIkzHIkzHIkzHIkzHIkzHIkzHIkzHIkzHIkzHIkzHIkzHL6b0hOAAAAG3RSTlMAx/p8U8+KQiDzT2s3ngaq1OrAFt2zp4MuSg/o2cMmAAABTUlEQVRIx+2W246DIBRFD0KrVkS5qFj+/z9HkBSpsV6amXRS19N2J66AgggARPBkJ6rM4MHVHIFT8BBzjPruBcgchHhBMuT8sg9lBVcvsBnBPtJTcAo+WdALNAHDSFZO21IuC3RiIgpwiLhtlgWFiRHjAPK4zeW7guyloNHUom1GD4GiIylfFZS+pDnPm4eg9i27cK62CZiU8h4EzNdyANYFgSAInII/E2QYYzITsALj4r5JkNpyvpC4McnrhaTaytKKaC/kVevayubs9zYTMTEtWCSPW778DFgz+4OYDywp3LC6rrv2zwJg6S3QS/Do2wQNgWMf1VPg0UIIVHzg0fafBNQMdBOBIuvQ8VYbb9gds73LwM02GrBUsx7KjYIKLO1znUCm3hSARjum0Mz6oWQ9XqcjYCGdvXDTRtgBjoOvMXBoIX23gKq6VnjMPy8PeUra0QYuAAAAAElFTkSuQmCC',
+      'searchUrl': 'https://altyazidb.com/onizleme.php?type=imdb&id=%tt%',
+      'matchRegex': /TMDB veritabanında bulunamadı|sistemimize kazandırılıyor/,
       'inSecondSearchBar': true,
       'both': true},
   {   'name': 'AnimeSub (PL)',
