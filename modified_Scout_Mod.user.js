@@ -1,7 +1,7 @@
 // ==UserScript==
 //
 // @name         IMDb Scout Mod
-// @version      1.57
+// @version      1.58
 // @namespace    https://github.com/Purfview/IMDb-Scout-Mod
 // @description  Auto search for movie/series on torrent, usenet, ddl, subtitles, streaming, predb and other sites. Adds links to IMDb pages from hundreds various sites. Adds movies/series to Radarr/Sonarr. Adds external ratings from Metacritic, Rotten Tomatoes, Letterboxd, Douban, Allocine, MyAnimeList, AniList. Media Server indicators for Plex, Jellyfin, Emby. Dark theme/style for Reference View. Adds/Removes to/from Trakt's watchlist. Removes ads.
 // @icon         data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAEAAAABABAMAAABYR2ztAAAAMFBMVEUAAAD/AAAcAAA1AABEAABVAAC3AADnAAD2AACFAAClAABlAAB3AADHAACVAADYAABCnXhrAAAD10lEQVRIx73TV4xMURgH8H/OnRmZWe3T7h2sOWaNXu7oJRg9UccuHgTRBatMtAgSg+gJu9q+kFmihcQoD8qLTkK0CIkoy0YJITsRD0rCKTHFrnkSv5e5c88/53znO+fiPwvsvrN038cPNqrG9pJmHkRVnPcpaTlHJY60cfPSpsrzl1LKihrmLvxhCM2i3OHvDx0d+H7e3F6JBv5iZMiJfhFTfPYDMHrMImpwimWWUdSgDQkbno7fFpUPVgh+pHFbZR4SovSctDCM9Hac9IKd9rO8EevtBCkXgY5IMmgquwypP7qqfcp/Tp4KLONDVsWh3RSBB2rnZfit69ocUdqLn2prrRZYM0Jg4JibamKsqe7gfEh5GOAfeYJjVHIPZvil97rcXkMog30byWRwXYRWoxHbzNFHJJpAarO8NdEBBsdCaP3WMJltTmQd4zlnekTq9Z5dgACwAlrpK4BxdV5mvLuspRgMSHbCIFF0iS8MZ5S8oYBYKY7rByC4dDM9uSIUmPOIwxgQBoYeF93auP4qFyPbIVXziWeGTH1EFM57kJo2hqQju6BwIyRf6RmCjdT4JOdiwNgiH/PPD3qoqlsNaXRd+fKtFfECxlZVNVF9SOsgTZEr2TUjJJbyeNX1IZrKIbyGlBABfpQPv2UDrly13LkJXDVhpQ5MhtGwcyF4HKjlU4E8xwB0AvDjd6AGmevZ87EcQRHgcO52e9uNsYELOrAa/Yh81YlmYLQJ5HWyq0+kzQ/DQKEusg6CRI27ryy8nReRS0wsoetkmRwogHSprliCckfEjXG9yAQc74J0WB99vu6DF3i3pMucsXM6tpBbxd2mVJAwXwGogNRBvGRA4jtHKTXkAIwLGCR/mT4Lh75oneQXXP9sAYfGRDCsnw7pX/jRZkU3M44kjw2l5zRIzb4CbZ8dULdL6wbNPZOpK0B6gN1UR1mdoxAaL/GrWiLPL3SEwW9YMTU/d64BtLahAVyucWhj9Mm8ign9IfQaBtd2/GbvCAEBpG5eMcrj2I0ktpKLeaqXQ3Pst42KGIshpdTmQLAeTgFGJ2wvh+tayMOR0n1RZ8B9z13vnOPBnsBq4E1ffgZpPFZHWVpO2cvhjYpOcbBd5TlhpDu5zq9mHGZcVi0y+VFkcFkDdyKJfTt99wEyHSEzDM90KH0nexpwZHJHKYYhjzlwGe0pP/IKfxociaEb7YDbi6KGJY1R2cR76E6NAtXqY4pPH3plLcl8LD7V+cOLUbUWRFZRPTAbVZO3mxK18Xc1ZaAiS8ARJXpZliXAomR94siiiMx8ZBOkXGTlnH0F/9ov1xPtWwEqP9wAAAAASUVORK5CYII=
@@ -1949,6 +1949,11 @@ var public_sites = [
       'searchUrl': 'https://movieparadise.org/?s=%tt%',
       'matchRegex': /No results to show with/,
       'both': true},
+  {   'name': 'MoviesMod',
+      'icon': 'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABsAAAAbCAMAAAC6CgRnAAACslBMVEUAAABLwbQ4TqAQtZfgM4ffMoIctJHFLpKgyzqRSJwehMbKICnMH0Q+UaLYJVvKIC5BndSXZqtSv+IbVaRZRpxJrNhMttVOvc6DS552RJt3PphpOZbGLZK6M4iEPphNOJXMKnt+Rpx1wUxnv1iHWKWKxT+VyDzLIDEXaLGYaK2WXaeTUaEYXKhHQZkSZK6JxT+UxzxNrt2UV6RLQ5uASp9FsNdKu9VNws9OwcNNwMI/vaiSXaaKT59Ov51ZQppTP5i4MZNNvIpHuXzPLnhYvGRkvU5hQppOR52tNJQlhsdyOpbWH0RMwbdMwKrRI1l+O5bMH0fMH0GRxj2byjvLIDs4S54+ltEbhMRyN5VTv+RRuOFPsd5LqttGo9dAndRhNpQ8s9AZT5/JICmgyzqRSJxQwswXUKBOT6FzNJRNQJkNdbvfMoNyOZbBNYrhMoLbLXcOc7kftZhyNpQbtJEctZA5uHhOSJ0sislLOZV3QZoUa7NyN5UVg78aTJ4aZq9mM5AXU6I8T6FzNZRPUKINeL1zOpYbYKtyNpSCwz+byjugyzqZcbGSTp+SSJzSI2BjvlYQbrWpM4sQjLRyOJU3kM3uMoUJeL7dMIFyPphLwrpyPJdAntROwsEXaLEYT6BOTqFzO5YOdbpyOZZyNpU0tn7gLXRGo9c9ltFOw8hxQ5q0M5S9MJMptYkhhcYZXKgYXKhOR50+tnXhKm2byjvKIDBLqtuSVKKSTp+kNpSsNZTgMHxHt2jPID+WyDxPsd5Mxdc+l9FNxM9yQJlNP5iZOZXgMHvgJmWMxj+Rxj1RuOBKxNsOdLqWYqlxQJlzP5iMO5ehN5QotYhEuXHaJWfgI11VuljeIVaBw0VQv9dNxNBMwrwOdbuVW6WVWqUwuJtyOpbALo7YMX7dLndMuF5NuFzLIDpnCQCBAAAAmHRSTlMA9/4LGtvF/Pf6/vo/Bv4+Nzc2HxH+/v7+/v7+/v79/f37+/r59vb28/Ly8s13UD8/Nzc3Gv7+/v7+/v7+/v7+/v7+/v7+/fz7+vr59/f39vb29vb29fT08/Ly8vLy8vLx8fHu7eno5eXk3tza2trSysnIxcO9tbOyrqKcm5KQjomEg3ZwalhSQD89ODc2NjAuKyoqHBgRB8VcNeUAAAHbSURBVCjPfctjW6RhGIDhe2dRi2mYtzbbtbZt27ZtezdOM5M52Zxs29b/6NFbfer6eh4XTJdYLHZ1FQqF3sDl8VMkErm5/foNl4+fOHnq9JkjT30ZSZ9b2Nra2dnbX4JdnVX56ZGKwu2fmH3eUW9RW9uXkTkXZiynFn/jHyGvW8Fymd7KXmL+utRqXvAR8V+GBsvlMtMMast0kEXF19h8Qfb1GDKZrE5/FTGlrja2kAAHCXg8CCNWrNLXIxatQy3hHXwI40ylMiW2VFsRNQ/ZFcdrk2a8jVjREmqBh7cwqzMoXbeQWsFibImBvKA1htjqjRtjYjmrVuAPWdJawwG5QUNjdkysBrGugupzR+mXVLLo7N6G0ixq3Uql/4r++6960Efs7e0sZrtXr9+QHN70yPMe+579vzNkRM28bTQ3OTxuzkwnG2LX3X1ml0VsNMJmtXmEGrzBttURZiFLaTEZ1ADNijZmEgdkT6TIciJSyltbTEAztYMZOJ3nXXUHztp3Issza6bGf837CNjKkLWr52OrNKcGkvdSYJ+WOo1axaYmbOgEZog462h+SAyI3RzWUo9hu3jQ6oClpdnjKXZ3z779h6ytL8CP7y4uzs7f/sJEfn8WoAQCAUzTOFzIDOZSE85FAAAAAElFTkSuQmCC',
+      'searchUrl': 'https://moviesmod.at/search/%tt%',
+      'matchRegex': /No Results Found/,
+      'both': true},
   {   'name': 'MVG',
       'icon': 'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQAQMAAAAlPW0iAAAABlBMVEX///8AAGbxExcTAAAAMUlEQVQI12N4nszwP5nhNhCVM9y2Y7gtw3CYgwEImA8wsD9g4Etg4GFg4AExgFygIABzUw1AjNdQdQAAAABJRU5ErkJggg==',
       'searchUrl': 'https://forums.mvgroup.org/maintracker.php?filter=%search_string%',
@@ -2317,7 +2322,7 @@ var private_sites = [
   {   'name': 'ADC2',
       'icon': 'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADAAAAAwAQMAAABtzGvEAAAABlBMVEXIyMgAAAAyQEDlAAAAxUlEQVQY04XNMQrCMBQG4D+NWKfESd9QrEdwDCjo4OAhRBQvUJzcrHgRT2LrLRxzAaGjQvCZZOmm//C+5X/8+JlyXkoH1LnVDqKmY9aBsGQMIC1lhaeIpBNSnq6JKIpoF8ldrJCi7AgYRWaWYJJSM1Io0srqDwpZQTTtbmojcxdhDlcwlx7JXIcGc+ho5qYlZ36FN1tFHicX2A4Ds1IHDkgCK4ibZwxsPDUwABIBdICeRF949tclFpg+75c3YXde4/LB/3wBcl9Cgxe+faAAAAAASUVORK5CYII=',
       'searchUrl': 'https://asiandvdclub.org/torrents/?searchbox=%tt%&search=Search',
-      'loggedOutRegex': /Cloudflare|Ray ID|Forgot password|title>Welcome|AUTOMATICALLY REDIRECTED/,
+      'loggedOutRegex': /Cloudflare|Ray ID|Forgot password|title>Welcome|AUTOMATICALLY REDIRECTED|Forgot your password/,
       'matchRegex': /No torrents found/,
       'both': true},
   {   'name': 'Aither',
