@@ -1,7 +1,7 @@
 // ==UserScript==
 //
 // @name         IMDb Scout Mod
-// @version      1.59
+// @version      1.60
 // @namespace    https://github.com/Purfview/IMDb-Scout-Mod
 // @description  Auto search for movie/series on torrent, usenet, ddl, subtitles, streaming, predb and other sites. Adds links to IMDb pages from hundreds various sites. Adds movies/series to Radarr/Sonarr. Adds external ratings from Metacritic, Rotten Tomatoes, Letterboxd, Douban, Allocine, MyAnimeList, AniList. Media Server indicators for Plex, Jellyfin, Emby. Dark theme/style for Reference View. Adds/Removes to/from Trakt's watchlist. Removes ads.
 // @icon         data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAEAAAABABAMAAABYR2ztAAAAMFBMVEUAAAD/AAAcAAA1AABEAABVAAC3AADnAAD2AACFAAClAABlAAB3AADHAACVAADYAABCnXhrAAAD10lEQVRIx73TV4xMURgH8H/OnRmZWe3T7h2sOWaNXu7oJRg9UccuHgTRBatMtAgSg+gJu9q+kFmihcQoD8qLTkK0CIkoy0YJITsRD0rCKTHFrnkSv5e5c88/53znO+fiPwvsvrN038cPNqrG9pJmHkRVnPcpaTlHJY60cfPSpsrzl1LKihrmLvxhCM2i3OHvDx0d+H7e3F6JBv5iZMiJfhFTfPYDMHrMImpwimWWUdSgDQkbno7fFpUPVgh+pHFbZR4SovSctDCM9Hac9IKd9rO8EevtBCkXgY5IMmgquwypP7qqfcp/Tp4KLONDVsWh3RSBB2rnZfit69ocUdqLn2prrRZYM0Jg4JibamKsqe7gfEh5GOAfeYJjVHIPZvil97rcXkMog30byWRwXYRWoxHbzNFHJJpAarO8NdEBBsdCaP3WMJltTmQd4zlnekTq9Z5dgACwAlrpK4BxdV5mvLuspRgMSHbCIFF0iS8MZ5S8oYBYKY7rByC4dDM9uSIUmPOIwxgQBoYeF93auP4qFyPbIVXziWeGTH1EFM57kJo2hqQju6BwIyRf6RmCjdT4JOdiwNgiH/PPD3qoqlsNaXRd+fKtFfECxlZVNVF9SOsgTZEr2TUjJJbyeNX1IZrKIbyGlBABfpQPv2UDrly13LkJXDVhpQ5MhtGwcyF4HKjlU4E8xwB0AvDjd6AGmevZ87EcQRHgcO52e9uNsYELOrAa/Yh81YlmYLQJ5HWyq0+kzQ/DQKEusg6CRI27ryy8nReRS0wsoetkmRwogHSprliCckfEjXG9yAQc74J0WB99vu6DF3i3pMucsXM6tpBbxd2mVJAwXwGogNRBvGRA4jtHKTXkAIwLGCR/mT4Lh75oneQXXP9sAYfGRDCsnw7pX/jRZkU3M44kjw2l5zRIzb4CbZ8dULdL6wbNPZOpK0B6gN1UR1mdoxAaL/GrWiLPL3SEwW9YMTU/d64BtLahAVyucWhj9Mm8ign9IfQaBtd2/GbvCAEBpG5eMcrj2I0ktpKLeaqXQ3Pst42KGIshpdTmQLAeTgFGJ2wvh+tayMOR0n1RZ8B9z13vnOPBnsBq4E1ffgZpPFZHWVpO2cvhjYpOcbBd5TlhpDu5zq9mHGZcVi0y+VFkcFkDdyKJfTt99wEyHSEzDM90KH0nexpwZHJHKYYhjzlwGe0pP/IKfxociaEb7YDbi6KGJY1R2cR76E6NAtXqY4pPH3plLcl8LD7V+cOLUbUWRFZRPTAbVZO3mxK18Xc1ZaAiS8ARJXpZliXAomR94siiiMx8ZBOkXGTlnH0F/9ov1xPtWwEqP9wAAAAASUVORK5CYII=
@@ -1901,11 +1901,11 @@ var public_sites = [
       'TV': true},
   {   'name': 'KZ',
       'icon': 'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAMAAAAoLQ9TAAABCFBMVEUAAAARFSY7R4A8SIFAS4JKVIZPWIhdZI5pd6FwfKNwfaNxfqR1gKV5hKZ7haeDjKmJAACKmLiQnLqSnrqVCwiVGBWVobqXHBiYoruZDgmbpbydEAyeEw6fEw6kGRGoGhSoHBSpQDeqHRSsSUCssr+xKh+yVEjANCPCPC3Cyc7Dys7ESTbEys7FQzDFXErHSDfIz9LLgW/Lh3TOj3vSlYDU1c7V1s7V19jYXUPYcFzY2dHY2djZpY7bf2jbqJHcZk7h3c7khmfk4dXomnrqpoHq487q5NPt7d7w587w7N/x6M7x7dry2Lr269D37ND47dD53rr57dH64b767tH77tH87cz9787978+9KzODAAAAAXRSTlMAQObYZgAAAMlJREFUGBlFwdciA1EABNCZ0S4JFldfyeqi96jREgRBiMn//4n15BxQIiiJoERA+82p/qHL1+pc3+jLhQA1252Oc92P96dnAZz5jjn7ZmmjFQhA7VoWaz5fmF5uCQB7u86ir9aPbQ8QCBN2KZ7NLjo3HgBV7VJMDv2nIkCPdhbLk9fO3QoI93Ya73aSrTd7MwAcsdPoz9Vk98fDBCDX07Tuh/lkzwLAomPOXwdryVEgoIb/nQjQWKPQU9huVIoaPF0RQIlgUCAoEb/q0ya7wj1izQAAAABJRU5ErkJggg==',
-      'searchUrl': 'http://kinozal.tv/browse.php?s=%search_string%+%year%&g=0&c=1002&v=0&d=0&w=0&t=0&f=0',
+      'searchUrl': 'http://kinozal.me/browse.php?s=%search_string%+%year%&g=0&c=1002&v=0&d=0&w=0&t=0&f=0',
       'matchRegex': 'Нет активных раздач, приносим извинения. Пожалуйста, уточните параметры поиска'},
   {   'name': 'KZ',
       'icon': 'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAMAAAAoLQ9TAAABCFBMVEUAAAARFSY7R4A8SIFAS4JKVIZPWIhdZI5pd6FwfKNwfaNxfqR1gKV5hKZ7haeDjKmJAACKmLiQnLqSnrqVCwiVGBWVobqXHBiYoruZDgmbpbydEAyeEw6fEw6kGRGoGhSoHBSpQDeqHRSsSUCssr+xKh+yVEjANCPCPC3Cyc7Dys7ESTbEys7FQzDFXErHSDfIz9LLgW/Lh3TOj3vSlYDU1c7V1s7V19jYXUPYcFzY2dHY2djZpY7bf2jbqJHcZk7h3c7khmfk4dXomnrqpoHq487q5NPt7d7w587w7N/x6M7x7dry2Lr269D37ND47dD53rr57dH64b767tH77tH87cz9787978+9KzODAAAAAXRSTlMAQObYZgAAAMlJREFUGBlFwdciA1EABNCZ0S4JFldfyeqi96jREgRBiMn//4n15BxQIiiJoERA+82p/qHL1+pc3+jLhQA1252Oc92P96dnAZz5jjn7ZmmjFQhA7VoWaz5fmF5uCQB7u86ir9aPbQ8QCBN2KZ7NLjo3HgBV7VJMDv2nIkCPdhbLk9fO3QoI93Ya73aSrTd7MwAcsdPoz9Vk98fDBCDX07Tuh/lkzwLAomPOXwdryVEgoIb/nQjQWKPQU9huVIoaPF0RQIlgUCAoEb/q0ya7wj1izQAAAABJRU5ErkJggg==',
-      'searchUrl': 'http://kinozal.tv/browse.php?s=%search_string%+%year%&g=0&c=1001&v=0&d=0&w=0&t=0&f=0',
+      'searchUrl': 'http://kinozal.me/browse.php?s=%search_string%+%year%&g=0&c=1001&v=0&d=0&w=0&t=0&f=0',
       'matchRegex': 'Нет активных раздач, приносим извинения. Пожалуйста, уточните параметры поиска',
       'TV': true},
   {   'name': 'LimeTor',
@@ -3339,8 +3339,8 @@ var private_sites = [
       'TV': true},
   {   'name': 'MKO',
       'icon': 'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQBAMAAADt3eJSAAAAGFBMVEUGCQy1rOX8/PwAl/tYVmMBdsYVKz6JiInBi0AWAAAAbElEQVQI1y3OMQqAMAyF4SfFOrf0Ag2CayC4i4izIHUWUQ/g0utriZm+4Sc87Pivcs6FMPyIXQYwwRIRjEC4aacPt3BpzJp6Lo1JKbEvzSZXaRQVBZhFan6IgBOzjfuonzscCp+9YqSoM2weXrbEEdAsm9DWAAAAAElFTkSuQmCC',
-      'searchUrl': 'https://indice.makingoff.org/response.php?search_term=%tt%',
-      'goToUrl': 'https://indice.makingoff.org/index.php?origem=busca&search_term=%tt%',
+      'searchUrl': 'https://makingoff.org/response.php?search_term=%tt%',
+      'goToUrl': 'https://makingoff.org/index.php?origem=busca&search_term=%tt%',
       'loggedOutRegex': /que todos efetuem login/,
       'matchRegex': /total":0/,
       'both': true},
@@ -4719,19 +4719,6 @@ var french_sites = [
       'matchRegex': /Pas de torrents disponibles/,
       'spaceEncode': ' ',
       'both': true},
-  {   'name': 'Torr9',
-      'icon': 'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACAAAAAgBAMAAACBVGfHAAAAGFBMVEUAAAD////Jycl1dXUjIyPX19dbW1uZmZloaBbIAAAAd0lEQVQoz2OgGyhSZwtSAgF1qICiKLMgGIjCBISgAkJIAqJAHSgCImAazHU2DgQKCBsbGweKGpsABRIFBYECUCBGlACLC9AwFxBQFHVxABsLFXAA0mgOIyyA8AuLMRiYwQXQwkNRUAkCwuECUCCES6BUCa6FXgAAUtUXhxvDbAgAAAAASUVORK5CYII=',
-      'searchUrl': 'https://torr9.net/search?q=%search_string_orig%+%year%&category=film',
-      'loggedOutRegex': /head/,
-      'matchRegex': /doesnt work anymore. needs token/,
-      'positiveMatch': true},
-  {   'name': 'Torr9',
-      'icon': 'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACAAAAAgBAMAAACBVGfHAAAAGFBMVEUAAAD////Jycl1dXUjIyPX19dbW1uZmZloaBbIAAAAd0lEQVQoz2OgGyhSZwtSAgF1qICiKLMgGIjCBISgAkJIAqJAHSgCImAazHU2DgQKCBsbGweKGpsABRIFBYECUCBGlACLC9AwFxBQFHVxABsLFXAA0mgOIyyA8AuLMRiYwQXQwkNRUAkCwuECUCCES6BUCa6FXgAAUtUXhxvDbAgAAAAASUVORK5CYII=',
-      'searchUrl': 'https://torr9.net/search?q=%search_string_orig%&category=tv',
-      'loggedOutRegex': /head/,
-      'matchRegex': /doesnt work anymore. needs token/,
-      'positiveMatch': true,
-      'TV': true},
   {   'name': 'TOS',
       'icon': 'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAEAAAABAAgMAAADXB5lNAAAADFBMVEUAAADyFXnyWZ7vMofMliBtAAAAAXRSTlMAQObYZgAAAdFJREFUOMudk71KxEAUhcOk2oRg5SOIoGS3WgQrH8K7YyGrj5DSzmF9BvuUElGrgIg/eQiHbacUKxthETSeO7mTKHZe2GHnY3Luz5yJ/h2qqswvcNm2rz/3lY9hn3zxelMOBy543bruFVdYIDoJupMy+Yrb1iUrAY/Rts6ITvBHvlDv+wBHTr5J3TYd5IQjqeskzAMVU4A51L2EsnRsCWE6kVVK1HjgJl7T5aTPWg6XNqxpatKq4ihjVl0zlmah5jcs44Wlg9DFLX53SFLwZnTaumuGnJUBkhVjzhpZarwAap14UOuuB2gBqJcylyTnNE9NpMr7bN6BKekEwDyPJCsqVgaFLuOiAyMAB2Ab14E4gCIUbvXCg5NQOMAxg3kAtYBZABsCdAC5ALQieUUUzUrepeqA5M0UAwUQSt9bKm6uptBcscPNuSvS0v5hkhoMKKcwIB35iWUURqjNJg85JRkyAA95N1l+eoCTjsHY4A59VoBbf5VRP9IFXyUy9UNXztshbTkiC081wTAIZWGY3lJEOkbWRzFdDTDL2HTBlgCHGduyNy4ufhqMCxGuqViHtQfzw4FPZW9+1qq8eiTR9ZIASiQfwxP7+wiHZ/r3If83vgHfvOgPcdehwgAAAABJRU5ErkJggg==',
       'searchUrl': 'https://theoldschool.cc/torrents?imdbId=%tt%',
