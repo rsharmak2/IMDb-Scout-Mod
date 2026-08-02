@@ -1,7 +1,7 @@
 // ==UserScript==
 //
 // @name         IMDb Scout Mod
-// @version      1.64
+// @version      1.65
 // @namespace    https://github.com/Purfview/IMDb-Scout-Mod
 // @description  Auto search for movie/series on torrent, usenet, ddl, subtitles, streaming, predb and other sites. Adds links to IMDb pages from hundreds various sites. Adds movies/series to Radarr/Sonarr. Adds external ratings from Metacritic, Rotten Tomatoes, Letterboxd, Douban, Allocine, MyAnimeList, AniList. Media Server indicators for Plex, Jellyfin, Emby. Dark theme/style for Reference View. Adds/Removes to/from Trakt's watchlist. Removes ads.
 // @icon         data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAEAAAABABAMAAABYR2ztAAAAMFBMVEUAAAD/AAAcAAA1AABEAABVAAC3AADnAAD2AACFAAClAABlAAB3AADHAACVAADYAABCnXhrAAAD10lEQVRIx73TV4xMURgH8H/OnRmZWe3T7h2sOWaNXu7oJRg9UccuHgTRBatMtAgSg+gJu9q+kFmihcQoD8qLTkK0CIkoy0YJITsRD0rCKTHFrnkSv5e5c88/53znO+fiPwvsvrN038cPNqrG9pJmHkRVnPcpaTlHJY60cfPSpsrzl1LKihrmLvxhCM2i3OHvDx0d+H7e3F6JBv5iZMiJfhFTfPYDMHrMImpwimWWUdSgDQkbno7fFpUPVgh+pHFbZR4SovSctDCM9Hac9IKd9rO8EevtBCkXgY5IMmgquwypP7qqfcp/Tp4KLONDVsWh3RSBB2rnZfit69ocUdqLn2prrRZYM0Jg4JibamKsqe7gfEh5GOAfeYJjVHIPZvil97rcXkMog30byWRwXYRWoxHbzNFHJJpAarO8NdEBBsdCaP3WMJltTmQd4zlnekTq9Z5dgACwAlrpK4BxdV5mvLuspRgMSHbCIFF0iS8MZ5S8oYBYKY7rByC4dDM9uSIUmPOIwxgQBoYeF93auP4qFyPbIVXziWeGTH1EFM57kJo2hqQju6BwIyRf6RmCjdT4JOdiwNgiH/PPD3qoqlsNaXRd+fKtFfECxlZVNVF9SOsgTZEr2TUjJJbyeNX1IZrKIbyGlBABfpQPv2UDrly13LkJXDVhpQ5MhtGwcyF4HKjlU4E8xwB0AvDjd6AGmevZ87EcQRHgcO52e9uNsYELOrAa/Yh81YlmYLQJ5HWyq0+kzQ/DQKEusg6CRI27ryy8nReRS0wsoetkmRwogHSprliCckfEjXG9yAQc74J0WB99vu6DF3i3pMucsXM6tpBbxd2mVJAwXwGogNRBvGRA4jtHKTXkAIwLGCR/mT4Lh75oneQXXP9sAYfGRDCsnw7pX/jRZkU3M44kjw2l5zRIzb4CbZ8dULdL6wbNPZOpK0B6gN1UR1mdoxAaL/GrWiLPL3SEwW9YMTU/d64BtLahAVyucWhj9Mm8ign9IfQaBtd2/GbvCAEBpG5eMcrj2I0ktpKLeaqXQ3Pst42KGIshpdTmQLAeTgFGJ2wvh+tayMOR0n1RZ8B9z13vnOPBnsBq4E1ffgZpPFZHWVpO2cvhjYpOcbBd5TlhpDu5zq9mHGZcVi0y+VFkcFkDdyKJfTt99wEyHSEzDM90KH0nexpwZHJHKYYhjzlwGe0pP/IKfxociaEb7YDbi6KGJY1R2cR76E6NAtXqY4pPH3plLcl8LD7V+cOLUbUWRFZRPTAbVZO3mxK18Xc1ZaAiS8ARJXpZliXAomR94siiiMx8ZBOkXGTlnH0F/9ov1xPtWwEqP9wAAAAASUVORK5CYII=
@@ -4028,10 +4028,15 @@ var private_sites = [
       'both': true},
   {   'name': 'THR',
       'icon': 'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAMAAAAoLQ9TAAAAe1BMVEUAAADqeoT2w8jqeYTrhY/hR1XcMEHbJzfkXGrdKTrjVWPfPU3hSFbbJTbPWVjZHi/odoDrg47fOknil5bocHziS1n3x8vglZTodID63N/419raITLaHzHYFSfbGSvgQlHcLD3aHS7ZDyLMTEvLSUneN0fKQkLcKTrWCBxPpaowAAAAG3RSTlMAl29OFJTr5rPrtPby7uvpvKSZjYqGa05JQhW6bKXzAAAAZUlEQVQY05XPRw6EMBBE0Rlyzrm7jTHx/iekVwYJCYm/fIuS6ves3JZ5XpJWw18JzjcvIASYnE+gSAi6beQgpdzDTkNvcI1RFTZXax4CBYgYa7A8Qs69AwC8QnAQl16QrSMXPc+fFX0Je26WJaQAAAAASUVORK5CYII=',
-      'searchUrl': 'https://www.torrenthr.org/browse.php?search=%tt%&blah=2&incldead=1',
-      'loggedOutRegex': /registraciju morate imati omogućene cookiese/,
-      'matchRegex': /Ništa nije pronađeno!/,
-      'seedingRegex': /title="Seeding"/,
+      'searchUrl': 'https://www.torrenthr.org/torrents?imdbId=%tt%',
+      'loggedOutRegex': /forgot-password|name="remember"/,
+      'matchRegex': /There is no result in database for query/,
+      'both': true},
+  {   'name': 'THR-TMDB',
+      'icon': 'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAMAAAAoLQ9TAAAAe1BMVEUAAADqeoT2w8jqeYTrhY/hR1XcMEHbJzfkXGrdKTrjVWPfPU3hSFbbJTbPWVjZHi/odoDrg47fOknil5bocHziS1n3x8vglZTodID63N/419raITLaHzHYFSfbGSvgQlHcLD3aHS7ZDyLMTEvLSUneN0fKQkLcKTrWCBxPpaowAAAAG3RSTlMAl29OFJTr5rPrtPby7uvpvKSZjYqGa05JQhW6bKXzAAAAZUlEQVQY05XPRw6EMBBE0Rlyzrm7jTHx/iekVwYJCYm/fIuS6ves3JZ5XpJWw18JzjcvIASYnE+gSAi6beQgpdzDTkNvcI1RFTZXax4CBYgYa7A8Qs69AwC8QnAQl16QrSMXPc+fFX0Je26WJaQAAAAASUVORK5CYII=',
+      'searchUrl': 'https://www.torrenthr.org/torrents?tmdbId=%tmdbid%',
+      'loggedOutRegex': /forgot-password|name="remember"/,
+      'matchRegex': /There is no result in database for query/,
       'both': true},
   {   'name': 'Tik',
       'icon': 'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAEAAAABABAMAAABYR2ztAAAAGFBMVEUAAABuOCWDTzybdmi0mZD28/LOvbbj2ta1/lziAAAAAXRSTlMAQObYZgAAAyxJREFUSMeVlU9z2jAQxT0Fm/OTVHOt1sZcsdKGq+2U5uoaiq82DO2VQGi/frWi7UQEMtM9MML7G3v/vDcK/ifWD49v5lcamL+Zl9pgcTMfabFfJhC7G/mwlPlHDUB014Gj2A8h2hyQV4kVzGNla4y0Jfav8yMzj8DxkUyqXxNhpYsVXExDo5G9ytN30pwWD+IBIOwv85MwB8eHoOTffOYBvfhyVwnOJ3LLL4qbiQeUMugxOwAqKM9f0mMfAHFvuVBryhqbH/fxBcAhkl1PtsPK1jC4BkB96yneyFMJ1YyvAPMNRD4bQLa50H6R5w4XKyzyaQ+k7c5vM9Q4x3Qo3DELysIDAMhTDlU/TZZwRN55SuHGrBzqwBQNmNaifgnYun5UvMGIMlfO+6X0anySWVuyjg6p0QzM/DGEuuiJWImma4gJ2XtdDvGAZMcH2lsSECU6fwri3tW0SVLAEuPIr/Huy+n8KepKMDEZKPu3dU+9ZhI3c0GU2xK2Wlxa6ECfwaE21AVL4NJCodmSAybDpB7ldmUXFhqq4OiIT83UTmTLDvHk30yiHb9DkilGlLY0X/tEPmuSU6UxGVB9yI4aYr4C0vqftSByMFE0WWhmERe5WL4ghvER9u8vk5rZgLIeNmhX2pL+buzDEEysDdWb+9L12xI+VuqvLqcNOLomG9H+Kx/NDz0PIvF3pVo7rdTVbEkLloUKTcYL+KMqyV/gp7SviJxsQs2D+vVnEXHkAKIkom+V5mOlXo5JbB1wMpPDNGiNthJH8VJ2ictLK3gzjVRrUETSM1dROuCEFaCh1iYtxz5QMSCE6sd8ytZEvu4SIt5kn+nuHbl5JL49nzXbrnsi3BvLinpz4d/9CpbISmjuVYtv1PlA+niEoByyPRNJEnhR3uHTEfEQ8UizcJ9p6gNPMy12RxUJGNiIQyp8YBmXVsUbE593Krey9oER+M2ncnxw49Dwe2DfuQW+EyC2d4Pu9X3ibC01E12jrlwIOZDqeAWQVnoRXCXGDTerWq2u32q5eLZaP8atLm7de5LXdNDqjZv1/jmt2LQ3ifSnZq/cDLbXPHgrtnePwX/Gb1nmqAuqwCqnAAAAAElFTkSuQmCC',
@@ -4437,14 +4442,14 @@ var private_sites = [
       'loggedOutRegex' : /Cloudflare|Ray ID|Recover Account|Recuperare Cont/,
       'matchRegex': /Nothing found|Nimic gasit/,
       'both': true},
-  {   'name':'mojblink',
+  {   'name':'mojblik',
       'icon':'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAkAAAAJCAMAAADXT/YiAAAAyVBMVEVHcEwZxv8TxP4hyP8I5f8cx/8rzP8VuO5l1/0MgKU+z/9r3v8GwP4Dvv0AQFsOg6k6zf5W1f8ekbYkx/1Tzvcpyv8lqtUVhKlN0v4Mwv4oyf8/0P8Xxf8GcJIex/8ryv8Mep0Axf8UxP4fx/9L0/80xfUQn847yfcpnME8rtQMeZ0Me58PfaELf6QMfaIMe58Me59c2f9c3f8iyP9r5v8Wxf8Lwf4Fw/8Fq+MMtOwHq+EmqNNS1P8VxP8Lw/9VzvYjvO81uOQnxPi5Rr58AAAAQHRSTlMAARAKA5yDmgo2KhAJCQPq5GUbArERtqeZeQymnAsRwhoBDMzIyb+utrhSIVQb09nSHyB+HH0DYA28w7new63auEeIogAAAF5JREFUCNdjYGAwU5KTEmZgYFA0t7NVlpcW5GCwsLI0NVZ1FOFm0NXTYjC01xBiYNDW1zExUpEAqlMwsLbRFBPgYmCQVXNSF+d3YAMKSsqI8nGyszIzMPDwArksTIwAxWgIpAICYl0AAAAASUVORK5CYII=',
       'searchUrl':'https://mojblink.org/brskalniksphinxdva.php?match=%tt%&page=1&category=all',
       'loggedOutRegex': /Prijava|Pozabljeno geslo|Registracija/,
       'matchRegex': /id/,
       'both':true,
       'positiveMatch':true},
-  {   'name':'mojblink (title)',
+  {   'name':'mojblik (title)',
       'icon':'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAkAAAAJCAMAAADXT/YiAAAAyVBMVEVHcEwZxv8TxP4hyP8I5f8cx/8rzP8VuO5l1/0MgKU+z/9r3v8GwP4Dvv0AQFsOg6k6zf5W1f8ekbYkx/1Tzvcpyv8lqtUVhKlN0v4Mwv4oyf8/0P8Xxf8GcJIex/8ryv8Mep0Axf8UxP4fx/9L0/80xfUQn847yfcpnME8rtQMeZ0Me58PfaELf6QMfaIMe58Me59c2f9c3f8iyP9r5v8Wxf8Lwf4Fw/8Fq+MMtOwHq+EmqNNS1P8VxP8Lw/9VzvYjvO81uOQnxPi5Rr58AAAAQHRSTlMAARAKA5yDmgo2KhAJCQPq5GUbArERtqeZeQymnAsRwhoBDMzIyb+utrhSIVQb09nSHyB+HH0DYA28w7new63auEeIogAAAF5JREFUCNdjYGAwU5KTEmZgYFA0t7NVlpcW5GCwsLI0NVZ1FOFm0NXTYjC01xBiYNDW1zExUpEAqlMwsLbRFBPgYmCQVXNSF+d3YAMKSsqI8nGyszIzMPDwArksTIwAxWgIpAICYl0AAAAASUVORK5CYII=',
       'searchUrl':'https://mojblink.org/brskan.leet?op=search&nwide=&search=%search_string%&nacin=search1&cat=all',
       'loggedOutRegex': /Prijava|Pozabljeno geslo|Registracija/,
