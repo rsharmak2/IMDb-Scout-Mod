@@ -1,7 +1,7 @@
 // ==UserScript==
 //
 // @name         IMDb Scout Mod
-// @version      1.81
+// @version      1.82
 // @namespace    https://github.com/Purfview/IMDb-Scout-Mod
 // @description  Auto search for movie/series on torrent, usenet, ddl, subtitles, streaming, predb and other sites. Adds links to IMDb pages from hundreds various sites. Adds movies/series to Radarr/Sonarr. Adds external ratings from Metacritic, Rotten Tomatoes, Letterboxd, Douban, Allocine, MyAnimeList, AniList. Media Server indicators for Plex, Jellyfin, Emby. Dark theme/style for Reference View. Adds/Removes to/from Trakt's watchlist. Removes ads.
 // @icon         data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAEAAAABABAMAAABYR2ztAAAAMFBMVEUAAAD/AAAcAAA1AABEAABVAAC3AADnAAD2AACFAAClAABlAAB3AADHAACVAADYAABCnXhrAAAD10lEQVRIx73TV4xMURgH8H/OnRmZWe3T7h2sOWaNXu7oJRg9UccuHgTRBatMtAgSg+gJu9q+kFmihcQoD8qLTkK0CIkoy0YJITsRD0rCKTHFrnkSv5e5c88/53znO+fiPwvsvrN038cPNqrG9pJmHkRVnPcpaTlHJY60cfPSpsrzl1LKihrmLvxhCM2i3OHvDx0d+H7e3F6JBv5iZMiJfhFTfPYDMHrMImpwimWWUdSgDQkbno7fFpUPVgh+pHFbZR4SovSctDCM9Hac9IKd9rO8EevtBCkXgY5IMmgquwypP7qqfcp/Tp4KLONDVsWh3RSBB2rnZfit69ocUdqLn2prrRZYM0Jg4JibamKsqe7gfEh5GOAfeYJjVHIPZvil97rcXkMog30byWRwXYRWoxHbzNFHJJpAarO8NdEBBsdCaP3WMJltTmQd4zlnekTq9Z5dgACwAlrpK4BxdV5mvLuspRgMSHbCIFF0iS8MZ5S8oYBYKY7rByC4dDM9uSIUmPOIwxgQBoYeF93auP4qFyPbIVXziWeGTH1EFM57kJo2hqQju6BwIyRf6RmCjdT4JOdiwNgiH/PPD3qoqlsNaXRd+fKtFfECxlZVNVF9SOsgTZEr2TUjJJbyeNX1IZrKIbyGlBABfpQPv2UDrly13LkJXDVhpQ5MhtGwcyF4HKjlU4E8xwB0AvDjd6AGmevZ87EcQRHgcO52e9uNsYELOrAa/Yh81YlmYLQJ5HWyq0+kzQ/DQKEusg6CRI27ryy8nReRS0wsoetkmRwogHSprliCckfEjXG9yAQc74J0WB99vu6DF3i3pMucsXM6tpBbxd2mVJAwXwGogNRBvGRA4jtHKTXkAIwLGCR/mT4Lh75oneQXXP9sAYfGRDCsnw7pX/jRZkU3M44kjw2l5zRIzb4CbZ8dULdL6wbNPZOpK0B6gN1UR1mdoxAaL/GrWiLPL3SEwW9YMTU/d64BtLahAVyucWhj9Mm8ign9IfQaBtd2/GbvCAEBpG5eMcrj2I0ktpKLeaqXQ3Pst42KGIshpdTmQLAeTgFGJ2wvh+tayMOR0n1RZ8B9z13vnOPBnsBq4E1ffgZpPFZHWVpO2cvhjYpOcbBd5TlhpDu5zq9mHGZcVi0y+VFkcFkDdyKJfTt99wEyHSEzDM90KH0nexpwZHJHKYYhjzlwGe0pP/IKfxociaEb7YDbi6KGJY1R2cR76E6NAtXqY4pPH3plLcl8LD7V+cOLUbUWRFZRPTAbVZO3mxK18Xc1ZaAiS8ARJXpZliXAomR94siiiMx8ZBOkXGTlnH0F/9ov1xPtWwEqP9wAAAAASUVORK5CYII=
@@ -4907,6 +4907,12 @@ var french_sites = [
       'matchRegex': /Pas de torrents disponibles/,
       'spaceEncode': ' ',
       'both': true},
+  {   'name': 'Draupnirr',
+      'icon': 'https://draupnirr.xyz/favicon.ico',
+      'searchUrl': 'https://draupnirr.xyz/torrents?in=tmdb&tmdb=%tmdbid%',
+      'loggedOutRegex': /mot de passe oublié|mot-de-passe-oublie/,
+      'matchRegex': /Aucun torrent ne correspond à ces filtres/,
+      'both': true },
   {   'name': 'Francomac',
       'icon': 'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADwAAAA8BAMAAADI0sRBAAAAMFBMVEUAAACap4p6pJqisJiwrIS0to9pmpaYu5uNqqOOfT9mi3yGmoDExZOdvLCwmlRIf3Udke/SAAAAAXRSTlMAQObYZgAAAulJREFUOMvtjzGL1EAYhucvfJvIiVs5YgxnNY5hA2IRdlIpwnEJCp6FIwwSq/M4ZwstdgM6KBaWUbjiioA58NhTD7kBbdwujQruFqYQLFyU/ICziJO9fyE+MJDwfO8376D//GOoU3QzZmBdXbGGVm/D7k0fTKu7nAv86JGUaHTSOt8HgN66DZY81hu4Usq7QnDnDmzE6C6WG1IOl5bWgSjZk/f45np3jDnXr37YIZrKliUIlgaWlA/ksnhfz190zmxGV+bZwZGmNoBZUlUPBrl4mWXZd3n/4zzLNGrthkd7BKxWSyfJDM+ulh/nv7KfqDTa6km5DnJaTQczt9vqrcvlpK5/vUZlWcYsJGZo8+pAOtjsbvXvlehKPaZGG792Xa+VkxUHVzwx2vC28+ZKTVs9mZTlNWKGHPe2/1UcaY5Pskv0IooZC8uJfxbIPn/6GStnoZ/nHO+dcFMU2PFafH1vljs5V0Lw2UK/yJNtvCxuIS+K7CieKcwf7m5j7NzJWnRR5ImZR0/AgkvUVQ5/XGzHPheL3TxpDpN3TxUqCrG/K0xMFMVt75x77mVWZJlFm2bnYjVDy8Xhi0Lrg6JpjH54u2O+s621smn+VJVCB8+LBY1BfXt8ajTuagCV7h6evWh0V2stTCIvmlytftgpdosiSVJKUhaau8s4YtCFfkckfKQS0ZY4FOl5xur6p0LjS1pwnJgjzBkphdVy7qR1Xc+36jE6W+S54A7HBp5SSoBYhFJ74beQHdgAgBeI05RSCGMDi72IaI1s1kI7Joudm9RjXmtXFyMsRMCOACxM/hhlcRnHUTvhBUZ3CQvPmwvCoOMI96Rncob+l9CjbTogNgsIgBXHZGj5qRdGYUxtn8arNgkRUYwFT3Y0WKaSV1HKzL+vfEVcdQHQp1aPdRfAXg29trnN+v4IK9yC/D3THQKtCAQAQNTQSoEed4+3T+FoxU9Nhb5SykjreFp9ufFp3IUhaL0vXPSff4u/Gsl2CI3KRskAAAAASUVORK5CYII=',
       'searchUrl': 'https://kebekmac.forum-canada.com/search?search_keywords=%tt%&search_by=text',
