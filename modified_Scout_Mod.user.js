@@ -1,7 +1,7 @@
 // ==UserScript==
 //
 // @name         IMDb Scout Mod
-// @version      1.83
+// @version      1.84
 // @namespace    https://github.com/Purfview/IMDb-Scout-Mod
 // @description  Auto search for movie/series on torrent, usenet, ddl, subtitles, streaming, predb and other sites. Adds links to IMDb pages from hundreds various sites. Adds movies/series to Radarr/Sonarr. Adds external ratings from Metacritic, Rotten Tomatoes, Letterboxd, Douban, Allocine, MyAnimeList, AniList. Media Server indicators for Plex, Jellyfin, Emby. Dark theme/style for Reference View. Adds/Removes to/from Trakt's watchlist. Removes ads.
 // @icon         data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAEAAAABABAMAAABYR2ztAAAAMFBMVEUAAAD/AAAcAAA1AABEAABVAAC3AADnAAD2AACFAAClAABlAAB3AADHAACVAADYAABCnXhrAAAD10lEQVRIx73TV4xMURgH8H/OnRmZWe3T7h2sOWaNXu7oJRg9UccuHgTRBatMtAgSg+gJu9q+kFmihcQoD8qLTkK0CIkoy0YJITsRD0rCKTHFrnkSv5e5c88/53znO+fiPwvsvrN038cPNqrG9pJmHkRVnPcpaTlHJY60cfPSpsrzl1LKihrmLvxhCM2i3OHvDx0d+H7e3F6JBv5iZMiJfhFTfPYDMHrMImpwimWWUdSgDQkbno7fFpUPVgh+pHFbZR4SovSctDCM9Hac9IKd9rO8EevtBCkXgY5IMmgquwypP7qqfcp/Tp4KLONDVsWh3RSBB2rnZfit69ocUdqLn2prrRZYM0Jg4JibamKsqe7gfEh5GOAfeYJjVHIPZvil97rcXkMog30byWRwXYRWoxHbzNFHJJpAarO8NdEBBsdCaP3WMJltTmQd4zlnekTq9Z5dgACwAlrpK4BxdV5mvLuspRgMSHbCIFF0iS8MZ5S8oYBYKY7rByC4dDM9uSIUmPOIwxgQBoYeF93auP4qFyPbIVXziWeGTH1EFM57kJo2hqQju6BwIyRf6RmCjdT4JOdiwNgiH/PPD3qoqlsNaXRd+fKtFfECxlZVNVF9SOsgTZEr2TUjJJbyeNX1IZrKIbyGlBABfpQPv2UDrly13LkJXDVhpQ5MhtGwcyF4HKjlU4E8xwB0AvDjd6AGmevZ87EcQRHgcO52e9uNsYELOrAa/Yh81YlmYLQJ5HWyq0+kzQ/DQKEusg6CRI27ryy8nReRS0wsoetkmRwogHSprliCckfEjXG9yAQc74J0WB99vu6DF3i3pMucsXM6tpBbxd2mVJAwXwGogNRBvGRA4jtHKTXkAIwLGCR/mT4Lh75oneQXXP9sAYfGRDCsnw7pX/jRZkU3M44kjw2l5zRIzb4CbZ8dULdL6wbNPZOpK0B6gN1UR1mdoxAaL/GrWiLPL3SEwW9YMTU/d64BtLahAVyucWhj9Mm8ign9IfQaBtd2/GbvCAEBpG5eMcrj2I0ktpKLeaqXQ3Pst42KGIshpdTmQLAeTgFGJ2wvh+tayMOR0n1RZ8B9z13vnOPBnsBq4E1ffgZpPFZHWVpO2cvhjYpOcbBd5TlhpDu5zq9mHGZcVi0y+VFkcFkDdyKJfTt99wEyHSEzDM90KH0nexpwZHJHKYYhjzlwGe0pP/IKfxociaEb7YDbi6KGJY1R2cR76E6NAtXqY4pPH3plLcl8LD7V+cOLUbUWRFZRPTAbVZO3mxK18Xc1ZaAiS8ARJXpZliXAomR94siiiMx8ZBOkXGTlnH0F/9ov1xPtWwEqP9wAAAAASUVORK5CYII=
@@ -1572,6 +1572,9 @@
 
 27.4.0  - Fixed: The script wasn't starting. [Reworked js challenge detection]
           Fixed: Barely visible 'empty' links at the right sidebar in compact mode.
+
+27.5.0  - Fixed: The focus stealing div can be added again later. Observed in Firefox Nightly. [v19.1]
+          Added one more imdb ad to removal func.
 
 
 //==============================================================================
@@ -4892,16 +4895,16 @@ var french_sites = [
       'TV': true},
   {   'name': 'C411',
       'icon': 'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACAAAAAgCAMAAABEpIrGAAABlVBMVEUAAAADYyMSbjYXeTsYfD0UcTgNbDFyx01zyE0RbzUWcjhboXRyyExyx0xyyEw2jFZzyU04ildzyE1yyEwZbTQXezxIl2QcfkBzyE0XeTothU4mgUhyx0wWdjpzx0xzyEwWdDlyyEwSbTR1y0x1yU1yx0w3gjjm8Opkp3xIl2VzyE4lhEdxxkw7mEI6j1lkukotjUAlg0gXeztzyE0igUUXeDs4lUFzyE1zyE08lkEyh1IngUklhD0VdzoVeDlSqEUVdjgYdjsXdjpuw0tzyU1TqUVzyE0TdDdzyE1yx0xsv0pAlD8RcTUWcjhNo0Nyx00VbjdyyEwTajQIXzL///9zyE0XfTwZfj6+2sglhEcYfT0WfDq21sKBt5WQwKL8/fyrz7gphkohgkT+/v75/Pru9fHq8+3P49bK4dKx075/tpM0jVUxi1EsiE72+ffd6+K418SbxquUwqUnhkoegUDU5tugya+Gupl5s45pqoFBk19WsUcqjD8ihT/B28qly7OLvZ13sY12sYxwrYZbonRVn29lvEt0DMAUAAAAVHRSTlMAEhHJ92Bg/PFgX/b23Bf21cluOQz39vbf2crJx6+YjIBlNiofCgb+/v79+/n49vb29Ozq5uPczszKycnJxL++oJmYj4J+e3t1aWZeWFZPTUwxHRurikgYAAABgElEQVQ4y+2R11ICMRiFf3SRRUFBsffee++9d02ybBZkXXoHwQrY9bnNgjPc8gB8F+fk4pszmQSKFExvTfXO3tFxOUNfVqbXarWsWKrn8guAnvYGHR4yjE9wHFdVUVGVrbr6Wm6MJTcLlW06PL1g4n/TlIRlt+eJhJ58bn8iaPe6ZZE2QjWP588re3ZHkzT5HkEOe/LBhZA1HHcgFBNJK7RgvhMA9BylA55ovyOgyNYYsobiNiuyibUdYMDGSyZ0CNLgvefD5wgIL2E7WwgmbpgwdQoYm7oB+rZIyO+6CTFBkggTbiWqCo1dbKGhBqCkVXh0eQJfUaf8LeYEQRXWrtgdDAcA16vCHXJGIk7kir5IeWHDAoc8NnZ2n82lf2S/3+Z23j8E88LwPmTfgTcZR1IZRVGCXvSoCNSOXm8Jm4xNngAz2o06jHWpDCEk8eZ7JpQ+e+MiET69dzNd/3+xvb64UqqyZG5m2WxuYrlsbtrUQI4+i0ZToqJRO58WKFIof7rHaYnjRv+xAAAAAElFTkSuQmCC',
-      'searchUrl': 'https://c411.org/torrents?q=%search_string_orig%+%year%&cat=1',
-      'loggedOutRegex': /head/,
-      'matchRegex': /doesnt work anymore. needs token/,
-      'positiveMatch': true},
+      'searchUrl': 'https://c411.org/api/torrents?page=1&perPage=25&sortBy=relevance&sortOrder=desc&name=%search_string_orig%+%year%',
+      'goToUrl': 'https://c411.org/torrents?q=%search_string_orig%+%year%&cat=1',
+      'loggedOutRegex': /Cloudflare|Ray ID|forgot-password/,
+      'matchRegex': /"total":0/},
   {   'name': 'C411',
       'icon': 'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACAAAAAgCAMAAABEpIrGAAABlVBMVEUAAAADYyMSbjYXeTsYfD0UcTgNbDFyx01zyE0RbzUWcjhboXRyyExyx0xyyEw2jFZzyU04ildzyE1yyEwZbTQXezxIl2QcfkBzyE0XeTothU4mgUhyx0wWdjpzx0xzyEwWdDlyyEwSbTR1y0x1yU1yx0w3gjjm8Opkp3xIl2VzyE4lhEdxxkw7mEI6j1lkukotjUAlg0gXeztzyE0igUUXeDs4lUFzyE1zyE08lkEyh1IngUklhD0VdzoVeDlSqEUVdjgYdjsXdjpuw0tzyU1TqUVzyE0TdDdzyE1yx0xsv0pAlD8RcTUWcjhNo0Nyx00VbjdyyEwTajQIXzL///9zyE0XfTwZfj6+2sglhEcYfT0WfDq21sKBt5WQwKL8/fyrz7gphkohgkT+/v75/Pru9fHq8+3P49bK4dKx075/tpM0jVUxi1EsiE72+ffd6+K418SbxquUwqUnhkoegUDU5tugya+Gupl5s45pqoFBk19WsUcqjD8ihT/B28qly7OLvZ13sY12sYxwrYZbonRVn29lvEt0DMAUAAAAVHRSTlMAEhHJ92Bg/PFgX/b23Bf21cluOQz39vbf2crJx6+YjIBlNiofCgb+/v79+/n49vb29Ozq5uPczszKycnJxL++oJmYj4J+e3t1aWZeWFZPTUwxHRurikgYAAABgElEQVQ4y+2R11ICMRiFf3SRRUFBsffee++9d02ybBZkXXoHwQrY9bnNgjPc8gB8F+fk4pszmQSKFExvTfXO3tFxOUNfVqbXarWsWKrn8guAnvYGHR4yjE9wHFdVUVGVrbr6Wm6MJTcLlW06PL1g4n/TlIRlt+eJhJ58bn8iaPe6ZZE2QjWP588re3ZHkzT5HkEOe/LBhZA1HHcgFBNJK7RgvhMA9BylA55ovyOgyNYYsobiNiuyibUdYMDGSyZ0CNLgvefD5wgIL2E7WwgmbpgwdQoYm7oB+rZIyO+6CTFBkggTbiWqCo1dbKGhBqCkVXh0eQJfUaf8LeYEQRXWrtgdDAcA16vCHXJGIk7kir5IeWHDAoc8NnZ2n82lf2S/3+Z23j8E88LwPmTfgTcZR1IZRVGCXvSoCNSOXm8Jm4xNngAz2o06jHWpDCEk8eZ7JpQ+e+MiET69dzNd/3+xvb64UqqyZG5m2WxuYrlsbtrUQI4+i0ZToqJRO58WKFIof7rHaYnjRv+xAAAAAElFTkSuQmCC',
-      'searchUrl': 'https://c411.org/torrents?q=%search_string_orig%&cat=1',
-      'loggedOutRegex': /head/,
-      'matchRegex': /doesnt work anymore. needs token/,
-      'positiveMatch': true,
+      'searchUrl': 'https://c411.org/api/torrents?page=1&perPage=25&sortBy=relevance&sortOrder=desc&name=%search_string_orig%',
+      'goToUrl': 'https://c411.org/torrents?q=%search_string_orig%&cat=1',
+      'loggedOutRegex': /Cloudflare|Ray ID|forgot-password/,
+      'matchRegex': /"total":0/,
       'TV': true},
   {   'name': 'Cpasbien',
       'icon': 'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADwAAAA8BAMAAADI0sRBAAAACXBIWXMAAAsTAAALEwEAmpwYAAAAIGNIUk0AAHolAACAgwAA+f8AAIDpAAB1MAAA6mAAADqYAAAXb5JfxUYAAAAPUExUReYbI/8AAP///+YbI/8AAFZq/VQAAAADdFJOUwAAAPp2xN4AAAECSURBVDjLpdXtDQIhDAbgah1ANrjoAo3vAl7C/jP54xDpByXm+u/yAMmVttAjDTrLG/2CAfSPq2G0iBk9xDMDxhUD1keGCc0M7wM7hQzsNwMDBwrpHG0GOoeKV2PW2Zqx6Ox+Dzfalothfa/9x9hsPo4Xw6TLoifVbyaCGCYiuuyllFLKnZgCvtW9MRmWg6vjp+K64Boyda4L3nOue871fYYXh///Y9O0bHlS1Y0dVzbl2YVCVDkM1cK+mMZaC0pRNbCrRVXnvg10l7Bx1j3Get6x6VAa5xG5/l5NB85nSzg98sEl+djLZ6po5nwiG/evARu1j4WZfu6paQv0S3TimfsA3CnPz7CoD14AAAAASUVORK5CYII=',
@@ -11877,6 +11880,7 @@ async function adsRemovalReference() {
   $('#ad_feedback_handler').remove();
   $('.nas-slot').remove();
   $('.sc-8e2141d1-1').remove();
+  $('[class*=AdSlot]').remove();
 
   // after 2 secs run same again:
   await sleep(2000);
@@ -11897,6 +11901,7 @@ async function adsRemovalReference() {
   $('#ad_feedback_handler').remove();
   $('.nas-slot').remove();
   $('.sc-8e2141d1-1').remove();
+  $('[class*=AdSlot]').remove();
 }
 
 async function adsRemoval() {
@@ -11923,6 +11928,7 @@ async function adsRemoval() {
   $('.imdb-footer').remove();
   $('.navbar__imdbpro').remove();
   $('[class^=Root__Separator]').remove();
+  $('[class*=AdSlot]').remove();
 
   // after 3 secs run same again:
   await sleep(3000);
@@ -11938,6 +11944,7 @@ async function adsRemoval() {
   $('.imdb-footer').remove();
   $('.navbar__imdbpro').remove();
   $('[class^=Root__Separator]').remove();
+  $('[class*=AdSlot]').remove();
 }
 
 //==============================================================================
@@ -13165,6 +13172,20 @@ if (navigator.userAgent.toLowerCase().indexOf('chrome') > -1 || navigator.userAg
 }
 
 //==============================================================================
+//    Remove focus stealing div
+//==============================================================================
+
+// Note1: This div steals focus from the scout links in a redesigned title page. v19.1 fix
+// Note2: The div can be added again later. Observed in Firefox Nightly. v27.5.0 fix
+async function deleteFocusStealingDiv() {
+  $('#ipc-wrap-background-id').remove();
+  await sleep(1000);
+  $('#ipc-wrap-background-id').remove();
+  await sleep(2000);
+  $('#ipc-wrap-background-id').remove();
+}
+
+//==============================================================================
 //    Start: Display 'Load' button or add links to sites
 //==============================================================================
 
@@ -13177,12 +13198,12 @@ function startIMDbScout() {
   console.log("IMDb Scout Mod (startIMDbScout): Starting main functions.");
 
   if (!onSearchPage && GM_config.get('loadmod_on_start_movie')) {
-    $('#ipc-wrap-background-id').remove(); // This div steals focus from the scout links. v19.1 fix
+    deleteFocusStealingDiv();
     performPage();
   } else if (onSearchPage && GM_config.get('loadmod_on_start_search')) {
     performSearch();
   } else {
-    $('#ipc-wrap-background-id').remove(); // This div steals focus from the scout links. v19.1 fix
+    deleteFocusStealingDiv();
     displayButton();
   }
 }
