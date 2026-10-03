@@ -1,7 +1,7 @@
 // ==UserScript==
 //
 // @name         IMDb Scout Mod
-// @version      1.84
+// @version      1.85
 // @namespace    https://github.com/Purfview/IMDb-Scout-Mod
 // @description  Auto search for movie/series on torrent, usenet, ddl, subtitles, streaming, predb and other sites. Adds links to IMDb pages from hundreds various sites. Adds movies/series to Radarr/Sonarr. Adds external ratings from Metacritic, Rotten Tomatoes, Letterboxd, Douban, Allocine, MyAnimeList, AniList. Media Server indicators for Plex, Jellyfin, Emby. Dark theme/style for Reference View. Adds/Removes to/from Trakt's watchlist. Removes ads.
 // @icon         data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAEAAAABABAMAAABYR2ztAAAAMFBMVEUAAAD/AAAcAAA1AABEAABVAAC3AADnAAD2AACFAAClAABlAAB3AADHAACVAADYAABCnXhrAAAD10lEQVRIx73TV4xMURgH8H/OnRmZWe3T7h2sOWaNXu7oJRg9UccuHgTRBatMtAgSg+gJu9q+kFmihcQoD8qLTkK0CIkoy0YJITsRD0rCKTHFrnkSv5e5c88/53znO+fiPwvsvrN038cPNqrG9pJmHkRVnPcpaTlHJY60cfPSpsrzl1LKihrmLvxhCM2i3OHvDx0d+H7e3F6JBv5iZMiJfhFTfPYDMHrMImpwimWWUdSgDQkbno7fFpUPVgh+pHFbZR4SovSctDCM9Hac9IKd9rO8EevtBCkXgY5IMmgquwypP7qqfcp/Tp4KLONDVsWh3RSBB2rnZfit69ocUdqLn2prrRZYM0Jg4JibamKsqe7gfEh5GOAfeYJjVHIPZvil97rcXkMog30byWRwXYRWoxHbzNFHJJpAarO8NdEBBsdCaP3WMJltTmQd4zlnekTq9Z5dgACwAlrpK4BxdV5mvLuspRgMSHbCIFF0iS8MZ5S8oYBYKY7rByC4dDM9uSIUmPOIwxgQBoYeF93auP4qFyPbIVXziWeGTH1EFM57kJo2hqQju6BwIyRf6RmCjdT4JOdiwNgiH/PPD3qoqlsNaXRd+fKtFfECxlZVNVF9SOsgTZEr2TUjJJbyeNX1IZrKIbyGlBABfpQPv2UDrly13LkJXDVhpQ5MhtGwcyF4HKjlU4E8xwB0AvDjd6AGmevZ87EcQRHgcO52e9uNsYELOrAa/Yh81YlmYLQJ5HWyq0+kzQ/DQKEusg6CRI27ryy8nReRS0wsoetkmRwogHSprliCckfEjXG9yAQc74J0WB99vu6DF3i3pMucsXM6tpBbxd2mVJAwXwGogNRBvGRA4jtHKTXkAIwLGCR/mT4Lh75oneQXXP9sAYfGRDCsnw7pX/jRZkU3M44kjw2l5zRIzb4CbZ8dULdL6wbNPZOpK0B6gN1UR1mdoxAaL/GrWiLPL3SEwW9YMTU/d64BtLahAVyucWhj9Mm8ign9IfQaBtd2/GbvCAEBpG5eMcrj2I0ktpKLeaqXQ3Pst42KGIshpdTmQLAeTgFGJ2wvh+tayMOR0n1RZ8B9z13vnOPBnsBq4E1ffgZpPFZHWVpO2cvhjYpOcbBd5TlhpDu5zq9mHGZcVi0y+VFkcFkDdyKJfTt99wEyHSEzDM90KH0nexpwZHJHKYYhjzlwGe0pP/IKfxociaEb7YDbi6KGJY1R2cR76E6NAtXqY4pPH3plLcl8LD7V+cOLUbUWRFZRPTAbVZO3mxK18Xc1ZaAiS8ARJXpZliXAomR94siiiMx8ZBOkXGTlnH0F/9ov1xPtWwEqP9wAAAAASUVORK5CYII=
@@ -1576,6 +1576,20 @@
 27.5.0  - Fixed: The focus stealing div can be added again later. Observed in Firefox Nightly. [v19.1]
           Added one more imdb ad to removal func.
 
+27.6.0  - New feature: Option to populate custom_sites from a personal URL. [No need to maintain a fork or copy/paste after every script update]
+                       Enable it by adding a URL to "Direct URL to custom_sites" setting.
+                       Content should be just an array. ( usual configs inside [] )
+                       Note1: Custom sites must be assigned to the 3rd or 2nd search bar.
+                       Note2: Site names should be unique. [no dupes with other site names in the script]
+                       Note3: An additional script refresh is required for full sync, as the process is not synchronous.
+          Added: Is it Woke or Not.
+
+27.7.0  - Revived Plex button. [Plex server indicator]
+          Removed tvdb_id from Plex search fallback. [Doesn't look like Plex needs it anymore]
+          Note: Find Plex token - Open a movie page in library > press '...' > Get info > View XML > token is in URL
+          Added: Jackett, Seerr
+          Removed:  DonTor, Subtitles.hr
+
 
 //==============================================================================
 //    Notes.
@@ -1722,7 +1736,7 @@ To get a native original title instead of IMDb's latinized one.
 Douban id.
 
 #  %search_string%:
-Movie title. [US]
+Movie title. [US title]
 
 #  %search_string_orig%:
 Original movie title (e.g. Yôjinbô). [Reverts to %search_string% if original is not set]
@@ -1747,6 +1761,14 @@ var custom_sites = [
       'inThirdSearchBar': true,
       'both': true}
 ];
+
+// URL to personal custom_sites. Read 27.6.0 log
+var custom_sites_link = GM_getValue('custom_sites_link', '');
+var custom_sites_code = GM_getValue('custom_sites_code', '');
+getCustomSites();
+if (custom_sites_link && custom_sites_code) {
+  custom_sites = Function('"use strict"; return (' + custom_sites_code + ');')();
+}
 
 var public_sites = [
   {   'name': '1337x',
@@ -1832,13 +1854,6 @@ var public_sites = [
       'loggedOutRegex': /Cloudflare|Ray ID/,
       'matchRegex': /no posts matched your criteria/,
       'TV': true},
-  {   'name': 'DonTor',
-      'icon': 'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAEwAAABMAgMAAAC6+bm4AAAADFBMVEUAAAABPKf5+v2GoM92jUKqAAAAAXRSTlMAQObYZgAAAVZJREFUOMu91LFtwzAQBVClyAjZJyOkiERABdNrBDWZwiOo8CeIVEQm4RJsUqUJYDt3lqHzN1m4SQgX0sPdkabI67qu5yHSPd7YyxZGgQ+VPVuqJTftqbLXpvX1+DvLDfs6fd+aK4Ag2QwgsDnoSGTz2eLFLOx0DNfm12olX1lBAKRCMpPUT40bFzOPMKj5aDYjekSxvVlBHrGIhc0cgoQmMs2bsNOHzUYkTSeb5R3oyaagJdnKvh+wPxcxizpNZbo8LWy26PLUAttOJyObkPXBbFr6cq4E2wMf1wiHaHtwkAi27c1jIVsue2E26JsuiL5lWrebTCPA31wjXMM8n5dRbUZi07+IXWVApnpiejrYNDaSDZJWkMgckoM4n+fkEao7UxDJ3uQHJDKf+x8gs30csabSGbdUuwuXWfnOfJPpeD/8R9+wcW9fu7dPNntsPXGzZ7d6+y+u2i95hsgMCwAAAABJRU5ErkJggg==',
-      'searchUrl': 'https://dontorrent.club/buscar/%search_string_orig%',
-      'loggedOutRegex': /Cloudflare|Ray ID/,
-      'matchRegex': /encontrado <b>0</,
-      'spaceEncode': ' ',
-      'both': true},
   {   'name': 'DW',
       'icon': 'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAEAAAABABAMAAABYR2ztAAAAMFBMVEUAAAA3Qlb///+Ll51jbH62uL7N0M/k6+4F/wX/AQH/5x7Nze6M+I38+Zn/ZmbwyM37p+M4AAAAAXRSTlMAQObYZgAAA3tJREFUSMetlT+P00AQxVEa6sWbNBTkxrGNCCDF3kCJ1lnSxwmhRDgHNTqBoKZKwRdIAz0SBaGku4qCihKJho7mkBAg0fFmdn3EKA0SUySbnV/mvdk/9pl/iM5jCvG4vzd/RKeR9ffn03mBGNcgHuzLr4ybFAU+xntqIG9cEcJNQLTzmc/vEkctAaIF8jvETaIHLYEY+RaR74qcJbKTNmBcjRJ/ChxygTYxpeyPgxT9/R22QolG4bUUaIfrUf9Uwe4D7DZrCgz03wqTrDC2DBodGrUs3CZKczLGRUReIdUA8jhANXEMHTRqr0EDAKak25ieFzld+fjpE9Eb56DRFwsz5wxWTmJRX3mJ4JFzXTHRQQ+O81dPTr5SRpx/RdeInNNEYkE5d52Ifm02mxfkC8T4R6xtlTEQwwLRKr+6QXy+hPwHMgX2YmRLBuhA65pW2OAvXOIK59GRuUmxOkd99minFMNGzSWeEzpIjN9wC5cARqomN3GuhAsAnJ8gj3W6Gwlge3SINlZQPdl8pqEcHoNlqGINoEMqT1mAoMqhSlogj+iRPeqf6aSaC3Bbjm/EUCn2yICmWQUg6ZJ1iCrVqnf5GSlVDrXjsPlBDiAuY82/IrKqvLg+HikeydQ0FiC/65xSSmO6erc+PlBqO1MI9CFAko+UCsC39fp4CI2B8lM/xMNSNYAmADRT52LlY1lzF3MZQ1lFlwFUiYqSAIx3gTIW4IOm1yrbBYYBqAeqC4AXym7tDkAe6GJPuhfXzxKg8Smw5d28Jb8qZC5cXD8dsBsKjc3pAQOHGE9hntep5iXAsvuqtwSY/zRuTAn7fIKVRuiaYouvasynlh5WhBgx8O7YL1Fe8wOtTqZ87o8GEX6KaPkenAAL+dPdc3JoE+UK6+e/QVsGI10s7xmVM9AhZL2nNLUBmPlvIn+zApCn35uRV8KR9HczTE+WbUBOvb9aIXoNWnmgyprnQ2OiAWrxIldTTByE+Sg0oe9bUWALojFsgCQAj3wdUdjtQ9/brdRlhWCiOUF3rPdyKK1wD0GjKXHD2702k0UQhaAROr258GeVuSpYDCUGXnwln3zGzlPWfl9IcX3LSh0WQIH2G0f8jQ2o8UjpbeuNIyKykxE2fmL4SGV73noGBF98G+17c3bk2cO3ulhi2M6HXjnuvyXa916VGvfuk4eW+P//i996sTilZguE0AAAAABJRU5ErkJggg==',
       'searchUrl': 'https://forum.dirtywarez.com/search/search?keywords=%tt%',
@@ -5985,13 +6000,6 @@ var subs_sites = [
       'positiveMatch': true,
       'inSecondSearchBar': true,
       'both': true},
-  {   'name': 'Subtitles.hr',
-      'icon': 'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACAAAAAgCAMAAABEpIrGAAAAB3RJTUUH5AgHEyg0ji/HegAAAEhQTFRFDjlULFJpSmt/aYSUeJCfh5yqlqm1w87V8fP1/wAA/xAQ/yAg/0BA/1BQ/2Bg/4CA/5CQ/6Cg/7Cw/8DA/9DQ/+Dg//Dw////dQyPXQAAAKdJREFUOMvlk90OgyAMhR1YO5yOOYTz/m86foRIMvB62bnqab5AW8ow/Isk8xSDiVlGm0TiAAjgGDBA0WbJKwC3K2BsANGKewqU0oBRQQbQJ/uKQQfYTsC+BO0VsDpgy0CRru3zAthVHzCPAlgdZDPgjL8fblaq2cX8xpFttTnbVGN7DmtV5LdBeYfFA+23QM43gGAhekA5QhCl1ZEUtqzYYSSi3/g1Hx39HyjcMM70AAAAAElFTkSuQmCC',
-      'searchUrl': 'https://www.subtitles.hr/subtitles-search/?movie=%search_string_orig%',
-      'matchRegex': /matched subtitles found/,
-      'positiveMatch': true,
-      'inSecondSearchBar': true,
-      'both': true},
   {   'name': 'Subtitry (RU)',
       'icon': 'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQAgMAAABinRfyAAAACVBMVEUAAAAAAAD///+D3c/SAAAAAXRSTlMAQObYZgAAABpJREFUCNdjWBUatoJh2qpVEVBWaBgSi3RZANsBHqx95FOKAAAAAElFTkSuQmCC',
       'searchUrl': 'https://subtitry.ru/subtitles/?film=%nott%',
@@ -6715,6 +6723,19 @@ var icon_sites_main = [
       'icon': 'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACAAAAAYCAMAAACsjQ8GAAACRlBMVEUAAAAAAAAAAAAAAAAAAAAHFwcAAQAAAAAAAAAAAAAABAAAAAAAAAAAAgAAAAAAAAAAAAAAAAAECAQBBQEAAAAADAAKlw4JlAwAAAAAAAAMkAyk26E67BkdYRgwLzBNWE0AAAAAAAB2dnaT3I0Udg5C2U2x9acViRhxzlcTkxcniilDsEc6izuU+o4P+yOJzIql1aU4wCCP84oFgAsFawic1J1Jk0obox0Jhg0ETwWa0ZobkBCP/I9zwXECUgRWq1dZm1YTgxcgkiMCcQMqmxK/37+317cP/CcNZw5HnUoCigQP/iIV/S0Tdg8TXw4sli84+yCiwaF+13oEYQcIRQQMbBAETQYKXwYR+R10wnM9Pz13q3UBegewzKucxp5bclscMByWt5aPqI8qjRZJa0waewS/4bcNRQ2UvY9gcGADFAOctJWx6bENEQgAAABBryM65EolGyU5VjkfHx+w66mJ64lE9SeUqn+M/4kIhwsGZAgJjQ0ETAZ+4ns+tUAO/icWoBoy/xYSnRUJmw0IggsIewoHcwoGaQgFWQcEcQaX5YgxqjQ3/xYx+hYUqBYz/xUu7xUNnxANewsIbQkGXwkFVQec1JyT/5F70pCF2Ydlx4CB63+F3H563nhnsXiI7Hdqx2pwzWhou2RTkGNftV9VoVVYy0tAbEpMnUgxsDUW7zEvlDE9ti8nlisejigN9CMdmyEt9xUerhMr2RIs2xEq6BANfhAUlQ8UiQ4IeAskwAoNaAoGYQgjxgcApAMEkQMCgQIAiwC1VHFxAAAAeHRSTlMAExEFDAgeDyQWTUlGQTEhUBkYPi4t/v4pG/78znxwXTc1M/79+/n49/f18/Dt7Orp6OXk5OPj4uLh39/b19XS0tLOzsrCwcC8uri3tbOuraajo6CenZ2TkpCQjYyJhIN/fXlza2tgXFlPTEs7OTkzMC8sKScaGgx5bJxXAAAByklEQVQoz2KgASiI8PF2L8cprVdfX79+lZAgCx4jWFXV5tTmsuOSZs/WSJW13jGJA4tcQGNj74T5hoX8HDwqu0WZMeTL+ht7t3bt3ZLPzMDvF8KBYTOLTE//hK5dmzcyMLOyrRDmZGBmYWZFyLMkLogWYop1SZbpYUnjkw7nYGZgtNrHhlDAtLKpT6R4GS9QY8Ya5e0gmu1gMD9CgZBmi3OetK8IMwP7wk1SkwQYGdgNshSZkEwATNFh0ZL9ZpElDAz8vAmTw9gYGA/wMcKlmVmUGIPmThNfWltRMZ2Bia/TRISVNVQSIc+uH8NUOrtbbDVQQQUDA8faFi5OJVFOuAJO0wYFJgbBuonqtka6NjmsgumVxiKBokxwLyZ1iwuzMLDVNTTLcjAxccYV8TWJc3tywCNMcGZTJS87gyRQwUQnVzdtLzY2/2YLRwl2BmhA8fdV7vQQZeI3F6uurpaqXjdLiIlPrHKDAps9G0SFpFb7niqdFHm51sntVVXLF8+bkSkf1dYpF79NAqKARdhyakdVZ2tb1dQaIOhob61saZvSMcWOVxAWShLC3Fxc3NxcAkDAzQMCQD4vnxAzIqDYmZgYUQETOytRaRgAYkVr+YGMMi8AAAAASUVORK5CYII=',
       'searchUrl': 'https://www.icv-crew.com/forum/index.php?action=search2',
       'showByDefault': false},
+  {   'name': 'Is it Woke or Not',
+      'icon': 'data:image/png;base64,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',
+      'searchUrl': 'https://isitwokeornot.com/search?q=%search_string%',
+      'showByDefault': false},
+  {   'name': 'Jackett (ID)',
+      'icon': 'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAEQAAABEAgMAAABFfXshAAAADFBMVEUAAAAaGhro6OiJiYlDa1W1AAAAAXRSTlMAQObYZgAAAOlJREFUOMu91DEOgjAUBmAcPAL38QgMPF7iwEFcPIV6BJNHjBNyEiRx4ADdWVj0UWxfG0BCjP5Jh37pe+3SF/RZA0AU2IRgEhmQxB2swM1Gjjh14CU2RRIRabSelWhEwinBZ2mu7wUVZb4kOWxLX66VMgK90I18aVkurqTEQrkIKi2ZyI600MWK4t2RVzYqoIV+LjQt+AcprZy1tAN5fJBkRIovpKaDlXzP0qSuIAuKpFRcWVTtyEn6xEvlTrmVUrFkiSuo+D1vCbUAVg340gWnxY2I/7+WyyZYzcpwJozODb/Mzifpa0ngBTp25EkshcgPAAAAAElFTkSuQmCC',
+      'searchUrl': 'http://localhost:9117/UI/Dashboard#search=%tt%',
+      'showByDefault': false},
+  {   'name': 'Jackett (Title)',
+      'icon': 'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAEQAAABEAgMAAABFfXshAAAADFBMVEUAAAAaGhro6OiJiYlDa1W1AAAAAXRSTlMAQObYZgAAAOlJREFUOMu91DEOgjAUBmAcPAL38QgMPF7iwEFcPIV6BJNHjBNyEiRx4ADdWVj0UWxfG0BCjP5Jh37pe+3SF/RZA0AU2IRgEhmQxB2swM1Gjjh14CU2RRIRabSelWhEwinBZ2mu7wUVZb4kOWxLX66VMgK90I18aVkurqTEQrkIKi2ZyI600MWK4t2RVzYqoIV+LjQt+AcprZy1tAN5fJBkRIovpKaDlXzP0qSuIAuKpFRcWVTtyEn6xEvlTrmVUrFkiSuo+D1vCbUAVg340gWnxY2I/7+WyyZYzcpwJozODb/Mzifpa0ngBTp25EkshcgPAAAAAElFTkSuQmCC',
+      'searchUrl': 'http://localhost:9117/UI/Dashboard#search=%search_string%',
+      'spaceEncode': ' ',
+      'showByDefault': false},
   {   'name': 'JustWatch',
       'icon': 'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACAAAAAgBAMAAACBVGfHAAAAElBMVEUAAAAYIivZs0BnXjaljDvxylNUOgvkAAAAAXRSTlMAQObYZgAAAJdJREFUKM9lkuENQjEIhOsGVljgQR2A6AING7yk+68iErUI/PxyXIFra62HalaXCK4uiJUEJjEBaiQGbsQZ0ExAkf+AdiQOALqB+xEUYmAABw/B0WHxBvToBtbxA+MpBk7RDxiCJHAKLHWAZmpd8u6aG+gG3jK9hb+mON2U87N5sDJ6Xa6uXw9UT1iPXGIoQeUoa9jlO7wA7EAu8zbNLQcAAAAASUVORK5CYII=',
       'searchUrl': 'https://www.justwatch.com/us/search?q=%search_string%',
@@ -6886,6 +6907,11 @@ var icon_sites_main = [
   {   'name': 'ScreenAnarchy',
       'icon': 'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAIAAAACAAQMAAAD58POIAAAACXBIWXMAAAsTAAALEwEAmpwYAAAAIGNIUk0AAHolAACAgwAA+f8AAIDpAAB1MAAA6mAAADqYAAAXb5JfxUYAAAAGUExURXoVA////7XVBmYAAAI8SURBVEjH3dW9jtQwEABgW4POqdg2RQ6/wpZXnAiPwiNsuRUOT0B73b0CJaURxZXX0mFAokSRrjhLrDJ4frybNaJFwBWr5Mt5xh5PHGP+j7+phdhCamFu7u0vkFs4NAC/hY2mc4sORdQHChtE+RevEBAl37h0OgLlUVh6jl0AJ34i4AgiP1muNSZHtR8UPEFZFtzhwrFGgpLG3WvwQFAmvfnUgK9A93TlsYFRwTLgGSRHEE4wQYWDVoMrgiswtLoKQAMr5Ao1mwCeg13DLBexhaUFHsSlfZh0cVnhsQIy/JD4QYpc4EFglGhlxV9XkAneC3hZVYHXAk5KWPZLVwGSZoPf67IYJo/fKowKsQKPiStgieMKSBTqC1LmHjDa2yMEgfEIIyYq3EjFA9oMhukMPq9gWUFSCFILBd5GBs/diDyjuyPQvgQCbrN8bKn7Ft4IHGp98JZ7l4H3Bb3AUmEZabgAV/DAwO0p+5LDCfgFmoNOctIaJzwBT2SSt0zaq6RZ7BpKkKyX8ss3sgNBOhLSX3mIlmk9Nz6WYy6Y/or6dDZofGIYGLb20fiZ4RnDZKMZduVnZzxDJEjl7Hxl/DsKOhfwCnzCMUQecsmwt1/MpcCwr2mHddqZrhTo7LPJXJvuJUPX/8ESPenNi1KmHXTAaeNFb2JZYoYBaLU2uhuT4AoK8AfFJvfREpRvAwMkl+0M2dHHgvoAdm4Pb2E+gpsdjd/BDQwC2fUuw5ayMDztXXfRw9bM0Jn0L3+3fwKL326n9SzYSwAAAABJRU5ErkJggg==',
       'searchUrl': 'https://screenanarchy.com/search.html?term=%search_string%',
+      'showByDefault': false},
+  {   'name': 'Seerr',
+      'icon': 'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADgAAAA4CAMAAACfWMssAAAAWlBMVEUAAAATGSiyjvu6kfvClvyHfPilifufhvpwc/eri/yUgvl5d/jYu/3Lo/xpcPb5+P/Qr/1fYMvZz/3o4P4tLlNvbeNsZs5iWKNHRoWurvudm/mSe+KDb8bBwvvJ6dvYAAAAAXRSTlMAQObYZgAAAk1JREFUSMfV1tuyoyAQBdBJouLRKAgoXv//N6cbmW4VTGUez35NrdrNJeqf3x4pjdZviNZGym8VINVke16vV6YAf8UUiqZpFPAX5Pl8KS2/Yo1671HofJrPrfINDBQluB+I+iBNA22EsJFcURSZuasD1ygyCpbJDiIKLZNOcx3ualgeO3EjDTlUPheHMnY0pz+NtBNVYaJB0WGaT66qZhmfQ+QwJ4eZZLTAqxPLilkEO4w+FarYPZ19YOzoFnZ5Psu4kJ2f0gHbrVuq4CD6XAiJ9oXkY1zJ7ZVciLnup7Ak7ZCjw1SGoEYYu8JXsvyXLZo0Or/lwRlJzpIPP+UQ2oN0/e7qyvASEy6Cduh3mGte4s09W73gyhpdXW9nGDvhCFFlDZkCfB+ccD/sFnuGXQ/qBHnOxTpy1fg4xw0RpPWt8LNACX3k+ER8ZUmQHUK8msuywh1Pw5Kg3h1BtKQiWB4h7ydAShKWkC1Aw+4zdENfYnSAMiNHdyWZrvOwNnTJyRVivHe261qE/IfUh/vi7uHYDeha2BtaJDm6LcnCHl1pCEoV3c9kIU7atjgpz0qOLkyqEF27nZ7j5ES12rTDwnYv5BiA9NwdbMI5KEQXDpFXya7KhzHu844LWWbkUDp7YiO53ESvueL4nO+BWmbkahqUowt2IPuhcyPEdZ613pVb8lVekIPUQH26bgAWnIwYSXSBgoWg2l0NLh0zH90eQMHR4zRVOjG8uHI2KcHjzmk3axrznlYXB23bd9+PG1hy9TyZ//lk3SafTYP65fkLIq1AtfeQgYwAAAAASUVORK5CYI',
+      'searchUrl': 'http://localhost:5055/search?query=%search_string%',
+      'spaceEncode': ' ',
       'showByDefault': false},
   {   'name': 'SensCritique (FR)',
       'icon': 'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADAAAAAwBAMAAAClLOS0AAAAG1BMVEUAAAAAAAA4ODgnJycBGAELCwsYGBhUVlRHR0dfQkCXAAAAAXRSTlMAQObYZgAAAJhJREFUOMvtkjEOggAQBEF9AIPSA422ygfkEVobTaztaO302WqEHJfsvQCunezOFpfM971FGYDVMQD7dQAgaALdlUImQQubQAGBQkuqH8iDJpBNuiv9g0yNBTWY/oRCS6oB5EKhJEuGK0o1FjhddFNxvjpggXvjxlrg1jzdWAsctk5hgXo3+rRxoH4/bKwLvAy0LtB1yaTvAxqEHHm4y+8dAAAAAElFTkSuQmCC',
@@ -7140,6 +7166,62 @@ async function replaceSearchUrlParams(site, movie_id, movie_title, movie_title_o
   });
 
   return clonedSite;
+}
+
+//==============================================================================
+//    Get custom_sites from personal URL
+//==============================================================================
+
+function getCustomSites() {
+  if (custom_sites_link) {
+    GM.xmlHttpRequest({
+      method: "GET",
+      timeout: 8000,
+      url:     custom_sites_link,
+      cookiePartition: { topLevelSite: custom_sites_link },
+      headers: { "User-Agent": "Mozilla/5.0 (Windows NT 6.1; Win64; x64; rv:108.0) Gecko/20100101 Firefox/108.0" },
+      onload: function(response) {
+        if (response.status < 400) {
+          const result = String(response.responseText);
+          try {
+            const custom_var = Function('"use strict"; return (' + result + ');')();
+            if (Array.isArray(custom_var)) {
+              if (custom_var.every(function(site) {
+                return site['inThirdSearchBar'] === true || site['inSecondSearchBar'] === true;
+              })) {
+                GM.setValue("custom_sites_code", result);
+              } else {
+                  GM.notification("Syntax Error 2.", "IMDb Scout Mod (Custom sites)");
+                  console.log("❌ IMDb Scout Mod (Custom sites): Syntax Error 2.");
+              }
+            }
+          } catch (e) {
+              GM.notification("Syntax Error.", "IMDb Scout Mod (Custom sites)");
+              console.log("❌ IMDb Scout Mod (Custom sites): Syntax Error.");
+          }
+        } else {
+            console.log("❌ IMDb Scout Mod (Custom sites): Request Status Error: " + response.status);
+            if (!custom_sites_code) {
+              GM.notification("Request Status Error: " + response.status, "IMDb Scout Mod (Custom sites)");
+            }
+        }
+      },
+      onerror: function() {
+        GM.notification("Request Error.", "IMDb Scout Mod (Custom sites)");
+        console.log("❌ IMDb Scout Mod (Custom sites): Request Error.");
+      },
+      onabort: function() {
+        GM.notification("Request Error.", "IMDb Scout Mod (Custom sites)");
+        console.log("❌ IMDb Scout Mod (Custom sites): Request Aborted.");
+      },
+      ontimeout: function() {
+        GM.notification("Request Error.", "IMDb Scout Mod (Custom sites)");
+        console.log("❌ IMDb Scout Mod (Custom sites): Request Timeout.");
+      }
+    });
+  } else {
+      GM.setValue("custom_sites_code", '');
+  }
 }
 
 //==============================================================================
@@ -8053,11 +8135,6 @@ async function maybeAddLink(elem, site, scout_tick) {
     reqHeader = {
       "Host": "tntracker.org",
       "Authorization": GM_config.get("tnt_authToken")
-    };
-  } else if (site['name'] == "DonTor") {
-    reqHeader = {
-      "Host": "dontorrent.club",
-      "Referer": "https://dontorrent.club"
     };
   } else if (site['name'].includes("Voidtools-")) {
     if (GM_config.get("void_username") !== "") {
@@ -9699,23 +9776,17 @@ async function start_plex(movie_id, movie_title, movie_title_orig) {
     titles.push(movie_title_orig);
   }
 
-  let tvdb_id = "00000000";
-  // newLayout || reference : check if 'title' has just a year in brackets, eg. "(2009)" // Note: 'title' is fail-safe measure if other checks fail.
-  const is_movie = (Boolean($('[data-testid=hero-title-block__metadata]').text().match('TV')) || Boolean($('li.ipl-inline-list__item').text().match('TV'))) ? false : Boolean($('title').text().match(/.*? \(([0-9]*)\)/));
-  if (!is_movie) {
-    tvdb_id = await getTVDbID(movie_id);
-  }
-
   let search_found = false;
   let found_title = "";
   let metadata_key = "none";
   let machineId = "none";
   for (var i = 0; i < titles.length; i++) {
-    const x = await getInfoFromPlex(titles[i], movie_id, tvdb_id, plex_url, plex_token);
+    const x = await getInfoFromPlex(titles[i], movie_id, plex_url, plex_token);
     if (x === true) {
       search_found = x;
       found_title = titles[i];
       metadata_key = await GM.getValue("Plex_metadata_key", "none");
+      metadata_key = metadata_key.replace(/\/children$/, ''); // TV-Series contains "/children" at the end, but then it doesn't open anything
       machineId = await machineIdentifierFromPlex(plex_url);
       break;
     } else if (x === "stop"){
@@ -9724,7 +9795,7 @@ async function start_plex(movie_id, movie_title, movie_title_orig) {
     }
   }
 
-  const link_notfound = plex_url+ "/search?query=" +movie_title+ "&X-Plex-Token=" +plex_token;
+  const link_notfound = plex_url+ "/search?query=" +movie_title+ "&includeGuids=1&X-Plex-Token=" +plex_token;
   if (search_found === true) {
     let link_found;
     if (machineId !== "none" && metadata_key !== "none") {
@@ -9778,12 +9849,11 @@ function machineIdentifierFromPlex(plex_url) {
   });
 }
 
-function getInfoFromPlex(title, movie_id, tvdb_id, plex_url, plex_token) {
+function getInfoFromPlex(title, movie_id, plex_url, plex_token) {
   return new Promise(resolve => {
-    const titleUri = title.replace(/&/g,'%26').replace(/#/g,'%23');
+    const titleUri = encodeURIComponent(title);
     const imdbid = "tt" +movie_id;
-    const tvdbid = "thetvdb://" +tvdb_id;
-    const url = plex_url+ "/search?query=" +titleUri+ "&X-Plex-Token=" +plex_token;
+    const url = plex_url+ "/search?query=" +titleUri+ "&includeGuids=1&X-Plex-Token=" +plex_token;
     GM.xmlHttpRequest({
       method: "GET",
       timeout: 10000,
@@ -9794,13 +9864,7 @@ function getInfoFromPlex(title, movie_id, tvdb_id, plex_url, plex_token) {
           const parser = new DOMParser();
           const result = parser.parseFromString(response.responseText, "text/xml");
           if (resultStr.match(imdbid)) {
-            const metadata_key = $(result).find('[guid*=' +imdbid+ ']').attr("key");
-            if (metadata_key != undefined) {
-              GM.setValue("Plex_metadata_key", metadata_key);
-            }
-            resolve(true);
-          } else if (resultStr.match(tvdbid)) {
-            const metadata_key = $(result).find('[guid*=' +tvdb_id+ ']').attr("key");
+            const metadata_key = $(result).find(`Guid[id*="${imdbid}"]`).first().parent().attr("key");
             if (metadata_key != undefined) {
               GM.setValue("Plex_metadata_key", metadata_key);
             }
@@ -11978,6 +12042,7 @@ function countSites(task) {
       'imdbscoutmod_header_text': {'type': 'text'},
       'imdbscoutsecondbar_header_text': {'type': 'text'},
       'imdbscoutthirdbar_header_text': {'type': 'text'},
+      'custom_sites_link': {'type': 'text'},
       'mod_icons_size': {'type': 'text'},
       'iconsborder_size': {'type': 'select', 'options': ['2px', '3px', '4px', '5px', '6px']},
       'cfg_iconsize': {'type': 'text'},
@@ -12224,6 +12289,11 @@ var config_fields = {
   },
   'imdbscoutthirdbar_header_text': {
     'label': 'Header text for the 3rd bar:&nbsp',
+    'type': 'text',
+    'default': ''
+  },
+  'custom_sites_link': {
+    'label': 'Direct URL to custom_sites:',
     'type': 'text',
     'default': ''
   },
@@ -12984,7 +13054,9 @@ GM_config.init({
 
       $('#imdb_scout').contents().find("img").css({"margin-right": "4px", "width": GM_config.get('cfg_iconsize'), "height": GM_config.get('cfg_iconsize')});
     },
-
+    'save': function() {
+      GM.setValue("custom_sites_link", GM_config.get('custom_sites_link'));
+    },
     'close': function() {
       location.reload();
     }
