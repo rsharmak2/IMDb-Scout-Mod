@@ -1,7 +1,7 @@
 // ==UserScript==
 //
 // @name         IMDb Scout Mod
-// @version      1.85
+// @version      1.86
 // @namespace    https://github.com/Purfview/IMDb-Scout-Mod
 // @description  Auto search for movie/series on torrent, usenet, ddl, subtitles, streaming, predb and other sites. Adds links to IMDb pages from hundreds various sites. Adds movies/series to Radarr/Sonarr. Adds external ratings from Metacritic, Rotten Tomatoes, Letterboxd, Douban, Allocine, MyAnimeList, AniList. Media Server indicators for Plex, Jellyfin, Emby. Dark theme/style for Reference View. Adds/Removes to/from Trakt's watchlist. Removes ads.
 // @icon         data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAEAAAABABAMAAABYR2ztAAAAMFBMVEUAAAD/AAAcAAA1AABEAABVAAC3AADnAAD2AACFAAClAABlAAB3AADHAACVAADYAABCnXhrAAAD10lEQVRIx73TV4xMURgH8H/OnRmZWe3T7h2sOWaNXu7oJRg9UccuHgTRBatMtAgSg+gJu9q+kFmihcQoD8qLTkK0CIkoy0YJITsRD0rCKTHFrnkSv5e5c88/53znO+fiPwvsvrN038cPNqrG9pJmHkRVnPcpaTlHJY60cfPSpsrzl1LKihrmLvxhCM2i3OHvDx0d+H7e3F6JBv5iZMiJfhFTfPYDMHrMImpwimWWUdSgDQkbno7fFpUPVgh+pHFbZR4SovSctDCM9Hac9IKd9rO8EevtBCkXgY5IMmgquwypP7qqfcp/Tp4KLONDVsWh3RSBB2rnZfit69ocUdqLn2prrRZYM0Jg4JibamKsqe7gfEh5GOAfeYJjVHIPZvil97rcXkMog30byWRwXYRWoxHbzNFHJJpAarO8NdEBBsdCaP3WMJltTmQd4zlnekTq9Z5dgACwAlrpK4BxdV5mvLuspRgMSHbCIFF0iS8MZ5S8oYBYKY7rByC4dDM9uSIUmPOIwxgQBoYeF93auP4qFyPbIVXziWeGTH1EFM57kJo2hqQju6BwIyRf6RmCjdT4JOdiwNgiH/PPD3qoqlsNaXRd+fKtFfECxlZVNVF9SOsgTZEr2TUjJJbyeNX1IZrKIbyGlBABfpQPv2UDrly13LkJXDVhpQ5MhtGwcyF4HKjlU4E8xwB0AvDjd6AGmevZ87EcQRHgcO52e9uNsYELOrAa/Yh81YlmYLQJ5HWyq0+kzQ/DQKEusg6CRI27ryy8nReRS0wsoetkmRwogHSprliCckfEjXG9yAQc74J0WB99vu6DF3i3pMucsXM6tpBbxd2mVJAwXwGogNRBvGRA4jtHKTXkAIwLGCR/mT4Lh75oneQXXP9sAYfGRDCsnw7pX/jRZkU3M44kjw2l5zRIzb4CbZ8dULdL6wbNPZOpK0B6gN1UR1mdoxAaL/GrWiLPL3SEwW9YMTU/d64BtLahAVyucWhj9Mm8ign9IfQaBtd2/GbvCAEBpG5eMcrj2I0ktpKLeaqXQ3Pst42KGIshpdTmQLAeTgFGJ2wvh+tayMOR0n1RZ8B9z13vnOPBnsBq4E1ffgZpPFZHWVpO2cvhjYpOcbBd5TlhpDu5zq9mHGZcVi0y+VFkcFkDdyKJfTt99wEyHSEzDM90KH0nexpwZHJHKYYhjzlwGe0pP/IKfxociaEb7YDbi6KGJY1R2cR76E6NAtXqY4pPH3plLcl8LD7V+cOLUbUWRFZRPTAbVZO3mxK18Xc1ZaAiS8ARJXpZliXAomR94siiiMx8ZBOkXGTlnH0F/9ov1xPtWwEqP9wAAAAASUVORK5CYII=
@@ -3123,10 +3123,9 @@ var private_sites = [
       'both': true},
   {   'name': 'HDTurk',
       'icon': 'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACAAAAAgBAMAAACBVGfHAAAAMFBMVEUAAAABAQEVFRWrq6soKCiZmZmJiYmUlJQ4ODhLS0tkZGSioqJ1dXXHx8e3t7fb29vIHH2GAAAAAXRSTlMAQObYZgAAAUxJREFUKM9iwAKMEcAAxGc2RhVhNl/RAQYuQNC1GSiQ6aQEByqTgQKLBJGAmwEDtyKygMQGBnZFQRdFQRFHIY8WoJTIBgY2RaGZjoKaiyTXnJqhKChkABQQCZ4oqPpF9///f4sQAupfdF925t5RhAuoXdHdojT9qiOyQJCgpN1CoAC7oogdSECvSFDo3EGhDSAB2xMdU8ECi6EC9uZpdSABwdmHoAKA/f9794lykqDg1ENCAUABifdVq06jCLxdpOT2RBsksBAsIGI7UVDHRDVJUOgoVMAOKLBF/ZCgZFojRGDzREGtILVDQl4xjhCBaqBAklqG5+kMQaAA0OnpjYJaRWphaVlNgmAVQmuA4XFIJy1thSJIgFVRUElQUEhRyMVJEBxizI3IYaoFDOQlSHyhNgMGZkukYBdZDYxK662hEFBeXl69AT1uGTABAAiHepyDPnKAAAAAAElFTkSuQmCC',
-      'searchUrl': 'https://hdturk.club/browse.php?do=search&keywords=%tt%&search_type=t_genre&category=0&include_dead_torrents=yes',
-      'loggedOutRegex': /Cloudflare|Ray ID|Lütfen Giriş yapınız/,
-      'matchRegex': /dl.png/,
-      'positiveMatch': true,
+      'searchUrl': 'https://hdturk.club/torrents?cats=all&keywords=%tt%&search_type=t_genre',
+      'loggedOutRegex': /Cloudflare|Ray ID|Lütfen Giriş yapınız|resend-verification/,
+      'matchRegex': /Sonuç bulunamadı/,
       'both': true},
   {   'name': 'HDZero',
       'icon': 'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADQAAAA0BAMAAAA3VgbYAAAAGFBMVEUAAACzWJAVChBlNlPCf8KuWOTnq8HoLW0MZb6LAAAAAXRSTlMAQObYZgAAAdpJREFUOMu1k0+P2jAQxYu6HwAnLJzznNJrMwPh2pAhPbeNe6dE2fMuK+Xr7zjkD5K57pOeHPmnNxPbmi+fqcKY1UNgvB5CMykksx6RmPtleU8WN0TIBhaEQIq8glCcgLVodh/z28SG9vCyfWwOkQXDRazyDX/OKIYcYV3tnBOyc8W+jfuD1P12PeOx4pMi2rkIz47jvbJSY3etnh3h5IC9Y1drt+XUyp5qJK4uoOs3F43IGKbU/asaV0fJ6S9SRUNFJtiVE3GuQO6OSOsJka3aRqQQIUgdqWlAC/BKRGIrAtsIturh0F8B7KRAKhekzSVp5WKH218wkFdHbOW/4qoVoQmZGFXln0rNhjMCM0+oKeDFhFHZgJImgj1c+dB5EQ7dmx3QtiG/631Vsxo/ekR5qaGOvncAOquIJrQGsLli8yqUvJrOvGEzIgJyg+RXp4/zvuEX/cSyfy4lyZlgC8CeTZmWqCJ7u3kGqiIr1uddw23WbCVvaUCG01ZVeV+wNm1bIhtmJ07agpE3jJRgy1UJu1Nwuw7CLNtfxoiUDNSyX1nfZGzGnBk1IzOxYmOmQZ3E3jzP5sIEmuYhRPMQhaFRT49CwY+EwxyGHnbT4wYsKDeymYQa+nyePgDUcIYbszlT4gAAAABJRU5ErkJggg==',
@@ -4016,8 +4015,8 @@ var private_sites = [
   {   'name': 'SpeedApp',
       'icon': 'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACAAAAAgBAMAAACBVGfHAAAAGFBMVEUAAAAAAAD+xgD/1QAzKgD/7wCHbQDHowAziTa0AAAAAXRSTlMAQObYZgAAANNJREFUKM9tkj0OwjAMhcMNsITKbgvYbdodARdoUZhbFDG3ULg+Tqr+pMVDEn160XOeY8wKJrU2xkBUQRBLAC6TUglsCtFKG78WJw8EEck61JIAWE+7cpvrxgPIAB7/wXglia/QzWEEUBoeAbFK9oTCHRDrlHAlRycBpGVSeIn2cg/AApy95A3wDOCjB1LJEaANYFcneaWSVNvvXKzzHkhZi4MtewnxpNOD4Kz1K0dA5o9TSzfP4xXnUfcR9qnblvw2pv7NB9tuUJt+UItRLoa9+A4/7ARN826JFAkAAAAASUVORK5CYII=',
       'searchUrl': 'https://speedapp.io/browse?search=%tt%',
-      'loggedOutRegex': /Cloudflare|Ray ID|Forget Password|Remember me/,
-      'matchRegex': /text-emphasis text-hover-primary/,
+      'loggedOutRegex': /Cloudflare|Ray ID|Forget Password|Remember me|SpeedApp/,
+      'matchRegex': /text-emphasis text-hover-primary|autosearch doesnt work here anymore/,
       'both': true},
   {   'name': 'SpeedApp-Req',
       'icon': 'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACAAAAAgBAMAAACBVGfHAAAAGFBMVEUAAAAAAAD+xgD/1QAzKgD/7wCHbQDHowAziTa0AAAAAXRSTlMAQObYZgAAANNJREFUKM9tkj0OwjAMhcMNsITKbgvYbdodARdoUZhbFDG3ULg+Tqr+pMVDEn160XOeY8wKJrU2xkBUQRBLAC6TUglsCtFKG78WJw8EEck61JIAWE+7cpvrxgPIAB7/wXglia/QzWEEUBoeAbFK9oTCHRDrlHAlRycBpGVSeIn2cg/AApy95A3wDOCjB1LJEaANYFcneaWSVNvvXKzzHkhZi4MtewnxpNOD4Kz1K0dA5o9TSzfP4xXnUfcR9qnblvw2pv7NB9tuUJt+UItRLoa9+A4/7ARN826JFAkAAAAASUVORK5CYII=',
