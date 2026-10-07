@@ -1,7 +1,7 @@
 // ==UserScript==
 //
 // @name         IMDb Scout Mod
-// @version      1.89
+// @version      1.90
 // @namespace    https://github.com/Purfview/IMDb-Scout-Mod
 // @description  Auto search for movie/series on torrent, usenet, ddl, subtitles, streaming, predb and other sites. Adds links to IMDb pages from hundreds various sites. Adds movies/series to Radarr/Sonarr. Adds external ratings from Metacritic, Rotten Tomatoes, Letterboxd, Douban, Allocine, MyAnimeList, AniList. Media Server indicators for Plex, Jellyfin, Emby. Dark theme/style for Reference View. Adds/Removes to/from Trakt's watchlist. Removes ads.
 // @icon         data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAEAAAABABAMAAABYR2ztAAAAMFBMVEUAAAD/AAAcAAA1AABEAABVAAC3AADnAAD2AACFAAClAABlAAB3AADHAACVAADYAABCnXhrAAAD10lEQVRIx73TV4xMURgH8H/OnRmZWe3T7h2sOWaNXu7oJRg9UccuHgTRBatMtAgSg+gJu9q+kFmihcQoD8qLTkK0CIkoy0YJITsRD0rCKTHFrnkSv5e5c88/53znO+fiPwvsvrN038cPNqrG9pJmHkRVnPcpaTlHJY60cfPSpsrzl1LKihrmLvxhCM2i3OHvDx0d+H7e3F6JBv5iZMiJfhFTfPYDMHrMImpwimWWUdSgDQkbno7fFpUPVgh+pHFbZR4SovSctDCM9Hac9IKd9rO8EevtBCkXgY5IMmgquwypP7qqfcp/Tp4KLONDVsWh3RSBB2rnZfit69ocUdqLn2prrRZYM0Jg4JibamKsqe7gfEh5GOAfeYJjVHIPZvil97rcXkMog30byWRwXYRWoxHbzNFHJJpAarO8NdEBBsdCaP3WMJltTmQd4zlnekTq9Z5dgACwAlrpK4BxdV5mvLuspRgMSHbCIFF0iS8MZ5S8oYBYKY7rByC4dDM9uSIUmPOIwxgQBoYeF93auP4qFyPbIVXziWeGTH1EFM57kJo2hqQju6BwIyRf6RmCjdT4JOdiwNgiH/PPD3qoqlsNaXRd+fKtFfECxlZVNVF9SOsgTZEr2TUjJJbyeNX1IZrKIbyGlBABfpQPv2UDrly13LkJXDVhpQ5MhtGwcyF4HKjlU4E8xwB0AvDjd6AGmevZ87EcQRHgcO52e9uNsYELOrAa/Yh81YlmYLQJ5HWyq0+kzQ/DQKEusg6CRI27ryy8nReRS0wsoetkmRwogHSprliCckfEjXG9yAQc74J0WB99vu6DF3i3pMucsXM6tpBbxd2mVJAwXwGogNRBvGRA4jtHKTXkAIwLGCR/mT4Lh75oneQXXP9sAYfGRDCsnw7pX/jRZkU3M44kjw2l5zRIzb4CbZ8dULdL6wbNPZOpK0B6gN1UR1mdoxAaL/GrWiLPL3SEwW9YMTU/d64BtLahAVyucWhj9Mm8ign9IfQaBtd2/GbvCAEBpG5eMcrj2I0ktpKLeaqXQ3Pst42KGIshpdTmQLAeTgFGJ2wvh+tayMOR0n1RZ8B9z13vnOPBnsBq4E1ffgZpPFZHWVpO2cvhjYpOcbBd5TlhpDu5zq9mHGZcVi0y+VFkcFkDdyKJfTt99wEyHSEzDM90KH0nexpwZHJHKYYhjzlwGe0pP/IKfxociaEb7YDbi6KGJY1R2cR76E6NAtXqY4pPH3plLcl8LD7V+cOLUbUWRFZRPTAbVZO3mxK18Xc1ZaAiS8ARJXpZliXAomR94siiiMx8ZBOkXGTlnH0F/9ov1xPtWwEqP9wAAAAASUVORK5CYII=
@@ -4944,6 +4944,29 @@ var french_sites = [
       'loggedOutRegex': /Cloudflare|Ray ID|Vous pouvez vous enregistrer/,
       'matchRegex': /Aucun message/,
       'both': true},
+  {   'name': 'Gemini',
+      'icon': 'https://gemini-tracker.org/favicon.ico',
+      'searchUrl': 'https://gemini-tracker.org/torrents?imdbId=%nott%',
+      'loggedOutRegex': /Cloudflare|Ray ID|Service Unavailable|forgot-password/,
+      'matchRegex': /torrents\/download|torrent\/download|torrent-search--poster__poster/,
+      'seedingRegex': /fa-arrow-circle-up|torrent-activity-indicator--seeding/,
+      'positiveMatch': true,
+      'both': true},
+  {   'name': 'Gemini-TMDb',
+      'icon': 'https://gemini-tracker.org/favicon.ico',
+      'searchUrl': 'https://gemini-tracker.org/torrents?tmdbId=%tmdbid%',
+      'loggedOutRegex': /Cloudflare|Ray ID|Service Unavailable|forgot-password/,
+      'matchRegex': /torrents\/download|torrent\/download|torrent-search--poster__poster/,
+      'seedingRegex': /fa-arrow-circle-up|torrent-activity-indicator--seeding/,
+      'positiveMatch': true,
+      'both': true},
+  /* {   'name': 'Gemini-Req',
+      'icon': 'https://gemini-tracker.org/favicon.ico',
+      'searchUrl': 'https://gemini-tracker.org/requests?unfilled=1&tmdbId=%tmdbid%',
+      'loggedOutRegex': /Cloudflare|Ray ID|Service Unavailable|forgot-password/,
+      'matchRegex': /fa-circle text-red/,
+      'positiveMatch': true,
+      'both': true}, */
   {   'name': 'G-Free',
       'icon': 'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADAAAAAwBAMAAAClLOS0AAAAJFBMVEUAAAABAwFcX1xCSEICjwJzdnMYLRgJZgkxjDFIpkhjvWOGz4ZXC3j+AAAAAXRSTlMAQObYZgAAAlpJREFUOMuNlM1vElEUxUcM3V9bhy6bV9s0rqovReKuyQvDEmnGlJ2PL3U5hpRWd7QK4o5aC8NOXQzD1kRg/jnPfcOXton9JZCZc+4995I3g3UHkkLkb5ETaSmErO3/qx89dQ3bpb/1lwfujKPqqn6f9b4/7HPPalrJdYujCEyvXHc3vwyCHg2hHftR1y0swpJV93gUuEzhc9QUi5Y11x3EuhCiMxGiuphQnOwY9QqfL9/F7mKlwceCAANUi72pwGLx6OIYAqRoKrilK0pxEi5x33j3aBQafyzTZqeSGApw0aiHYVNsS+nL9BbvJPYCNnpKhf1zCZ5fylfGeNxlw1cqlzNG5ofkhaXoNKFvhwqcy7Qmuy3LMMqiLwTqRkPlSJkmoMpps1RPMm2OedbQMOq6xh2ZQM5pKD84Iap4dt5KljOXM7WhVCeaXhNteLRlJWDEcp31yQnBOFwamQvsNIiuNcXGvpVYZyNjzq+na7Q0iI1OGA5b2j77TTSPSlIKRg3QaTj9RiAeblHKYdkf0vvw6yEBrEt5GLZDNU2nDqXaDhnqmvADNSkCKU1zINgwnnDBjM1PBBCxDuMeVUyyaRt7/J2lh3wefEFvWqb2Fy65kA8qQTaGfAg0GwEbSmNbM73ukd2LDQ9J2M1iXtCGg1uPjZ/aJD2IHzg0e5sIsf12C6bSPCLOqjjUV/ptkFMgy0lxFqqyZ8rpK4PGsjFJTFA5h0WnrjzCTosWqijVABzEo5ct9FoZ+GRX3vY1XhXl/PBgpRV2aQGCbnVKN/4aNAH7wLoJ3rYd6//8ARCX27OsDBPsAAAAAElFTkSuQmCC',
       'searchUrl': 'https://generation-free.org/torrents?imdbId=%nott%',
