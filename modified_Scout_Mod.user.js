@@ -1,7 +1,7 @@
 // ==UserScript==
 //
 // @name         IMDb Scout Mod
-// @version      1.94
+// @version      1.95
 // @namespace    https://github.com/Purfview/IMDb-Scout-Mod
 // @description  Auto search for movie/series on torrent, usenet, ddl, subtitles, streaming, predb and other sites. Adds links to IMDb pages from hundreds various sites. Adds movies/series to Radarr/Sonarr. Adds external ratings from Metacritic, Rotten Tomatoes, Letterboxd, Douban, Allocine, MyAnimeList, AniList. Media Server indicators for Plex, Jellyfin, Emby. Dark theme/style for Reference View. Adds/Removes to/from Trakt's watchlist. Removes ads.
 // @icon         data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAEAAAABABAMAAABYR2ztAAAAMFBMVEUAAAD/AAAcAAA1AABEAABVAAC3AADnAAD2AACFAAClAABlAAB3AADHAACVAADYAABCnXhrAAAD10lEQVRIx73TV4xMURgH8H/OnRmZWe3T7h2sOWaNXu7oJRg9UccuHgTRBatMtAgSg+gJu9q+kFmihcQoD8qLTkK0CIkoy0YJITsRD0rCKTHFrnkSv5e5c88/53znO+fiPwvsvrN038cPNqrG9pJmHkRVnPcpaTlHJY60cfPSpsrzl1LKihrmLvxhCM2i3OHvDx0d+H7e3F6JBv5iZMiJfhFTfPYDMHrMImpwimWWUdSgDQkbno7fFpUPVgh+pHFbZR4SovSctDCM9Hac9IKd9rO8EevtBCkXgY5IMmgquwypP7qqfcp/Tp4KLONDVsWh3RSBB2rnZfit69ocUdqLn2prrRZYM0Jg4JibamKsqe7gfEh5GOAfeYJjVHIPZvil97rcXkMog30byWRwXYRWoxHbzNFHJJpAarO8NdEBBsdCaP3WMJltTmQd4zlnekTq9Z5dgACwAlrpK4BxdV5mvLuspRgMSHbCIFF0iS8MZ5S8oYBYKY7rByC4dDM9uSIUmPOIwxgQBoYeF93auP4qFyPbIVXziWeGTH1EFM57kJo2hqQju6BwIyRf6RmCjdT4JOdiwNgiH/PPD3qoqlsNaXRd+fKtFfECxlZVNVF9SOsgTZEr2TUjJJbyeNX1IZrKIbyGlBABfpQPv2UDrly13LkJXDVhpQ5MhtGwcyF4HKjlU4E8xwB0AvDjd6AGmevZ87EcQRHgcO52e9uNsYELOrAa/Yh81YlmYLQJ5HWyq0+kzQ/DQKEusg6CRI27ryy8nReRS0wsoetkmRwogHSprliCckfEjXG9yAQc74J0WB99vu6DF3i3pMucsXM6tpBbxd2mVJAwXwGogNRBvGRA4jtHKTXkAIwLGCR/mT4Lh75oneQXXP9sAYfGRDCsnw7pX/jRZkU3M44kjw2l5zRIzb4CbZ8dULdL6wbNPZOpK0B6gN1UR1mdoxAaL/GrWiLPL3SEwW9YMTU/d64BtLahAVyucWhj9Mm8ign9IfQaBtd2/GbvCAEBpG5eMcrj2I0ktpKLeaqXQ3Pst42KGIshpdTmQLAeTgFGJ2wvh+tayMOR0n1RZ8B9z13vnOPBnsBq4E1ffgZpPFZHWVpO2cvhjYpOcbBd5TlhpDu5zq9mHGZcVi0y+VFkcFkDdyKJfTt99wEyHSEzDM90KH0nexpwZHJHKYYhjzlwGe0pP/IKfxociaEb7YDbi6KGJY1R2cR76E6NAtXqY4pPH3plLcl8LD7V+cOLUbUWRFZRPTAbVZO3mxK18Xc1ZaAiS8ARJXpZliXAomR94siiiMx8ZBOkXGTlnH0F/9ov1xPtWwEqP9wAAAAASUVORK5CYII=
@@ -2557,6 +2557,18 @@ var private_sites = [
       'loggedOutRegex': /Cloudflare|Ray ID|Odzyskaj hasło|zmienić hasło|change your password/,
       'matchRegex': /download.png/,
       'positiveMatch': true},
+  {   'name': 'binarybay',
+      'icon': 'https://binarybay.cc/favicon.ico',
+      'searchUrl': 'https://binarybay.cc/torrents.php?searchtext=&search_type=0&taglist=&tags_type=0&metasrc=any&metaid=%tt%&order_by=time&order_way=desc',
+      'loggedOutRegex': /Cloudflare|Ray ID|Service Unavailable|\/login.php?act=recover/,
+      'matchRegex': /Your search did not match anything/,
+      'both': true },
+  {   'name': 'binarybay-TMDB',
+      'icon': 'https://binarybay.cc/favicon.ico',
+      'searchUrl': 'https://binarybay.cc/torrents.php?searchtext=&search_type=0&taglist=&tags_type=0&metasrc=any&metaid=%tmdbid%&order_by=time&order_way=desc',
+      'loggedOutRegex': /Cloudflare|Ray ID|Service Unavailable|\/login.php?act=recover/,
+      'matchRegex': /Your search did not match anything/,
+      'both': true },
   {   'name': 'BitHD',
       'icon': 'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAEQAAABECAMAAAAPzWOAAAAAXVBMVEUAAAD0cAD5jgD7rQD3hAD1egD7twL/zAD/owD6wQL+5QP+1gL/mQD0mQH0owD/6y/+7Vv+2h35zBPwsmL4ykbwlUX2rjb0ghz5qR70jg/s2KLujR70mBbtmB7qjgBSXCu/AAAAAXRSTlMAQObYZgAAAyJJREFUWMPl1utu4jAQBeBk7PiSjJ0LhC4t7fs/5p6ZJF1KKazza6U9ohUS8Glsj+1U/22GcULGcRz2G6NzMaqyn5mM00CC0+8yokFCkP/RRb9LGUMInEIWRaqZpvIRDYY5IcwhKxN9uRJTIglzRkmqTMUDMkTWqrLVEmNpKcdkNQIlXkuJhaX8ok9ElQzE+akMOdtGsjKcckYtJpUhjSAaUVLC5GZqzmXIm62buq43BRHVliEz2Vqj0PrOzlVZKDT1behQiLyL0nyByFaFebVZpuHa4ENVmgOxtVcMmbeqPBfiJIo61sDYkVOyFJgJScYkGDtyDMvvnZxNH6dqH5KZEmqhj/d3ELvyOnHOZPLl8OR7w9D3/YDcO9qcnka/nhHHKXovB/kd5LUzJgfHT4xxuQ18B+X7adM7ndFnp7lBRJk6ILfKEJ0Dw89uJhMQ4zCi78owOVHi4xk5mpCYc9a7oBNlGP4Qrfc+xuji46V1LL3ILApKaVvU0q6ftR1YZfzxYUtnJk2AEoGI4mMr6dZA8cPjw5ysvlIwn0qHN1IVsiqPkYtdQ5z/IFGILYr0j5AXa7eDPGyz0nlEesOvCpj2IVI3Er3fllI6jzoMWPA1RVGeIXMNBa+lFKPLGX1On31Rx0XpHyOIKB+UAxgZkzNXK1rT81I2RC/JkBdEjS3WQsGq/w2i97VU4qO7uY6pfbJA8xXC2nE3hSDWtNJw7c/NAmAdTlJEjVtFkNhiW/08IKylINJv0ZvTnb6OPkrTjCOc4SeFQMBw0QQY33KMXbfsADBwfmoW2YIhhF/3t6tuII0694s5oHNfXi4nEPeR5VjB38KgmOL0HQSjWU/jvlwZvXNAAgJHmB3KqAbmLOftebhcmQwMTDwjSfcGlKkQWcbCifUZH+VAGWMpAgMIBEoiZSAuFyIBRobAhDBljMw2VIikwIEhbLGy3c7Fj6EYhP7afj7M2rdCxAa+JjQ0FyIzhVvDnqvSNIk+vhgNz8XIoeEvT8RNfiklVEmoZCMowNilkDDLOZpg7Mt8DpmRwG9ztTuH0yXldH6fD/sNdZDqH81vCy4ugx8nIrEAAAAASUVORK5CYII=',
       'searchUrl': 'https://www.bit-hdtv.com/torrents.php?search=%tt%&options=4',
@@ -3580,7 +3592,7 @@ var private_sites = [
   {   'name': 'Nostradamus',
       'icon': 'https://nostradamus.foo/favicon.ico',
       'searchUrl': 'https://nostradamus.foo/torrents?search=%search_string%+%year%',
-      'loggedOutRegex': /Cloudflare|Ray ID|Service Unavailable|Have an invite/,
+      'loggedOutRegex': /Cloudflare|Ray ID|Service Unavailable|Have an invite|Making sure you're not a bot/,
       'matchRegex': /No torrents found/,
       'both': true},
   {   'name': 'OldGreekTracker',
