@@ -1,7 +1,7 @@
 // ==UserScript==
 //
 // @name         IMDb Scout Mod
-// @version      1.96
+// @version      1.97
 // @namespace    https://github.com/Purfview/IMDb-Scout-Mod
 // @description  Auto search for movie/series on torrent, usenet, ddl, subtitles, streaming, predb and other sites. Adds links to IMDb pages from hundreds various sites. Adds movies/series to Radarr/Sonarr. Adds external ratings from Metacritic, Rotten Tomatoes, Letterboxd, Douban, Allocine, MyAnimeList, AniList. Media Server indicators for Plex, Jellyfin, Emby. Dark theme/style for Reference View. Adds/Removes to/from Trakt's watchlist. Removes ads.
 // @icon         data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAEAAAABABAMAAABYR2ztAAAAMFBMVEUAAAD/AAAcAAA1AABEAABVAAC3AADnAAD2AACFAAClAABlAAB3AADHAACVAADYAABCnXhrAAAD10lEQVRIx73TV4xMURgH8H/OnRmZWe3T7h2sOWaNXu7oJRg9UccuHgTRBatMtAgSg+gJu9q+kFmihcQoD8qLTkK0CIkoy0YJITsRD0rCKTHFrnkSv5e5c88/53znO+fiPwvsvrN038cPNqrG9pJmHkRVnPcpaTlHJY60cfPSpsrzl1LKihrmLvxhCM2i3OHvDx0d+H7e3F6JBv5iZMiJfhFTfPYDMHrMImpwimWWUdSgDQkbno7fFpUPVgh+pHFbZR4SovSctDCM9Hac9IKd9rO8EevtBCkXgY5IMmgquwypP7qqfcp/Tp4KLONDVsWh3RSBB2rnZfit69ocUdqLn2prrRZYM0Jg4JibamKsqe7gfEh5GOAfeYJjVHIPZvil97rcXkMog30byWRwXYRWoxHbzNFHJJpAarO8NdEBBsdCaP3WMJltTmQd4zlnekTq9Z5dgACwAlrpK4BxdV5mvLuspRgMSHbCIFF0iS8MZ5S8oYBYKY7rByC4dDM9uSIUmPOIwxgQBoYeF93auP4qFyPbIVXziWeGTH1EFM57kJo2hqQju6BwIyRf6RmCjdT4JOdiwNgiH/PPD3qoqlsNaXRd+fKtFfECxlZVNVF9SOsgTZEr2TUjJJbyeNX1IZrKIbyGlBABfpQPv2UDrly13LkJXDVhpQ5MhtGwcyF4HKjlU4E8xwB0AvDjd6AGmevZ87EcQRHgcO52e9uNsYELOrAa/Yh81YlmYLQJ5HWyq0+kzQ/DQKEusg6CRI27ryy8nReRS0wsoetkmRwogHSprliCckfEjXG9yAQc74J0WB99vu6DF3i3pMucsXM6tpBbxd2mVJAwXwGogNRBvGRA4jtHKTXkAIwLGCR/mT4Lh75oneQXXP9sAYfGRDCsnw7pX/jRZkU3M44kjw2l5zRIzb4CbZ8dULdL6wbNPZOpK0B6gN1UR1mdoxAaL/GrWiLPL3SEwW9YMTU/d64BtLahAVyucWhj9Mm8ign9IfQaBtd2/GbvCAEBpG5eMcrj2I0ktpKLeaqXQ3Pst42KGIshpdTmQLAeTgFGJ2wvh+tayMOR0n1RZ8B9z13vnOPBnsBq4E1ffgZpPFZHWVpO2cvhjYpOcbBd5TlhpDu5zq9mHGZcVi0y+VFkcFkDdyKJfTt99wEyHSEzDM90KH0nexpwZHJHKYYhjzlwGe0pP/IKfxociaEb7YDbi6KGJY1R2cR76E6NAtXqY4pPH3plLcl8LD7V+cOLUbUWRFZRPTAbVZO3mxK18Xc1ZaAiS8ARJXpZliXAomR94siiiMx8ZBOkXGTlnH0F/9ov1xPtWwEqP9wAAAAASUVORK5CYII=
@@ -1593,6 +1593,10 @@
 
 27.8.0  - Fixed: The script broken in Greasemonkey v4, produced "ReferenceError: GM_getValue is not defined", as it doesn't support the legacy API
                  The issue was introduced in 27.6.0, and resolved by isolating the feature from Greasemonkey v4.
+
+28.0.0  - Fixed: The script elements disappearing in new Firefox
+          Fixed: "Load links" button was affecting the reference page layout
+          Added: SilentGround
 
 
 //==============================================================================
@@ -4012,6 +4016,12 @@ var private_sites = [
       'loggedOutRegex': /Cloudflare|Ray ID|Accedi con le|Sign In With|Dimenticata la Password/,
       'matchRegex': /fa-circle text-red/,
       'positiveMatch': true,
+      'both': true},
+  {   'name': 'SilentGround',
+      'icon': 'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAMAAAAoLQ9TAAABiVBMVEUAAACaiyxpUwWdj3b81UKQhVxYTA1UOghuWQvvzUGhjnmBXkP62EfgvUH62T13UCasaSVZTCJhPx9HIg60qqGQgm9dVSOAZCJxZE1ROAmWi25xUiBfQgmAdlFvVBdxZBx/eDtUMxF0bS16axlbTghuSSNfVBF6XCRnUwdUSwD///////L/9tX347fyzp3nvovFnHr4yjrwuzebgTfvvjbxrjSXdi+RaydVNAf///r+++3//urk4eT/+uP/8tjc1tHZ0NH77dD66c/+48Xk2MLGvsD24r/MxL//3r3Ux73Es7P/46/CwK3z1Kn/2aT206D50J3Wt53uzJm9p5CtoY+VjIKrgYKTg4G5nYCNfGuFfmX//17hxlf//1PWh1P33VH/7Ev/rkvyxUjWzkaZf0Z2VET+0EP+1UDanEDStD/MnzykjTz0vzu+kTv1tDreqDnRmTnyvjjNkTizfzVSQDT0tTPrtTPwyzLUkDHxpi+UYC6EXi7hri2MaC3cnit/VynQgyejZSNvOhQKhCyNAAAAKnRSTlMAEg/08sF+QBb+9/fz8vLy8vHu6uXa2sm1tLOyr6SbmY+FcWpbVUw1IQSt5T+EAAAAzElEQVQY02OAASUbVgYUIKXlrgxmSHKAKU0RLSuIkhgLdRCl5qCtzcwEYsUmCzMCKVktHVsusOLyaGNFBgaNEC03O4gKw/R4ISYGBXtrX0dRsBmFOQlmqgxRls7+LhJggTKjtCxpeR9tPV1XNrBAvpFJkkWktq6+Uyg7WKAgr8aw3ksnSM9TDOLCXNM6k9pgb32PcDaIQLFpRal5hF9AoCAjRKAxsaiyKszAIFUF6qmSpoYM85Rs42pxOYihcdz8Arx8LCw8nJlmMkBdAAnfJPRgxoLBAAAAAElFTkSuQmCC',
+      'searchUrl': 'https://www.silentground.org/search/999999/?q=%tt%&o=date',
+      'loggedOutRegex': /Cloudflare|Ray ID|page could not be found/,
+      'matchRegex': /No results found/,
       'both': true},
   {   'name': 'Snahp',
       'icon': 'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAIAAAACAAgMAAAC+UIlYAAAADFBMVEX+/v40NDR+fn6/v79puPczAAADaElEQVRYw42XMW7bMBSGVRseNDiZfAQdIUM7NDmCBlMyEg1ZOjQIUB1Baw+gI2iw2yFrgALVJXyEDO3kAwRF84ukfz6SksLFsvnpvY+0RD4mol3+VerHKRltn9XQfo31XyjTfsb7l60Fiqco8KLO7S7Wv1ZOu48ArQsUfdCfKtEeRwIwxIgBW+0BmQ+U3hzoX29/ny7/dfq6iSjenga4i4z0aMfGKS2DDDS/YA5mEFFf/ByZZ77At11klhpxR5KIG55xk/jlRiiUqRkHh5ULhftUiKVCAgp9qr46mkvEY0L0pOrB1dw4X9aIDaBzwqZOwivAAPZI5YStGK1IABxa3EWxLS93Guggw7gFhe81cHi7fKKZsfyAKwNA05GotS9iGWCP2WTm3CbbWsDVzBDNDKKygKu5wo0mVG0BV3NthwFHAtCkZW8+EwJGk3dilCUBV/NocyMmgf1ZMwM6yFYEqDn05GeOADXXuBim4UYA9k+H3VarNARczaWeiFaPkgA19QQAIyA0j8i1BE5AaG6QfQETAkIze/OHakVAaOJBqDHYnIDUXIFLNUyAmujLQdUEpCaiI88NAakJPwANAam5QJwsDnTQXGIKNohFQGhaICHgaSLMMQSo2Q5A4QPUHAE4m+gERMDTVJNANxATwF4DKgCoOQfsDbAl4LVZoJsDnt8ZoRx3mAE6TtT4PMzP5Nx/UYR/NxVngE4/D/NP1Gb8mSwwB+FjzwAVHvvwxaFiEwWoeKdfPf/lZYAaQBW+/lTE2537CwgVH/ETgJElSPVmCQoXMa6DSA9gR8BRtMvgIr6QFnYh9ZdiKtqlWC7mVORiHt0OdtwO5IbCVZTbXWxLKs9bErcuArpa4Hbnb4vcWTN96zrcWKtz6VKHW/OB5VEL/djmXrJ06aPlQc3ywKbKzwAUWWqV0RKl8kuUlSxyVM+KMY+XSXSsWTANABXhKMZbaaCjItRUvNijQhkvF6lQ+QVnO1JwwnIHQD8pLIQbr+j94hW9Klo2My3pZBUW3hkdzVyq77J0l8ccZVrDWYJWcHy4E8e+cuIAcsVvTDl+hOEhiAmYgTHh0A/9f5TiIEUOdfuaJNc8iMkcXiunTpNyDBSbPpF+nD6QMgQDTIZgABmCAaYO7nzw/PZJJJggviWj7Xqv1MOr+Ok/fpooqUzl86wAAAAASUVORK5CYII=',
@@ -8306,8 +8316,8 @@ function displayButton() {
   } else if (onSearchPage && $('div.ipc-title hgroup h1.ipc-title__text').length) {
     $('div.ipc-title hgroup h1.ipc-title__text').parent().append(p);
   // title reference
-  } else if (!onSearchPage && $('.titlereference-header').length) {
-    $('.titlereference-header').append(p);
+  } else if (!onSearchPage && $('.ipc-page-section--sp-pageMargin').length) {
+    $('.ipc-page-section--sp-pageMargin:eq(0)').before(p);
   // title redesign
   } else if (!onSearchPage && $('.ipc-page-section').length) {
     $('.ipc-page-section:eq(0)').parent().before(p);
@@ -9134,6 +9144,7 @@ async function activate_CheckURLs(button, completed_icon) {
       deduped_hosts = deduped_hosts.filter(function (e) {return e !== 'https://www.amazon.com';});
       deduped_hosts = deduped_hosts.filter(function (e) {return e !== 'https://www.amazon.de';});
       deduped_hosts = deduped_hosts.filter(function (e) {return e !== 'https://cinefiles.bampfa.berkeley.edu';});
+      deduped_hosts = deduped_hosts.filter(function (e) {return e !== 'https://dl4all.org';});
 
   const interval = 100;
   const timeout = 45000;
@@ -13319,18 +13330,10 @@ function startIMDbScout() {
 if (onReferencePage) {
   console.log("✅ IMDb Scout Mod (Start): Starting Reference page: " + location.href);
   document.events.on('bodyloaded', () => { darkReferenceStyles(); });
-  if (navigator.userAgent.toLowerCase().indexOf('firefox') > -1) {
-    document.addEventListener('DOMContentLoaded', startReference, { once: true });
-  } else { // counter reflow on Chromium based browsers
       document.addEventListener('DOMContentLoaded', () => {setTimeout(startReference, 400);}, { once: true });
-  }
 } else {
     console.log("✅ IMDb Scout Mod (Start): Starting Redesigned or List page: " + location.href);
-  if (navigator.userAgent.toLowerCase().indexOf('firefox') > -1) {
-      document.addEventListener('DOMContentLoaded', startRedesign, { once: true });
-    } else { // counter reflow on Chromium based browsers
         document.addEventListener('DOMContentLoaded', () => {setTimeout(startRedesign, 400);}, { once: true });
-  }
 }
 
 scoutWarning();
