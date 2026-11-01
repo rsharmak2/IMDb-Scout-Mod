@@ -1,7 +1,7 @@
 // ==UserScript==
 //
 // @name         IMDb Scout Mod
-// @version      28.1.0
+// @version      28.1.1
 // @namespace    https://github.com/Purfview/IMDb-Scout-Mod
 // @description  Auto search for movie/series on torrent, usenet, ddl, subtitles, streaming, predb and other sites. Adds links to IMDb pages from hundreds various sites. Adds movies/series to Radarr/Sonarr. Adds external ratings from Metacritic, Rotten Tomatoes, Letterboxd, Douban, Allocine, MyAnimeList, AniList. Media Server indicators for Plex, Jellyfin, Emby. Dark theme/style for Reference View. Adds/Removes to/from Trakt's watchlist. Removes ads.
 // @icon         data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAEAAAABABAMAAABYR2ztAAAAMFBMVEUAAAD/AAAcAAA1AABEAABVAAC3AADnAAD2AACFAAClAABlAAB3AADHAACVAADYAABCnXhrAAAD10lEQVRIx73TV4xMURgH8H/OnRmZWe3T7h2sOWaNXu7oJRg9UccuHgTRBatMtAgSg+gJu9q+kFmihcQoD8qLTkK0CIkoy0YJITsRD0rCKTHFrnkSv5e5c88/53znO+fiPwvsvrN038cPNqrG9pJmHkRVnPcpaTlHJY60cfPSpsrzl1LKihrmLvxhCM2i3OHvDx0d+H7e3F6JBv5iZMiJfhFTfPYDMHrMImpwimWWUdSgDQkbno7fFpUPVgh+pHFbZR4SovSctDCM9Hac9IKd9rO8EevtBCkXgY5IMmgquwypP7qqfcp/Tp4KLONDVsWh3RSBB2rnZfit69ocUdqLn2prrRZYM0Jg4JibamKsqe7gfEh5GOAfeYJjVHIPZvil97rcXkMog30byWRwXYRWoxHbzNFHJJpAarO8NdEBBsdCaP3WMJltTmQd4zlnekTq9Z5dgACwAlrpK4BxdV5mvLuspRgMSHbCIFF0iS8MZ5S8oYBYKY7rByC4dDM9uSIUmPOIwxgQBoYeF93auP4qFyPbIVXziWeGTH1EFM57kJo2hqQju6BwIyRf6RmCjdT4JOdiwNgiH/PPD3qoqlsNaXRd+fKtFfECxlZVNVF9SOsgTZEr2TUjJJbyeNX1IZrKIbyGlBABfpQPv2UDrly13LkJXDVhpQ5MhtGwcyF4HKjlU4E8xwB0AvDjd6AGmevZ87EcQRHgcO52e9uNsYELOrAa/Yh81YlmYLQJ5HWyq0+kzQ/DQKEusg6CRI27ryy8nReRS0wsoetkmRwogHSprliCckfEjXG9yAQc74J0WB99vu6DF3i3pMucsXM6tpBbxd2mVJAwXwGogNRBvGRA4jtHKTXkAIwLGCR/mT4Lh75oneQXXP9sAYfGRDCsnw7pX/jRZkU3M44kjw2l5zRIzb4CbZ8dULdL6wbNPZOpK0B6gN1UR1mdoxAaL/GrWiLPL3SEwW9YMTU/d64BtLahAVyucWhj9Mm8ign9IfQaBtd2/GbvCAEBpG5eMcrj2I0ktpKLeaqXQ3Pst42KGIshpdTmQLAeTgFGJ2wvh+tayMOR0n1RZ8B9z13vnOPBnsBq4E1ffgZpPFZHWVpO2cvhjYpOcbBd5TlhpDu5zq9mHGZcVi0y+VFkcFkDdyKJfTt99wEyHSEzDM90KH0nexpwZHJHKYYhjzlwGe0pP/IKfxociaEb7YDbi6KGJY1R2cR76E6NAtXqY4pPH3plLcl8LD7V+cOLUbUWRFZRPTAbVZO3mxK18Xc1ZaAiS8ARJXpZliXAomR94siiiMx8ZBOkXGTlnH0F/9ov1xPtWwEqP9wAAAAASUVORK5CYII=
@@ -1890,7 +1890,7 @@ var public_sites = [
       'icon': 'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAEAAAABABAMAAABYR2ztAAAACXBIWXMAAAsTAAALEwEAmpwYAAAAIGNIUk0AAHolAACAgwAA+f8AAIDpAAB1MAAA6mAAADqYAAAXb5JfxUYAAAAeUExURT9RtT9RteLl9OPm9Ojq9vDx+fHy+vHz+vT1+////1he4nYAAAABdFJOUwBA5thmAAAAWklEQVRIx2NgYBTEAwQY8MuDVBBUIEgAjCpAVSAWigYC0RRIzkQDE4eqgon4wmEEKZiibAwHWBUgg0GrYEZ6ORyM5NgcDAqQ46K8cFgWIKP1BSEFlNfdhJoHAFcHWeyBUYH6AAAAAElFTkSuQmCC',
       'searchUrl': 'https://ext.to/browse/?imdb_id=%nott%',
       'loggedOutRegex': /Cloudflare|Ray ID/,
-      'matchRegex': /Oops!/,
+      'matchRegex': /No results found/,
       'both': true},
   {   'name': 'EZTV (Fake)',
       'icon': 'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAMAAAAoLQ9TAAAAWlBMVEX///8Pf/BMf/C3zPmPw/g/mfO/3furw/jP5fwvkPLy9v7n7v3P3fuv1PqfzPmUsvZkkPIfiPHf7v1vsvaIqvVfqvV8ofRYiPEjf/Db5fygu/d/u/dPofRwmfPh5p4UAAAAg0lEQVQY022NSQ6DMBAEy2O8sNoGAmT7/zcjW4QQibqMVN2j5gJvlJqwKlMDTW0ZVNUPYJIHqhLdgEn1ZJFrlKTa7whY+tICxmQ8dvDJAC9yaLbtiTlWoImaP94iUURaLbIb0bSrhtD9BI8AMyfRrU3nzoKoQ3sI58AtC1/mXLlL+fgAB2MD+pRQ5EwAAAAASUVORK5CYII=',
@@ -3107,12 +3107,12 @@ var private_sites = [
       'icon': 'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAMAAAAoLQ9TAAAAb1BMVEVCQkMZGRtGRkgZGRsZGRtDQ0QZGRsAAAAZGRtGRkhAQEFEREUrKy0tLS8ZGRtHR0n9+/vR0NCLiouioaKura6ZmJg0NDbn5eXFw8Rvbm9SUlNpaWsjIyXy8PHw7u7b2trMysu/vr65uLmAgIFCQUNIcGJiAAAADnRSTlNymYZ3h5QxAID9OzWMfjsgHNAAAAB+SURBVBjTZcpZEoIwEADRETRh0cxMVgi4e/8zGqUKE+nPVw2yg6xOQt9iVttDhUXVPxwSaEbL7OIKhpCZyWIwPzA4XC0Fm+C0HOZsJ3pMeIR6duRv4f58eXJ+3kOtNKlBqxQ5pQrgy/iFqNUYP+D1AnlbaECUIECKZrfWCPkGWrMN2RQ0B4AAAAAASUVORK5CYII=',
       'searchUrl': 'https://imdbscout.octopus.town/t?q=%tt%',
       'loggedOutRegex': /Ray ID|security check to access|Forgot Password|recover.php/,
-      'matchRegex': /No Torrents Found!/},
+      'matchRegex': /No Torrents Found|No results for/},
   {   'name': 'IPT',
       'icon': 'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAMAAAAoLQ9TAAAAb1BMVEVCQkMZGRtGRkgZGRsZGRtDQ0QZGRsAAAAZGRtGRkhAQEFEREUrKy0tLS8ZGRtHR0n9+/vR0NCLiouioaKura6ZmJg0NDbn5eXFw8Rvbm9SUlNpaWsjIyXy8PHw7u7b2trMysu/vr65uLmAgIFCQUNIcGJiAAAADnRSTlNymYZ3h5QxAID9OzWMfjsgHNAAAAB+SURBVBjTZcpZEoIwEADRETRh0cxMVgi4e/8zGqUKE+nPVw2yg6xOQt9iVttDhUXVPxwSaEbL7OIKhpCZyWIwPzA4XC0Fm+C0HOZsJ3pMeIR6duRv4f58eXJ+3kOtNKlBqxQ5pQrgy/iFqNUYP+D1AnlbaECUIECKZrfWCPkGWrMN2RQ0B4AAAAAASUVORK5CYII=',
       'searchUrl': 'https://imdbscout.octopus.town/t?72=&73=&q=%search_string%&qf=ti',
       'loggedOutRegex': /Ray ID|security check to access|Forgot Password|recover.php/,
-      'matchRegex': /No Torrents Found!/,
+      'matchRegex': /No Torrents Found|No results for/,
       'TV': true},
   {   'name': 'IPT-Req',
       'icon': 'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAMAAAAoLQ9TAAAAb1BMVEVCQkMZGRtGRkgZGRsZGRtDQ0QZGRsAAAAZGRtGRkhAQEFEREUrKy0tLS8ZGRtHR0n9+/vR0NCLiouioaKura6ZmJg0NDbn5eXFw8Rvbm9SUlNpaWsjIyXy8PHw7u7b2trMysu/vr65uLmAgIFCQUNIcGJiAAAADnRSTlNymYZ3h5QxAID9OzWMfjsgHNAAAAB+SURBVBjTZcpZEoIwEADRETRh0cxMVgi4e/8zGqUKE+nPVw2yg6xOQt9iVttDhUXVPxwSaEbL7OIKhpCZyWIwPzA4XC0Fm+C0HOZsJ3pMeIR6duRv4f58eXJ+3kOtNKlBqxQ5pQrgy/iFqNUYP+D1AnlbaECUIECKZrfWCPkGWrMN2RQ0B4AAAAAASUVORK5CYII=',
@@ -5983,13 +5983,13 @@ var streaming_sites = [
       'inThirdSearchBar': true},
   {   'name': 'VidSource',
       'icon': 'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAABD0lEQVQ4ja2TvUoEMRSFv3sns7nbC4KtheAKNhZbW4mlpY0P4FYWgiLoFgpa2/kYvpwussciM+P+2TiekHCS+3cuSUwSfWDjoF+GcSBJSPoT917V2xZyDPj8mC0ZcgzWnBd9Wru9P08E8DWb8fL0xt30EgyaZQFCgsf7V24fJt1pAjArM4Y1XhlgG8INSUTUuIPmICC5gzUZIhLu/psAhJGjxt1RM5K7YWZFQdS0+02QROSEuyEaBWaOexEduWRvW1quDtJPEQFzWWmhDcqRqKoSuaqi3L2RGwVzwCXs+uTo/17i1fFux29O9zo+PTvYyM/3t+Sj0U6XbJCrjg+H6w9pFSlV2MXhdq8WrO93/gaUmJF4CshtQwAAAABJRU5ErkJggg==',
-      'searchUrl': 'https://vidsrc-embed.ru/embed/movie?imdb=%tt%',
+      'searchUrl': 'https://vidsrc.sh/embed/movie?imdb=%tt%',
       'matchRegex': /Not Found/,
       'ignore404': true,
       'inThirdSearchBar': true},
   {   'name': 'VidSource',
       'icon': 'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAABD0lEQVQ4ja2TvUoEMRSFv3sns7nbC4KtheAKNhZbW4mlpY0P4FYWgiLoFgpa2/kYvpwussciM+P+2TiekHCS+3cuSUwSfWDjoF+GcSBJSPoT917V2xZyDPj8mC0ZcgzWnBd9Wru9P08E8DWb8fL0xt30EgyaZQFCgsf7V24fJt1pAjArM4Y1XhlgG8INSUTUuIPmICC5gzUZIhLu/psAhJGjxt1RM5K7YWZFQdS0+02QROSEuyEaBWaOexEduWRvW1quDtJPEQFzWWmhDcqRqKoSuaqi3L2RGwVzwCXs+uTo/17i1fFux29O9zo+PTvYyM/3t+Sj0U6XbJCrjg+H6w9pFSlV2MXhdq8WrO93/gaUmJF4CshtQwAAAABJRU5ErkJggg==',
-      'searchUrl': 'https://vidsrc-embed.ru/embed/tv?imdb=%seriesid%&season=%seasonid%&episode=%episodeid%',
+      'searchUrl': 'https://vidsrc.sh/embed/tv?imdb=%seriesid%&season=%seasonid%&episode=%episodeid%',
       'matchRegex': /Not Found/,
       'ignore404': true,
       'inThirdSearchBar': true,
