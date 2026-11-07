@@ -1,7 +1,7 @@
 // ==UserScript==
 //
 // @name         IMDb Scout Mod
-// @version      2.00
+// @version      2.01
 // @namespace    https://github.com/Purfview/IMDb-Scout-Mod
 // @description  Auto search for movie/series on torrent, usenet, ddl, subtitles, streaming, predb and other sites. Adds links to IMDb pages from hundreds various sites. Adds movies/series to Radarr/Sonarr. Adds external ratings from Metacritic, Rotten Tomatoes, Letterboxd, Douban, Allocine, MyAnimeList, AniList. Media Server indicators for Plex, Jellyfin, Emby. Dark theme/style for Reference View. Adds/Removes to/from Trakt's watchlist. Removes ads.
 // @icon         data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAEAAAABABAMAAABYR2ztAAAAMFBMVEUAAAD/AAAcAAA1AABEAABVAAC3AADnAAD2AACFAAClAABlAAB3AADHAACVAADYAABCnXhrAAAD10lEQVRIx73TV4xMURgH8H/OnRmZWe3T7h2sOWaNXu7oJRg9UccuHgTRBatMtAgSg+gJu9q+kFmihcQoD8qLTkK0CIkoy0YJITsRD0rCKTHFrnkSv5e5c88/53znO+fiPwvsvrN038cPNqrG9pJmHkRVnPcpaTlHJY60cfPSpsrzl1LKihrmLvxhCM2i3OHvDx0d+H7e3F6JBv5iZMiJfhFTfPYDMHrMImpwimWWUdSgDQkbno7fFpUPVgh+pHFbZR4SovSctDCM9Hac9IKd9rO8EevtBCkXgY5IMmgquwypP7qqfcp/Tp4KLONDVsWh3RSBB2rnZfit69ocUdqLn2prrRZYM0Jg4JibamKsqe7gfEh5GOAfeYJjVHIPZvil97rcXkMog30byWRwXYRWoxHbzNFHJJpAarO8NdEBBsdCaP3WMJltTmQd4zlnekTq9Z5dgACwAlrpK4BxdV5mvLuspRgMSHbCIFF0iS8MZ5S8oYBYKY7rByC4dDM9uSIUmPOIwxgQBoYeF93auP4qFyPbIVXziWeGTH1EFM57kJo2hqQju6BwIyRf6RmCjdT4JOdiwNgiH/PPD3qoqlsNaXRd+fKtFfECxlZVNVF9SOsgTZEr2TUjJJbyeNX1IZrKIbyGlBABfpQPv2UDrly13LkJXDVhpQ5MhtGwcyF4HKjlU4E8xwB0AvDjd6AGmevZ87EcQRHgcO52e9uNsYELOrAa/Yh81YlmYLQJ5HWyq0+kzQ/DQKEusg6CRI27ryy8nReRS0wsoetkmRwogHSprliCckfEjXG9yAQc74J0WB99vu6DF3i3pMucsXM6tpBbxd2mVJAwXwGogNRBvGRA4jtHKTXkAIwLGCR/mT4Lh75oneQXXP9sAYfGRDCsnw7pX/jRZkU3M44kjw2l5zRIzb4CbZ8dULdL6wbNPZOpK0B6gN1UR1mdoxAaL/GrWiLPL3SEwW9YMTU/d64BtLahAVyucWhj9Mm8ign9IfQaBtd2/GbvCAEBpG5eMcrj2I0ktpKLeaqXQ3Pst42KGIshpdTmQLAeTgFGJ2wvh+tayMOR0n1RZ8B9z13vnOPBnsBq4E1ffgZpPFZHWVpO2cvhjYpOcbBd5TlhpDu5zq9mHGZcVi0y+VFkcFkDdyKJfTt99wEyHSEzDM90KH0nexpwZHJHKYYhjzlwGe0pP/IKfxociaEb7YDbi6KGJY1R2cR76E6NAtXqY4pPH3plLcl8LD7V+cOLUbUWRFZRPTAbVZO3mxK18Xc1ZaAiS8ARJXpZliXAomR94siiiMx8ZBOkXGTlnH0F/9ov1xPtWwEqP9wAAAAASUVORK5CYII=
@@ -2070,12 +2070,12 @@ var public_sites = [
       'matchRegex': /сообщений не найдено/},
   {   'name': 'PSArips',
       'icon': 'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACAAAAAgCAMAAABEpIrGAAAAWlBMVEUAAAD+/v4QEBA5ODhGRkYoKChbW1tRUVGDg4NsbGxjY2Ojo6P19fXLysqUlJSsrKy1tbXq6urCwMB3d3fc3Nzw8PDg4ODV1dWIWFi4jIzi0dG5qKiLOzuPGBhT4c7lAAAAAXRSTlMAQObYZgAAAbBJREFUOMt1k9mOnTAQROndu7HNMpPl/38zeOYmChK3JJ5O0dCu8nITtOKClh1geRJsnZBQhP0GT/wkCrUd3aGGJ0NSynM27A65Pjga6fljn45UxAo8TPj4+PXRpyOjPHwEVvr92X5OsDNSf3Dkz/a9IEQk2x/2mPRlEMnLe8GKPNa3FKYBQ3uHq78eU67whFPvbJA8indw6Y6PfDrypJDZmEYq3sNt+OYphhGtBUEKYxOl8z98uGhSuh6uBFPhUKTq+o+XWoeEaNm5yGqoHDiEXr7gpXZW55Rj9NWrEpmQMdpYZ7qxRCJeAfbsBxOpMImxxnxyvAJQ5wRFfNp8EJGLK7I3Yj6h65ItBEV3RFFCRvHIRCyEyDYA8sJ4SdZZIyQ0tGnToKU3x7DAglOWoMt8B0l4/gEar1BsHhOhsGuwkeDl8IEQKXYfAx9ZZ14+71/xOWMjP0p0FUcC6HweNCvxugFH2urQrVUNDi1dDR0x+RVuhSvtGrQWxBkR1JBOO+9hQVdCktmErxFw3EdAFbxEGb7v6QC48c3ja+e/5YFbl4p8c3q8uNN/5GtXi/ud/wGyiBNPa2asYgAAAABJRU5ErkJggg==',
-      'searchUrl': 'https://psa.wf/?s=%tt%',
+      'searchUrl': 'https://psa.rip/?s=%tt%',
       'loggedOutRegex': /Cloudflare|Ray ID/,
       'matchRegex': /try another search/},
   {   'name': 'PSArips',
       'icon': 'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACAAAAAgCAMAAABEpIrGAAAAWlBMVEUAAAD+/v4QEBA5ODhGRkYoKChbW1tRUVGDg4NsbGxjY2Ojo6P19fXLysqUlJSsrKy1tbXq6urCwMB3d3fc3Nzw8PDg4ODV1dWIWFi4jIzi0dG5qKiLOzuPGBhT4c7lAAAAAXRSTlMAQObYZgAAAbBJREFUOMt1k9mOnTAQROndu7HNMpPl/38zeOYmChK3JJ5O0dCu8nITtOKClh1geRJsnZBQhP0GT/wkCrUd3aGGJ0NSynM27A65Pjga6fljn45UxAo8TPj4+PXRpyOjPHwEVvr92X5OsDNSf3Dkz/a9IEQk2x/2mPRlEMnLe8GKPNa3FKYBQ3uHq78eU67whFPvbJA8indw6Y6PfDrypJDZmEYq3sNt+OYphhGtBUEKYxOl8z98uGhSuh6uBFPhUKTq+o+XWoeEaNm5yGqoHDiEXr7gpXZW55Rj9NWrEpmQMdpYZ7qxRCJeAfbsBxOpMImxxnxyvAJQ5wRFfNp8EJGLK7I3Yj6h65ItBEV3RFFCRvHIRCyEyDYA8sJ4SdZZIyQ0tGnToKU3x7DAglOWoMt8B0l4/gEar1BsHhOhsGuwkeDl8IEQKXYfAx9ZZ14+71/xOWMjP0p0FUcC6HweNCvxugFH2urQrVUNDi1dDR0x+RVuhSvtGrQWxBkR1JBOO+9hQVdCktmErxFw3EdAFbxEGb7v6QC48c3ja+e/5YFbl4p8c3q8uNN/5GtXi/ud/wGyiBNPa2asYgAAAABJRU5ErkJggg==',
-      'searchUrl': 'https://psa.wf/?s=%search_string%',
+      'searchUrl': 'https://psa.rip/?s=%search_string%',
       'loggedOutRegex': /Cloudflare|Ray ID/,
       'matchRegex': /try another search/,
       'TV': true},
@@ -2246,6 +2246,19 @@ var public_sites = [
       'loggedOutRegex': /Ray ID/,
       'matchRegex': /No results/,
       'both': true},
+  {   'name': 'UIndex',
+      'icon': 'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACAAAAAgCAMAAABEpIrGAAABNVBMVEUAAABVuyJeviBevB1gwB9evB5evRxiwh9cvRtgwR1hwh1hwR5fvB1gvx5iwx9dux1gwx5gxB1evBxevh120EFfvx38/Pxhwx/9/f1fvh72+vNevB79/f1gvB////9fvh6j2H6l231auhhnwCh+y0hJtgJQuwZiwh9iwx2A1ED///9eux5euh5Stg1QtQpgwB5buhplyR9VuBBmyyBnziFXuBSAyU1auRhZuRbt+OaP0GNjvSVlyh/6/fjS7MDA5KaY029ovyxjxSBhwB/0+vDx+evc8M/H57Cz3pWi131kxyBfvCBKsgL9/v38/vvp9uHY8cfL6beo2oaT0mlzxDthwh5NtAb1+/Hi8ta54Z6u3I6c1XSFy1R3xUJtwTNaxBH2+/Lm99rB5KjB56el2YF5xkRevxo/eCDUAAAAKnRSTlMAByci7u3hm5n66M3Hh1oyLBPyzBX67evh1Mmfno1cVvTv7ePFoJ2NjBh1fbGpAAACHElEQVQ4y2VT12LiMBAUvZMQSL2U68WSJXcbbDqBUBIgCVwu9fr/f8LJkmi+eVvtaGa12gUrlPKJbDwWi2cT+RL4H9uJqOe12oS0W54XTWwH0qFcSidwCaKncqH1fCRjEATXgIiRiazyW2kVwQ3YClTTW8v76cF63sGy3RwqaJCOCP/ixn37qV/vdqYaRGqR15EzELQ1WREEfCH5sCjDyDGDXU12mtaNKxjmbdUnTGUIya5vkvQaP7sdSbrHC4meT7h8MiHSkwAUdsg50ywPhYRmsbiOqcROAZypwlSqyFAwJn5YfTYhVM9AUjf/cEJtQZBvWHxBJahHtgXNrsRcb01OUODYjztNB7ayID6DuC8trnDg3yy+xnAWB7E2dJ6rm2U6za8shko7BmKEmk4DZeJvXGL09y2ItymhEigTP7D4qjF7B4otWpVbFhJzTpjXJY7yEXilc0mG79bcpvyRVZUu+ckxyOu8eRzVvqtpsEFr7FVYg0/9VkOInDtJ4LxWY37WqPlQ//W6BKgHoh7X0ib6MrRl/PIBABAmxP/jq/X0mD+YkDCgODGohFzjD+tNxne9hsvyyDjhI3eoIv5BFPejoSLz6ULqoRj9cHSAbLfDa3Qd0W80iIaXY7+vIix608Air+6zsRcaGUN75ISuuVic8MbqfUqpPzjjUWar9zkUXN6Pbzhh8uKpfHmD+HJ6fHSwt3fwPpkvrE7/AWZeloz34gLhAAAAAElFTkSuQmCC',
+      'searchUrl': 'https://uindex.org/search.php?search=%search_string%+%year%&c=1&p=1',
+      'loggedOutRegex': /Cloudflare|Ray ID/,
+      'matchRegex': /href=["']\/details\.php\?id=\d+/,
+      'positiveMatch': true},
+  {   'name': 'UIndex',
+      'icon': 'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACAAAAAgCAMAAABEpIrGAAABNVBMVEUAAABVuyJeviBevB1gwB9evB5evRxiwh9cvRtgwR1hwh1hwR5fvB1gvx5iwx9dux1gwx5gxB1evBxevh120EFfvx38/Pxhwx/9/f1fvh72+vNevB79/f1gvB////9fvh6j2H6l231auhhnwCh+y0hJtgJQuwZiwh9iwx2A1ED///9eux5euh5Stg1QtQpgwB5buhplyR9VuBBmyyBnziFXuBSAyU1auRhZuRbt+OaP0GNjvSVlyh/6/fjS7MDA5KaY029ovyxjxSBhwB/0+vDx+evc8M/H57Cz3pWi131kxyBfvCBKsgL9/v38/vvp9uHY8cfL6beo2oaT0mlzxDthwh5NtAb1+/Hi8ta54Z6u3I6c1XSFy1R3xUJtwTNaxBH2+/Lm99rB5KjB56el2YF5xkRevxo/eCDUAAAAKnRSTlMAByci7u3hm5n66M3Hh1oyLBPyzBX67evh1Mmfno1cVvTv7ePFoJ2NjBh1fbGpAAACHElEQVQ4y2VT12LiMBAUvZMQSL2U68WSJXcbbDqBUBIgCVwu9fr/f8LJkmi+eVvtaGa12gUrlPKJbDwWi2cT+RL4H9uJqOe12oS0W54XTWwH0qFcSidwCaKncqH1fCRjEATXgIiRiazyW2kVwQ3YClTTW8v76cF63sGy3RwqaJCOCP/ixn37qV/vdqYaRGqR15EzELQ1WREEfCH5sCjDyDGDXU12mtaNKxjmbdUnTGUIya5vkvQaP7sdSbrHC4meT7h8MiHSkwAUdsg50ywPhYRmsbiOqcROAZypwlSqyFAwJn5YfTYhVM9AUjf/cEJtQZBvWHxBJahHtgXNrsRcb01OUODYjztNB7ayID6DuC8trnDg3yy+xnAWB7E2dJ6rm2U6za8shko7BmKEmk4DZeJvXGL09y2ItymhEigTP7D4qjF7B4otWpVbFhJzTpjXJY7yEXilc0mG79bcpvyRVZUu+ckxyOu8eRzVvqtpsEFr7FVYg0/9VkOInDtJ4LxWY37WqPlQ//W6BKgHoh7X0ib6MrRl/PIBABAmxP/jq/X0mD+YkDCgODGohFzjD+tNxne9hsvyyDjhI3eoIv5BFPejoSLz6ULqoRj9cHSAbLfDa3Qd0W80iIaXY7+vIix608Air+6zsRcaGUN75ISuuVic8MbqfUqpPzjjUWar9zkUXN6Pbzhh8uKpfHmD+HJ6fHSwt3fwPpkvrE7/AWZeloz34gLhAAAAAElFTkSuQmCC',
+      'searchUrl': 'https://uindex.org/search.php?search=%search_string%&c=2&p=1',
+      'loggedOutRegex': /Cloudflare|Ray ID/,
+      'matchRegex': /href=["']\/details\.php\?id=\d+/,
+      'positiveMatch': true,
+      'TV': true},
   {   'name': 'W-v3',
       'icon': 'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADAAAAAwBAMAAAClLOS0AAAAMFBMVEUAAAANR6G2x+Opvd2bs9iAn87F0+h2l8ppjcVPebpXf73Y4fCRrNRfhcGJpdHn7fboqHMQAAAAAXRSTlMAQObYZgAAAfJJREFUOMtiIAwEwQBDmFEQCgQwxBEymOKYMoIoAF0cAdAMwjRMEAPgkcA0adaqhTCzBFcshIjNnCgo2V4aGt4F1SJ1+BRYXDa0oqPO2cRZyaYKLMEooa0OlhA1fl56WE3ZOC3NXFAAIpE3ESSxJOlFe9yRc3HOaTkTwRJSbjqNIInLmyIlV62cKLncbfNFAbBjH6lEgSSaNhVCHBH2qVEQLFFifALEL9rciCZxz8kUyJUKSoE4W/LZ5ouCYO/NOJQzEUge1psIlpA4lDJRUAAkIfUIqETwqrM7WHxFDJABkRAs2tQItMnkLUh8upOSXSNYAuaexzaVIIk72btVJ4IlID4QlHTTA9s91SjNphMmAdiUpBOCstbqEDe1HjGG2yFq7HpRQlsDGvDX3VIWQiUkDptUimvbQiWknm1qhEpIhRiduGrmBRaGuAUqIdinplNn/BAmcWlbICjcwU7RTnZxKYRLfAsUhCYFcf3fyq4X4UYhJGTt/28ChTAsdAthElLe/z9FgTzRsVJQ8rpbMih0wbZLHvsPVAU00tnnaYyRkinIboizivM3g6yQU0tSNspOfguUgJq11NluIliHMTD5AJ0BT6GSN7ogkVEeGhp+U1AQM4lKrloFCnSSUzvejIPQQjgTEsjOmAUA/iIDs5AhCADTkKvh4m7FyQAAAABJRU5ErkJggg==',
       'searchUrl': 'https://warez-v3.org/search.php?keywords=%tt%&sr=topics',
